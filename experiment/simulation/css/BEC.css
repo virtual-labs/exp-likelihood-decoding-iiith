@@ -1,0 +1,26 @@
+#powerText {
+    font-size: 1; /* Increase the font size of the entire expression */
+  }
+  
+  .code-word {
+    font-size: inherit; /* Ensure the code word inherits the same font size */
+  }
+  
+  .superscript {
+    vertical-align: super;
+    font-size: 1.8em; /* Adjust the font size for the superscript box */
+  }
+  
+  /* likeli-hood-value */
+  .input-likeli {
+    height: 2.5em;
+    width: 3.5em;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    /* background-color: rgb(40, 142, 200); */
+    font-size: 1em;
+    text-align: center;
+    color: rgb(2, 2, 74);
+}
+
+  

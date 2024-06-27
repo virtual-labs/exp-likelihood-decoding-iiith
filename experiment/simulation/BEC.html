@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BEC</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/BEC.css">
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+</head>
+<body>
+    <div class="container" style="margin-top:1%;">
+
+        <div class="columns is-centered">
+            <div class="column is-one-quarter v-instruction-title">
+                Tasks
+            </div>
+            <div class="column">
+                <div class="v-tabs">
+                    <ul>
+                        <li id="Task1" onclick="window.location.href = 'dimension_linear_block.html';">
+                            <a>
+                                BEC
+                            </a>
+                        </li>
+    
+                        <li class="is-active" id="Task2"  >
+                            <a>
+                                Binary Ensure channel
+                            </a>
+                        </li>
+    
+                        <li id="Task3" onclick="window.location.href = 'minimum_distance.html';">
+                            <a>
+                                Binary Ensure channel
+                            </a>
+                        </li>
+    
+                    </ul>
+                </div>
+            </div>
+        </div>
+    
+    
+        <div class="columns is-centered">
+            <div class="column">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ul style="list-style: disc;">
+                            <b>Quick theory overview:</b>
+                            <li>The codeword \(\mathbf{y}\) corresponding to a given message \(\mathbf{m}\) and
+                                generator matrix
+                                \(\mathbf{G}\) is given by $$\mathbf{y} = \mathbf{m} \cdot \mathbf{G}$$</li>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul style="list-style: disc;">
+    
+                            <b>Procedure:</b>
+    
+                            <li>
+                                Enter a binary message by clicking the bits and click on <b>Submit</b>.
+                            </li>
+    
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-centered">
+        <div class="column is-11-desktop is-12-tablet is-12-mobile">
+            <div class="v-datalist-container components-list">
+                
+                <p id="codewords">Consider codeword {<u>c1 &nbsp;</u>=(), c2= &nbsp;()} and  &#949;(e)</p>
+                
+               
+                 
+            </div>
+           
+        </div>
+    </div>
+
+   
+
+    
+
+    <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
+        style="margin-top:-1.5%">
+        <div class="column is-8-desktop is-12-tablet is-12-mobile">
+            <div class="box-question">
+
+                <section id="part1">
+                    <h3>enter the likelihood of \\(y\\) given various code word</h3>
+                  <div id="powerText">
+                      <span><u>c1</u></span>= &#949;<sup><span class="superscript">□</span></sup>  (1-&#949;)<sup><span class="superscript">□</span></sup><input type="text" class="input-likeli">
+                 </div>
+                 <div id="powerText">
+                    <span><u>c2</u></span>= &#949;<sup><span class="superscript">□</span></sup>  (1-&#949;)<sup><span class="superscript">□</span></sup><input type="text" class="input-likeli">
+               <div id="powerText">
+                <span><u>c3</u></span>= &#949;<sup><span class="superscript">□</span></sup>  (1-&#949;)<sup><span class="superscript">□</span></sup><input type="text" class="input-likeli">
+              <div id="powerText">
+                 <span><u>c4</u></span>= &#949;<sup><span class="superscript">□</span></sup>  (1-&#949;)<sup><span class="superscript">□</span></sup><input type="text" class="input-likeli"> 
+           </div>
+
+  
+    </section>
+    <br>
+    
+
+    <section id="part4" >
+        <form action="" method="get" id="form4" onsubmit="return false">
+            Enter the maximum likelihood Estimate code word
+            <br>
+            <br>
+            <button class="bit" id="receivedBit1" onclick="toggleReceivedBit(1)">0</button>
+            <button class="bit" id="receivedBit2" onclick="toggleReceivedBit(2)">0</button>
+            <button class="bit" id="receivedBit3" onclick="toggleReceivedBit(3)">0</button>
+            <button class="bit" id="receivedBit4" onclick="toggleReceivedBit(4)">0</button>
+            
+        </form>
+        <br>
+        <button class="v-button" onclick="checkReceived()" form="form4">Check</button>
+        <button class="v-button" onclick="initial()">Reset</button>
+        </section>
+
+               
+            </div>
+
+
+
+            
+        </div>
+
+        <div class="column is-3-desktop is-4-tablet is-12-mobile">
+            <div class="v-datalist-container components-list">
+                <div class="v-datalist-title">Observations</div>
+                <div id="observations">
+                    <span id="mEntered">
+                    </span>
+                    <br>
+                    <span id="cEntered">
+                    </span>
+                    <br>
+                    <span id="cTransmitted">
+                    </span>
+                    <br>
+                    <span id="decodedEntered">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <sc src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script src="./js/BEC.js"></script>
+
+    
+</body>
+</html>
