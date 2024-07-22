@@ -39,7 +39,7 @@
     },
     {
       "target": "index.html",
-      "source": "simulation/index.html",
+      "source": "simulation/BinaryErasureChannel.html",
       "label": "Maximum Likelihood Decoding Codes on Binary Input Channels",
       "unit-type": "task",
       "content-type": "simulation"
