@@ -1,236 +1,183 @@
-// const codewordBits = {
-//     code1: [0, 1, 0, 1],
-//     code2: [1, 1, 1, 0],
-//     code3: [1, 0, 0, 1],
-//     code4: [0, 0, 0, 1]
-// };
+// Function to randomly choose between two options
+function chooseRandomly(option1, option2) {
+    return Math.random() < 0.5 ? option1 : option2;
+}
 
-// // Predefined erasure probability
-// const epsilon = 0.2;
+// Function to generate a random binary matrix of given dimensions
+function generateRandomBinaryMatrix(rows, cols) {
+    const matrix = [];
+    for (let i = 0; i < rows; i++) {
+        const row = [];
+        for (let j = 0; j < cols; j++) {
+            row.push(Math.round(Math.random())); // Random binary number (0 or 1)
+        }
+        matrix.push(row);
+    }
+    return matrix;
+}
 
-// function updateCodewords() {
-//     const codewordsElement = document.getElementById('codewords');
-//     const c1 = `c1=(${codewordBits.code1.join(', ')})`;
-//     const c2 = `c2=(${codewordBits.code2.join(', ')})`;
-//     const c3 = `c3=(${codewordBits.code3.join(', ')})`;
-//     const c4 = `c4=(${codewordBits.code4.join(', ')})`;
-//     codewordsElement.innerHTML = `Consider codeword {${c1}, ${c2}, ${c3}, ${c4}} and ε = ${epsilon}`;
-// }
+// Function to generate codewords for a matrix
+function generateCodewords(matrix) {
+    const codewords = [];
+    const numRows = matrix.length;
+    const numCols = matrix[0].length;
 
-// // Call the function to update the content
-// updateCodewords();
+    // Generate all possible message vectors of length numRows
+    for (let i = 0; (1 << numRows) > i; i++) {
+        const messageVector = Array(numRows).fill(0).map((_, bit) => (i >> bit) & 1);
+        const codeword = matrix[0].map((_, colIndex) => {
+            return matrix.reduce((sum, row, rowIndex) => (sum + row[colIndex] * messageVector[rowIndex]) % 2, 0);
+        });
+        codewords.push(codeword);
+    }
 
-// function toggleReceivedBit(bitNumber) {
-//     var button = document.getElementById('receivedBit' + bitNumber);
-//     var currentBit = button.textContent;
+    return codewords;
+}
 
-//     // Toggle the bit value
-//     if (currentBit === '0') {
-//         button.textContent = '1';
-//     } else {
-//         button.textContent = '0';
-//     }
-// }
+// Function to introduce random erasures in a codeword
+function introduceErasures(codeword) {
+    let hasErasure = false;
 
-// // Function to reset all bits to 0
-// function initial() {
-//     for (var i = 1; i <= 4; i++) {
-//         var button = document.getElementById('receivedBit' + i);
-//         button.textContent = '0';
-//     }
-// }
+    // Apply erasures with a 50% chance
+    const erasedCodeword = codeword.map(bit => {
+        const isErased = Math.random() < 0.5;
+        if (isErased) {
+            hasErasure = true;
+            return '?';
+        }
+        return bit;
+    });
 
-// function calculateLikelihood(codeword, receivedBits, epsilon) {
-//     let likelihood = 1;
-//     for (let i = 0; i < codeword.length; i++) {
-//         if (receivedBits[i] === '?') {
-//             likelihood *= epsilon;
-//         } else if (receivedBits[i] == codeword[i]) {
-//             likelihood *= (1 - epsilon);
-//         } else {
-//             likelihood *= epsilon;
-//         }
-//     }
-//     return likelihood;
-// }
+    // If no erasure occurred, force an erasure on a random position
+    if (!hasErasure) {
+        const randomIndex = Math.floor(Math.random() * codeword.length);
+        erasedCodeword[randomIndex] = '?';
+    }
 
-// function checkReceived() {
-//     const receivedBits = [];
-//     for (let i = 1; i <= 4; i++) {
-//         receivedBits.push(document.getElementById('receivedBit' + i).textContent);
-//     }
+    return erasedCodeword;
+}
 
-//     const likelihoods = {
-//         code1: calculateLikelihood(codewordBits.code1, receivedBits, epsilon),
-//         code2: calculateLikelihood(codewordBits.code2, receivedBits, epsilon),
-//         code3: calculateLikelihood(codewordBits.code3, receivedBits, epsilon),
-//         code4: calculateLikelihood(codewordBits.code4, receivedBits, epsilon)
-//     };
+// Randomly choose the number of rows (2 or 3) and columns (4 or 5)
+const rows = chooseRandomly(2, 3);
+const cols = chooseRandomly(4, 5);
 
-//     let maxLikelihoodCode = 'code1';
-//     for (let code in likelihoods) {
-//         if (likelihoods[code] > likelihoods[maxLikelihoodCode]) {
-//             maxLikelihoodCode = code;
-//         }
-//     }
+// Generate a random binary matrix
+const G = generateRandomBinaryMatrix(rows, cols);
+console.log('Generated Matrix:', G);
 
-//     document.getElementById('observations').innerHTML = `
-//         <p>Received bits: ${receivedBits.join(', ')}</p>
-//         <p>Likelihoods:</p>
-//         <ul>
-//             <li>c1: ${likelihoods.code1}</li>
-//             <li>c2: ${likelihoods.code2}</li>
-//             <li>c3: ${likelihoods.code3}</li>
-//             <li>c4: ${likelihoods.code4}</li>
-//         </ul>
-//         <p>Maximum Likelihood Codeword: ${maxLikelihoodCode} = (${codewordBits[maxLikelihoodCode].join(', ')})</p>
-//     `;
-// }
+// Generate all codewords
+let codewords = generateCodewords(G);
+console.log('Generated Codewords:', codewords);
 
+// Choose a single random codeword from the generated codewords
+let chosenCodeword = codewords[Math.floor(Math.random() * codewords.length)];
+console.log('Chosen Codeword (before erasures):', chosenCodeword);
 
+// Apply erasures to the chosen codeword
+let receivedCodeword = introduceErasures(chosenCodeword);
+console.log('Received Codeword (with erasures):', receivedCodeword);
 
-
-//updated
-
-
-const codewordBits = {
-    code1: [0, 1, 0, 1],
-    code2: [1, 1, 1, 0],
-    code3: [1, 0, 0, 1],
-    code4: [0, 0, 0, 1]
-};
-
-// Predefined erasure probability
 const epsilon = 0.2;
 
-// Track attempts
-let attempts = 0;
+// Function to calculate the likelihood of each codeword given the received codeword
+function calculateLikelihood(codewords, receivedCodeword, epsilon) {
+    let likelihoods = [];
 
-// Update the display of codewords and erasure probability
+    codewords.forEach((codeword, index) => {
+        let isCompatible = true;
+        let numNonErasures = 0;
+        let numErasures = 0;
+
+        // Check compatibility and count non-erasure/erasure bits
+        for (let i = 0; i < codeword.length; i++) {
+            if (receivedCodeword[i] !== '?' && receivedCodeword[i] !== codeword[i]) {
+                isCompatible = false;
+                break;
+            }
+            if (receivedCodeword[i] !== '?') {
+                numNonErasures++;
+            } else {
+                numErasures++;
+            }
+        }
+
+        if (isCompatible) {
+            // Calculate likelihood for compatible codewords
+            console.log(numErasures, numNonErasures)
+            const likelihood = Math.pow(epsilon, numErasures) * Math.pow(1 - epsilon, numNonErasures);
+            likelihoods.push({
+                codeword: index,
+                likelihood: parseFloat(likelihood.toFixed(3))
+            });
+        } else {
+            // Incompatible codewords have a likelihood of 0
+            likelihoods.push({
+                codeword: index,
+                likelihood: 0
+            });
+        }
+    });
+
+    console.log(likelihoods)
+
+    return likelihoods;
+}
+
+// Function to update the HTML content with the chosen codeword
 function updateCodewords() {
+    const codewordsElementErasure = document.getElementById('codewordsErasure');
     const codewordsElement = document.getElementById('codewords');
-    const c1 = `c1=(${codewordBits.code1.join(', ')})`;
-    const c2 = `c2=(${codewordBits.code2.join(', ')})`;
-    const c3 = `c3=(${codewordBits.code3.join(', ')})`;
-    const c4 = `c4=(${codewordBits.code4.join(', ')})`;
-    codewordsElement.innerHTML = `Consider codeword {${c1}, ${c2}, ${c3}, ${c4}} and ε = ${epsilon}`;
+
+    let codewordsText = '';
+    codewords.forEach((value, index) => {
+        codewordsText += `c${index + 1}=(${value.join(', ')}) `;
+    });
+    codewordsElement.innerHTML = `Consider codewords {${codewordsText}} and &#949; = ${epsilon}`;
+
+    // Generate HTML for likelihood calculations dynamically
+    let likelihoodHTML = '';
+    codewords.forEach((_, index) => {
+        likelihoodHTML += `
+            <div id="powerText">
+                <span><u>p(y|c${index + 1})</u></span>= &#949;<sup><input type="number" class="superscript" id="c${index + 1}_power1" min="0"></sup>
+                (1-&#949;)<sup><input type="number" class="superscript" id="c${index + 1}_power2" min="0"></sup>
+                = <input type="number" class="input-likeli" id="c${index + 1}_likelihood">
+            </div>
+        `;
+    });
+    codewordsElementErasure.innerHTML = `Enter the likelihood of y = (${receivedCodeword.join(', ')}) given various codewords ; ${likelihoodHTML}`;
+}
+
+// Function to check the user-entered likelihoods and provide feedback
+function checkLikelihood() {
+    const likelihoods = calculateLikelihood(codewords, receivedCodeword, epsilon);
+
+    // Calculate the maximum likelihood
+    let maxLikelihood = 0;
+    likelihoods.forEach((likeli, index) => {
+        if (likeli.likelihood > maxLikelihood) {
+            maxLikelihood = likeli.likelihood;
+            maxLikelihoodIndex = index;
+        }
+    });
+
+    // Retrieve the user-entered likelihood from the input field
+    const maxEntered = parseFloat(document.getElementById('max_likelihood').value);
+    // Provide feedback based on comparison
+    const feedback = maxEntered === maxLikelihood
+        ? 'The entered maximum likelihood is correct.'
+        : `The entered maximum likelihood is incorrect.`;
+
+    document.getElementById('observations').innerHTML = feedback;
+}
+
+// Function to reset all received bits to 0 and reset attempts counter
+function reset() {
+    document.querySelectorAll('.input-likeli').forEach(input => {
+        input.value = '';
+    });
+    document.getElementById('observations').innerHTML = '';
 }
 
 // Call the function to update the content
 updateCodewords();
-
-// Function to toggle the received bit value
-function toggleReceivedBit(bitNumber) {
-    var button = document.getElementById('receivedBit' + bitNumber);
-    var currentBit = button.textContent;
-
-    // Toggle the bit value between 0 and 1
-    if (currentBit === '0') {
-        button.textContent = '1';
-    } else {
-        button.textContent = '0';
-    }
-}
-
-// Function to reset all received bits to 0 and reset attempts counter
-function initial() {
-    for (var i = 1; i <= 4; i++) {
-        var button = document.getElementById('receivedBit' + i);
-        button.textContent = '0';
-    }
-    attempts = 0;
-}
-
-// Function to calculate the likelihood of a codeword given the received bits and epsilon
-function calculateLikelihood(codeword, receivedBits, epsilon) {
-    let likelihood = 1;
-    for (let i = 0; i < codeword.length; i++) {
-        if (receivedBits[i] === '?') {
-            // If the bit is erased, multiply by epsilon
-            likelihood *= epsilon;
-        } else if (receivedBits[i] == codeword[i]) {
-            // If the bit is correctly received, multiply by (1 - epsilon)
-            likelihood *= (1 - epsilon);
-        } else {
-            // If the bit is incorrectly received, multiply by epsilon
-            likelihood *= epsilon;
-        }
-    }
-    // Round the likelihood to one decimal place
-    return parseFloat(likelihood.toFixed(2));
-}
-
-// Function to check the received bits and user-entered likelihoods
-function checkReceived() {
-    const receivedBits = [];
-    for (let i = 1; i <= 4; i++) {
-        receivedBits.push(document.getElementById('receivedBit' + i).textContent);
-    }
-
-    // Calculate the likelihoods for each codeword
-    const likelihoods = {
-        code1: calculateLikelihood(codewordBits.code1, receivedBits, epsilon),
-        code2: calculateLikelihood(codewordBits.code2, receivedBits, epsilon),
-        code3: calculateLikelihood(codewordBits.code3, receivedBits, epsilon),
-        code4: calculateLikelihood(codewordBits.code4, receivedBits, epsilon)
-    };
-
-    // Check user-entered likelihoods and provide feedback
-    const feedback = checkUserInput(likelihoods);
-
-    document.getElementById('observations').innerHTML = feedback;
-
-    if (feedback === 'All likelihoods are correct!') {
-        // Find the codeword with the maximum likelihood
-        let maxLikelihoodCode = 'code1';
-        for (let code in likelihoods) {
-            if (likelihoods[code] > likelihoods[maxLikelihoodCode]) {
-                maxLikelihoodCode = code;
-            }
-        }
-
-        // Update the user input for maximum likelihood estimate
-        const maxLikelihoodInput = document.querySelector('.input-likeli[maxlikelihood]');
-        if (maxLikelihoodInput) {
-            maxLikelihoodInput.value = `${likelihoods[maxLikelihoodCode]}`;
-        }
-
-        // Display the maximum likelihood codeword and value
-        document.getElementById('observations').innerHTML += `
-            <p>Maximum Likelihood Codeword: ${maxLikelihoodCode} = (${codewordBits[maxLikelihoodCode].join(', ')})</p>
-            <p>Maximum Likelihood Value: ${likelihoods[maxLikelihoodCode]}</p>
-        `;
-    } else {
-        attempts++;
-        if (attempts >= 3) {
-            // Display correct likelihoods after 3 attempts
-            document.getElementById('observations').innerHTML += '<br>Attempts exceeded. Correct likelihoods are:<br>' +
-                `c1: ${likelihoods.code1}<br>` +
-                `c2: ${likelihoods.code2}<br>` +
-                `c3: ${likelihoods.code3}<br>` +
-                `c4: ${likelihoods.code4}`;
-        }
-    }
-}
-
-// Function to check user-entered likelihoods and provide guidance if incorrect
-function checkUserInput(correctLikelihoods) {
-    const inputs = document.querySelectorAll('.input-likeli');
-    const feedback = [];
-    inputs.forEach((input, index) => {
-        const userValue = parseFloat(input.value);
-        const code = `code${index + 1}`;
-        if (!input.value) {
-            feedback.push(`Please enter the likelihood for c${index + 1}.`);
-        } else if (userValue !== correctLikelihoods[code]) {
-            if (userValue > correctLikelihoods[code]) {
-                feedback.push(`The likelihood for c${index + 1} is too high. Try a lower value.`);
-            } else {
-                feedback.push(`The likelihood for c${index + 1} is too low. Try a higher value.`);
-            }
-        }
-    });
-
-    // Return feedback messages or indicate all likelihoods are correct
-    return feedback.length > 0 ? feedback.join('<br>') : 'All likelihoods are correct!';
-}
