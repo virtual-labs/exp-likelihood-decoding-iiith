@@ -159,7 +159,7 @@
             <div class="v-datalist-container components-list" id="questionStatement">
                 <p id="awgnTopQuestion">Consider a AWGN channel with noise variance \(\dfrac{N_0}{2}=\) <span
                         id="noisevariance"></span> and a code
-                    \(\mathcal{C}=\{(0,0,0,0),(1,0,1,0),(0,1,0,1),(1,1,1,1)\}\).</p>
+                    \(\mathcal{C}=\{c_1=(0,0,0,0),c_2=(1,0,1,0),c_3=(0,1,0,1),c_4=(1,1,1,1)\}\).</p>
                 <div class="channelBlock">
 
                     <p id="sentCodeword"></p> &nbsp;
@@ -183,30 +183,34 @@
                     <!-- \( \int_{\input[sub][1em]{0}}^{\input[sup][1em]{1}} \input[integrand][10em]{}\, dx \) -->
                     <!-- \( p_{Y|X}(y|x)=\frac{1}{\sqrt{\pi N_0}}e^{\frac{-(\input[sub][1em])^2}{N_0}}, \forall x,y \in \mathbb{R}. \) -->
 
-                    <p> Enter likelihoods of \(y\) given codewords </p>
-                    <div id="likelihood">
+                    <p> Enter likelihoods of \(y\) given codewords and then select the maximum likelihood estimate codeword from the dropdown.</p>
+                    <div class="likelihood-1">
                         <div class="mathContainer">
                             \( \displaystyle {p(y|c_1)=\frac{1}{\sqrt{\pi \input[N_0_first][2em]{}}}e^{\dfrac{-(
-                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} = \input[y_x][3em]{}\)
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(1)" style="margin-left: 5%;">Check</button>
                         </div>
                     </div>
 
-                    <div id="likelihood">
-                        <div class="mathContainer">
+                    <div class="likelihood-2">
+                        <div class="mathContainer" id="c_2">
                             \( \displaystyle {p(y|c_2)=\frac{1}{\sqrt{\pi \input[N_0_first][2em]{}}}e^{\dfrac{-(
-                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} = \input[y_x][3em]{}\)
-                        </div>
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(2)" style="margin-left: 5%;">Check</button>
+                        </div> 
                     </div>
-                    <div id="likelihood">
-                        <div class="mathContainer">
+                    <div class="likelihood-3">
+                        <div class="mathContainer" id="c_3">
                             \( \displaystyle {p(y|c_3)=\frac{1}{\sqrt{\pi \input[N_0_first][2em]{}}}e^{\dfrac{-(
-                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} = \input[y_x][3em]{}\)
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(3)" style="margin-left: 5%;">Check</button>
                         </div>
                     </div>
-                    <div id="likelihood">
-                        <div class="mathContainer">
+                    <div class="likelihood-4">
+                        <div class="mathContainer" id="c_4">
                             \( \displaystyle {p(y|c_4)=\frac{1}{\sqrt{\pi \input[N_0_first][2em]{}}}e^{\dfrac{-(
-                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} = \input[y_x][3em]{}\)
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(4)" style="margin-left: 5%;">Check</button>
                         </div>
                     </div>
                     <div id="max-likelihood">
@@ -228,8 +232,8 @@
 
 
                     <button class="v-button" role="button" onclick="checkProbabilityQuestion()">Check</button>
-                    <button id="nextButton" class="v-button" role="button" style="display:none ;"
-                        onclick="nextProbabilityQuestion()">Next</button>
+                    <!-- <button id="nextButton" class="v-button" role="button" style="display:none ;"
+                        onclick="nextProbabilityQuestion()">Next</button> -->
 
                 </section>
             </div>
@@ -240,7 +244,7 @@
                 <div class="v-datalist-title">Observations</div>
                 <div id="observations">
                     <!-- <div id="output"></div> -->
-                    <span id="probabilityQuestionObservation">
+                    <span id="likelihoodQuestionObservation">
                     </span>
                     <!-- <br> -->
                     <span id="distQuestionObservation">

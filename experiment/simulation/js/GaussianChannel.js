@@ -90,6 +90,40 @@ function verifyMaxLikelihood(codeword) {
 }
 
 
+function checkLikelihood(code){
+    const likelihoodQuestionObservation = document.getElementsByClassName("likelihoodQuestionObservation");
+    // select the input element with the id of likelihood and id of code c_1
+    let N_0_first = parseFloat(document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_first`)[0].value);
+    let N_0_second = parseFloat(document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_second`)[0].value);
+    let y_x = Math.abs(document.querySelectorAll(`.likelihood-${code} .mathContainer #y_x`)[0].value);
+
+    console.log(N_0_first, noiseVariance, N_0_second, y_x == Math.abs(noise))
+
+    if (N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance && y_x == Math.abs(noise)) {
+        likelihoodQuestionObservation.innerHTML = `<b>Great job! The correct answer is \\( \\displaystyle {p(y|x)=\\frac{1}{\\sqrt{\\pi ${2 * noiseVariance}}}e^{\\dfrac{-(${Math.abs(noise).toFixed(2)})^2}{${2 * noiseVariance}}}} \\) </b>`;
+        likelihoodQuestionObservation.style.color = "green";
+        document.getElementById("nextButton").style.display = "initial";
+        // compile MathJax
+        MathJax.typeset();
+        // nextProbabilityQuestion()
+    }
+    else if ((N_0_first / 2 != noiseVariance || N_0_second / 2 != noiseVariance) && y_x == Math.abs(noise)) {
+        likelihoodQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance.</b>";
+        likelihoodQuestionObservation.style.color = "red";
+    }
+    else if ((N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance) && y_x != Math.abs(noise)) {
+        likelihoodQuestionObservation.innerHTML = "<b>Incorrect. Please check the exponent again.</b>";
+        likelihoodQuestionObservation.style.color = "red";
+    }
+    else {
+        likelihoodQuestionObservation.innerHTML = "<b>Incorrect. Please try again.</b>";
+        likelihoodQuestionObservation.style.color = "red";
+    }
+
+    
+    
+}
+
 function checkProbabilityQuestion() {
     // const inputs = document.querySelectorAll('.mathContainer input');
 
