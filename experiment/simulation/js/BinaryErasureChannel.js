@@ -62,19 +62,15 @@ const cols = chooseRandomly(4, 5);
 
 // Generate a random binary matrix
 const G = generateRandomBinaryMatrix(rows, cols);
-console.log('Generated Matrix:', G);
 
 // Generate all codewords
 let codewords = generateCodewords(G);
-console.log('Generated Codewords:', codewords);
 
 // Choose a single random codeword from the generated codewords
 let chosenCodeword = codewords[Math.floor(Math.random() * codewords.length)];
-console.log('Chosen Codeword (before erasures):', chosenCodeword);
 
 // Apply erasures to the chosen codeword
 let receivedCodeword = introduceErasures(chosenCodeword);
-console.log('Received Codeword (with erasures):', receivedCodeword);
 
 const epsilon = 0.2;
 
@@ -102,7 +98,6 @@ function calculateLikelihood(codewords, receivedCodeword, epsilon) {
 
         if (isCompatible) {
             // Calculate likelihood for compatible codewords
-            console.log(numErasures, numNonErasures)
             const likelihood = Math.pow(epsilon, numErasures) * Math.pow(1 - epsilon, numNonErasures);
             likelihoods.push({
                 codeword: index,
@@ -116,8 +111,6 @@ function calculateLikelihood(codewords, receivedCodeword, epsilon) {
             });
         }
     });
-
-    console.log(likelihoods)
 
     return likelihoods;
 }
