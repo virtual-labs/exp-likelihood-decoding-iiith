@@ -36,26 +36,25 @@ function generateCodewords(matrix) {
 
 // Function to introduce random erasures in a codeword
 function introduceErasures(codeword) {
-    let hasErasure = false;
+    // Decide randomly whether to introduce 1 or 2 erasures
+    const numErasures = Math.random() < 0.5 ? 1 : 2;
 
-    // Apply erasures with a 50% chance
-    const erasedCodeword = codeword.map(bit => {
-        const isErased = Math.random() < 0.5;
-        if (isErased) {
-            hasErasure = true;
-            return '?';
-        }
-        return bit;
-    });
+    // Create a set of unique random positions to erase
+    const erasurePositions = new Set();
 
-    // If no erasure occurred, force an erasure on a random position
-    if (!hasErasure) {
+    while (erasurePositions.size < numErasures) {
         const randomIndex = Math.floor(Math.random() * codeword.length);
-        erasedCodeword[randomIndex] = '?';
+        erasurePositions.add(randomIndex);
     }
+
+    // Apply the erasures to the codeword
+    const erasedCodeword = codeword.map((bit, index) => (
+        erasurePositions.has(index) ? '?' : bit
+    ));
 
     return erasedCodeword;
 }
+
 
 // Randomly choose the number of rows (2 or 3) and columns (4 or 5)
 const rows = chooseRandomly(2, 3);
@@ -139,13 +138,15 @@ function updateCodewords() {
     codewords.forEach((_, index) => {
         likelihoodHTML += `
             <div id="powerText">
-                <span><u>p(y|c${index + 1})</u></span>= &#949;<sup><input type="number" class="superscript" id="c${index + 1}_power1" min="0"></sup>
+                <span><strong><u>p(y|c${index + 1})</u></strong></span> = &#949;<sup><input type="number" class="superscript" id="c${index + 1}_power1" min="0"></sup>
                 (1-&#949;)<sup><input type="number" class="superscript" id="c${index + 1}_power2" min="0"></sup>
                 = <input type="number" class="input-likeli" id="c${index + 1}_likelihood">
             </div>
         `;
     });
-    codewordsElementErasure.innerHTML = `Enter the likelihood of y = (${receivedCodeword.join(', ')}) given various codewords ; ${likelihoodHTML}`;
+
+    codewordsElementErasure.innerHTML = `Enter the likelihood of y = (${receivedCodeword.join(', ')}) given various codewords : ${likelihoodHTML}`;
+
 }
 
 // Function to check the user-entered likelihoods and provide feedback
@@ -164,11 +165,16 @@ function checkLikelihood() {
     // Retrieve the user-entered likelihood from the input field
     const maxEntered = parseFloat(document.getElementById('max_likelihood').value);
     // Provide feedback based on comparison
-    const feedback = maxEntered === maxLikelihood
-        ? 'The entered maximum likelihood is correct.'
-        : `The entered maximum likelihood is incorrect.`;
+    const feedbackElement = document.getElementById('observations');
 
-    document.getElementById('observations').innerHTML = feedback;
+    if (maxEntered === maxLikelihood) {
+        feedbackElement.innerHTML = 'The entered maximum likelihood is correct.';
+        feedbackElement.style.color = 'green';
+    } else {
+        feedbackElement.innerHTML = 'The entered maximum likelihood is incorrect.';
+        feedbackElement.style.color = 'red';
+    }
+
 }
 
 // Function to reset all received bits to 0 and reset attempts counter
