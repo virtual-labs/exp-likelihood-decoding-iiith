@@ -13,6 +13,13 @@ const codewords = [
     },
 ];
 
+const receivedCodewords = {
+    0: { codewords: [[-1.62, -1.54, 1.73, 2.35], [1.13, -1.47, 0.76, 2.34], [1.62, -1.54, 1.73, -2.35],  [-1.16, -1.74, 0.73, -1.53]], mlError : [2, 3] },
+    1: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [1]},   
+    2: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [2]},
+    3: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [2, 3]},
+}
+
 var likelihoods = {}; //stores likelihoods for each codeword in form of y-x norm
 
 var randomRandomCodeword = selectRandomCodeword();
@@ -102,7 +109,7 @@ function checkLikelihood(code) {
     let N_0_first = parseFloat(document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_first`)[0].value);
     let N_0_second = parseFloat(document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_second`)[0].value);
     let y_x_norm = parseFloat(document.querySelectorAll(`.likelihood-${code} .mathContainer #y_x`)[0].value);
-    
+
     let N_0_first_answer = Math.pow(2 * noiseVariance, sentX.length);
     let N_0_second_answer = 2 * noiseVariance;
     let y_x_norm_answer = Math.sqrt(sentX.reduce((acc, bit, index) => {
@@ -120,7 +127,7 @@ function checkLikelihood(code) {
         likelihoodQuestionObservation.style.display = "block";
         likelihoodQuestionObservation.style.textWrap = "balance";
         likelihoods[code] = y_x_norm_answer;
-        
+
         MathJax.typeset();
 
     } else if (N_0_first != N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
@@ -156,21 +163,95 @@ function verifyMaxLikelihood(code) {
     return false;
 }
 
-function nextGaussianQuestion(){
+var MLErrorIndex; // index of the codeword for ML error question
+
+function nextMLErrorQuestion() {
+
+    MLErrorIndex = Math.floor(Math.random() * codewords.length);
+
+    // randomRandomCodeword = selectRandomCodeword();
+    // var probabilityFlip = Math.random();
+    // noiseVariance = Math.floor(Math.random() * 5) + 1;
+
+    // document.getElementById("noisevariance").innerHTML = noiseVariance;
+
+    noise = parseFloat(gaussianRV(0, Math.sqrt(noiseVariance))().toFixed(2)); // clip to 2 decimal places
+    sentX = codewords[MLErrorIndex].codeword;
+    // var dim = randomGeneratorMatrix.dim;+
+
+    // var codelength = randomGeneratorMatrix.matrix[0].length;
+
+    document.getElementById("sentCodeword").innerHTML = "\\(\\boldsymbol{X}=\\)" + formatMatrix(sentX);
 
 
     const likelihoodQuestion = document.getElementById("likelihoodQuestion");
     const MLErrorQuestion = document.getElementById("MLErrorQuestion");
     const MLErrorQuestionObservation = document.getElementById("MLErrorQuestionObservation");
+    const receivedVectors = document.getElementById("receivedVectors");
 
     likelihoodQuestion.style.display = "none";
     MLErrorQuestion.style.display = "block";
 
+    document.getElementById("receivedCodeword").innerHTML = "";
+
+    // // create options for the received codeword 
+    // let options = Object.keys(receivedCodewords).map((key) => {
+    //     return receivedCodewords[key];
+    // }
+    // );
+
+    // // shuffle the options : https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
+    // options = options.map(value => ({ value, sort: Math.random() }))
+    //     .sort((a, b) => a.sort - b.sort)
+    //     .map(({ value }) => value)
+
+    // // create a radio button for each option
+    // let radioButtons = options.map((option, index) => {
+    //     return `<input type="radio" id="receivedVector${index}" name="receivedVector" value="${index}" required><label for="receivedVector${index}">${formatMatrix(option)}</label><br>`;
+    // });
+
+    // receivedVectors.innerHTML = radioButtons.join("");
+
+    console.log(receivedCodewords[MLErrorIndex]);
+
+    options = receivedCodewords[MLErrorIndex].codewords;
+    let checkboxes = options.map((option, index) => {
+        return `<input type="checkbox" id="receivedVector${index}" name="receivedVector" value="${index}" required><label for="receivedVector${index}">${formatMatrix(option)}</label><br>`;
+    });
+
+    receivedVectors.innerHTML = checkboxes.join("");
     
 
+    MathJax.typeset();
+
+}
+
+function checkMLErrorQuestion() {
+
+    const MLErrorQuestion = document.getElementById("MLErrorQuestion");
+    const MLErrorQuestionObservation = document.getElementById("MLErrorQuestionObservation");
+
+    // selected options 
+    let selectedOptions = Array.from(document.querySelectorAll('input[name="receivedVector"]:checked')).map((checkbox) => {
+        return parseInt(checkbox.value);
+    });
+
+    let correctOptions = receivedCodewords[MLErrorIndex].mlError;
+    console.log(selectedOptions, correctOptions);
+
+    if (selectedOptions.length == correctOptions.length && selectedOptions.every((value, index) => value === correctOptions[index])) {
+        MLErrorQuestionObservation.innerHTML = "<b>Great job! The selected codewords are correct.</b>";
+        MLErrorQuestionObservation.style.color = "green";
+        document.getElementById("nextButton").style.display = "initial";
+    }
+    else {
+        MLErrorQuestionObservation.innerHTML = "<b>Incorrect. Please try again.</b>";
+        MLErrorQuestionObservation.style.color = "red";
+    }
 
 
 }
+
 
 function checkProbabilityQuestion() {
     // const inputs = document.querySelectorAll('.mathContainer input');
@@ -185,7 +266,7 @@ function checkProbabilityQuestion() {
     let y_x = Math.abs(document.querySelectorAll('.mathContainer #y_x')[0].value);
 
     console.log(N_0_first, noiseVariance, N_0_second, y_x)
-    
+
     let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord[index]})^2` }).join('+')}}`;
 
     // let output = '';

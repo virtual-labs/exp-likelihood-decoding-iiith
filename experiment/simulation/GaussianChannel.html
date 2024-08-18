@@ -159,7 +159,7 @@
             <div class="v-datalist-container components-list" id="questionStatement">
                 <p id="awgnTopQuestion">Consider a AWGN channel with noise variance \(\dfrac{N_0}{2}=\) <span
                         id="noisevariance"></span> and a code
-                    \(\mathcal{C}=\{c_1=(0,0,0,0),c_2=(1,0,1,0),c_3=(0,1,0,1),c_4=(1,1,1,1)\}\) which can be represented in Bi-polar form as
+                    \(\mathcal{C}=\{c_1=(0,0,0,0),c_2=(1,0,1,0),c_3=(0,1,0,1),c_4=(1,1,1,1)\}\) which can be represented in bi-polar form as
                     \(\mathcal{C}=\{c_1=(1,1,1,1),c_2=(-1,1,-1,1),c_3=(1,-1,1,-1),c_4=(-1,-1,-1,-1)\}\). </p> 
                 <div class="channelBlock">
 
@@ -234,16 +234,18 @@
 
                     <button class="v-button" role="button" onclick="checkProbabilityQuestion()">Check</button>
                     <button id="nextButton" class="v-button" role="button" style="display:none ;"
-                        onclick="nextGaussianQuestion()">Next</button>
+                        onclick="nextMLErrorQuestion()">Next</button>
 
                 </section>
 
                 <section id="MLErrorQuestion" style="display:none ;">
-                    Choose the ML estimate of the codeword from the following options which will give incorrect codeword
+                    Select all of the below received vectors lead to a decoding error when using maximum likelihood decoding. 
                     <br>
                     <br>
 
-                    <p id="receivedCodewords"></p>
+                    <p id="receivedVectors"></p>
+                    <br>
+                    <button class="v-button" role="button" onclick="checkMLErrorQuestion()">Check</button>
 
 
 
