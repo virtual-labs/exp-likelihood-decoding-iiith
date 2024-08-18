@@ -105,9 +105,9 @@
                             <li>
                                 <strong>The conditional distribution of AWGN Channel is given by:</strong>
                                 <br>
-                                <p style="text-align: center;">\( p_{Y|X}(y|x)=\frac{1}{\sqrt{\pi
-                                    N_0}}e^{\frac{-(y-x)^2}{N_0}}, \forall x,y \in
-                                    \mathbb{R}. \)</p>
+                                <p style="text-align: center;">\( p(\boldsymbol{y}|\boldsymbol{x})=\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\boldsymbol{y}-\boldsymbol{x}||^2)}{N_0}}\)</p>
+
+                                    <p style="text-align: center;">\(\hat{\boldsymbol{x}}=arg_{\boldsymbol{x}\in{\cal C}}\max\langle\boldsymbol{y},\boldsymbol{x}\rangle\)</p>
                             </li>
                         </ul>
                         <br>
@@ -116,35 +116,17 @@
                             <b>Procedure:</b>
 
                             <li>
-                                The question box will display a statement about the channel. According to the statement,
-                                enter the values in the input boxes provided in the expression.
+                                <strong>Step 1:</strong> Enter the likelihoods of \(y\) given codewords and click on the
+                                "Check" button to verify the likelihoods.
+                            </li>
+                            <li>
+                                <strong>Step 2:</strong> Select the maximum likelihood estimate codeword from the
+                                dropdown. "Next" button will appear only after entering all likelihoods and selecting the correct maximum likelihood estimate codeword.
+                            </li>
+                            <li>
+                                <strong>Step 3:</strong> After clicking on the "Next" button, the next question will appear. Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
                             </li>
 
-                            <li>
-                                Click on the "Check" button to check your answer. If the answer is correct, "Next"
-                                button will appear. Click on the "Next" button to proceed to the next question. If the
-                                answer is incorrect, try again. Please check observation box for feedback.
-                            </li>
-
-                            <li>
-                                Next, you will be asked to choose the plot which best represents the distribution of \(
-                                Y \) given \( X \) i.e. \( p(y|x) \). Click on the plot to select it.
-                            </li>
-
-                            <li>
-                                If the answer is correct, "Next" button will appear. Click on the "Next" button to
-                                proceed to the next question. If the answer is incorrect, try again. Similar to the
-                                previous question, please check observation box for feedback.
-                            </li>
-
-                            <li>
-                                Finally, you will be asked to enter the expression that represents the probability
-                                density of the output vector \( \boldsymbol{Y} \) given input \( \boldsymbol{X} \) , at
-                                \( \boldsymbol{Y}=\boldsymbol{y}, \boldsymbol{X}=\boldsymbol{x} \). Enter the values in
-                                the input boxes provided in the expression. Check your answer by clicking on the "Check"
-                                button. If the answer is correct, the experiment is completed. If the answer is
-                                incorrect, try again. Please check observation box for feedback.
-                            </li>
 
                         </ul>
                     </div>
@@ -232,7 +214,7 @@
 
 
 
-                    <button class="v-button" role="button" onclick="checkProbabilityQuestion()">Check</button>
+                    <!-- <button class="v-button" role="button" onclick="checkMLQuestion()">Check</button> -->
                     <button id="nextButton" class="v-button" role="button" style="display:none ;"
                         onclick="nextMLErrorQuestion()">Next</button>
 

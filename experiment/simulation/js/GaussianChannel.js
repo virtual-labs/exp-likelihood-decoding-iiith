@@ -15,9 +15,9 @@ const codewords = [
 
 const receivedCodewords = {
     0: { codewords: [[-1.62, -1.54, 1.73, 2.35], [1.13, -1.47, 0.76, 2.34], [1.62, -1.54, 1.73, -2.35],  [-1.16, -1.74, 0.73, -1.53]], mlError : [2, 3] },
-    1: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [1]},   
-    2: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [2]},
-    3: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [2, 3]},
+    1: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError : [1,2,3]},   
+    2: {codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [2.46, -1.13, 1.42, 0.70]], mlError : [0,2]},
+    3: {codewords: [[-1.16, -1.74, 0.73, -1.53], [-2.09, -0.21, -1.44, -0.31], [-2.22, -1.54, -1.73, -2.35], [2.46, -1.13, 1.42, 0.70]], mlError : [3]},
 }
 
 var likelihoods = {}; //stores likelihoods for each codeword in form of y-x norm
@@ -116,7 +116,7 @@ function checkLikelihood(code) {
         return acc + Math.pow(receivedY[index] - codeWord[index], 2);
     }, 0));
 
-    let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord[index]})^2` }).join('+')}}`;
+    let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord})^2` }).join('+')}}`;
 
     console.log(N_0_first, noiseVariance, N_0_second, y_x, y_x_norm_answer);
     console.log(N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon);
@@ -151,14 +151,21 @@ function checkLikelihood(code) {
 }
 
 function verifyMaxLikelihood(code) {
-    if (likelihoods[code] == Math.max(...Object.values(likelihoods)) && likelihoods.length == codewords.length) {
+    const likelihoodQuestionObservation = document.getElementById("likelihoodQuestionObservation");
+
+    if (likelihoods[code] == Math.max(...Object.values(likelihoods)) && Object.keys(likelihoods).length == Object.keys(codewords).length) {
         document.getElementById("nextButton").style.display = "initial";
-        document.getElementById("likelihoodQuestionObservation") = "Yes, the likelihoods are correct. The maximum likelihood is the correct codeword.";
+        likelihoodQuestionObservation.innerHTML = "Yes, the likelihoods are correct. The maximum likelihood is the correct codeword.";
+        likelihoodQuestionObservation.style.color = "green";
+        
         return true;
-    } else if (likelihoods.length < codewords.length) {
-        document.getElementById("likelihoodQuestionObservation") = "Please input the likelihoods for each codeword.";
+    } else if (Object.keys(likelihoods).length < Object.keys(codewords).length) {
+        likelihoodQuestionObservation.innerHTML = "Please answer all the likelihood questions.";
+        likelihoodQuestionObservation.style.color = "red";
     } else if (likelihoods[code] != Math.max(...Object.values(likelihoods))) {
-        document.getElementById("likelihoodQuestionObservation") = "The maximum likelihood is not the correct codeword.";
+        
+        likelihoodQuestionObservation.innerHTML = "Check the likelihoods again. The maximum likelihood is incorrect.";
+        likelihoodQuestionObservation.style.color = "red";
     }
     return false;
 }
@@ -253,54 +260,54 @@ function checkMLErrorQuestion() {
 }
 
 
-function checkProbabilityQuestion() {
-    // const inputs = document.querySelectorAll('.mathContainer input');
+// function checkMLQuestion() {
+//     // const inputs = document.querySelectorAll('.mathContainer input');
 
-    const probabilityQuestion = document.getElementById("probabilityQuestion");
-    const probabilityQuestionObservation = document.getElementById("probabilityQuestionObservation");
-    const distQuestion = document.getElementById("distQuestion");
+//     const probabilityQuestion = document.getElementById("probabilityQuestion");
+//     const probabilityQuestionObservation = document.getElementById("probabilityQuestionObservation");
+//     const distQuestion = document.getElementById("distQuestion");
 
 
-    let N_0_first = parseFloat(document.querySelectorAll('.mathContainer #N_0_first')[0].value);
-    let N_0_second = parseFloat(document.querySelectorAll('.mathContainer #N_0_second')[0].value);
-    let y_x = Math.abs(document.querySelectorAll('.mathContainer #y_x')[0].value);
+//     let N_0_first = parseFloat(document.querySelectorAll('.mathContainer #N_0_first')[0].value);
+//     let N_0_second = parseFloat(document.querySelectorAll('.mathContainer #N_0_second')[0].value);
+//     let y_x = Math.abs(document.querySelectorAll('.mathContainer #y_x')[0].value);
 
-    console.log(N_0_first, noiseVariance, N_0_second, y_x)
+//     console.log(N_0_first, noiseVariance, N_0_second, y_x)
 
-    let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord[index]})^2` }).join('+')}}`;
+//     let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord[index]})^2` }).join('+')}}`;
 
-    // let output = '';
-    // inputs.forEach(input => {
-    //     output += `Input ID: ${input.id}, Value: ${input.value}\n`;
-    // });
+//     // let output = '';
+//     // inputs.forEach(input => {
+//     //     output += `Input ID: ${input.id}, Value: ${input.value}\n`;
+//     // });
 
-    if (N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance && y_x == Math.abs(noise)) {
-        probabilityQuestionObservation.innerHTML = `<b>Great job! The correct answer is \\( \\displaystyle {p(y|x)=\\frac{1}{\\sqrt{\\pi ${2 * noiseVariance}}}e^{\\dfrac{-(${Math.abs(noise).toFixed(2)})^2}{${2 * noiseVariance}}}} \\) </b>`;
-        probabilityQuestionObservation.style.color = "green";
-        document.getElementById("nextButton").style.display = "initial";
-        // compile MathJax
-        MathJax.typeset();
-        // nextProbabilityQuestion()
-    }
-    else if ((N_0_first / 2 != noiseVariance || N_0_second / 2 != noiseVariance) && y_x == Math.abs(noise)) {
-        probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance.</b>";
-        probabilityQuestionObservation.style.color = "red";
-    }
-    else if ((N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance) && y_x != Math.abs(noise)) {
-        probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please check the exponent again.</b>";
-        probabilityQuestionObservation.style.color = "red";
-    }
-    else {
-        probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please try again.</b>";
-        probabilityQuestionObservation.style.color = "red";
-    }
+//     if (N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance && y_x == Math.abs(noise)) {
+//         probabilityQuestionObservation.innerHTML = `<b>Great job! The correct answer is \\( \\displaystyle {p(y|x)=\\frac{1}{\\sqrt{\\pi ${2 * noiseVariance}}}e^{\\dfrac{-(${Math.abs(noise).toFixed(2)})^2}{${2 * noiseVariance}}}} \\) </b>`;
+//         probabilityQuestionObservation.style.color = "green";
+//         document.getElementById("nextButton").style.display = "initial";
+//         // compile MathJax
+//         MathJax.typeset();
+//         // nextProbabilityQuestion()
+//     }
+//     else if ((N_0_first / 2 != noiseVariance || N_0_second / 2 != noiseVariance) && y_x == Math.abs(noise)) {
+//         probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance.</b>";
+//         probabilityQuestionObservation.style.color = "red";
+//     }
+//     else if ((N_0_first / 2 == noiseVariance && N_0_second / 2 == noiseVariance) && y_x != Math.abs(noise)) {
+//         probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please check the exponent again.</b>";
+//         probabilityQuestionObservation.style.color = "red";
+//     }
+//     else {
+//         probabilityQuestionObservation.innerHTML = "<b>Incorrect. Please try again.</b>";
+//         probabilityQuestionObservation.style.color = "red";
+//     }
 
-    // probabilityQuestion.style.display = "none";
-    // distQuestion.style.display = "block";
+//     // probabilityQuestion.style.display = "none";
+//     // distQuestion.style.display = "block";
 
-    // document.getElementById('probabilityQuestionObservation').innerText = output;
-    // console.log(output);
-}
+//     // document.getElementById('probabilityQuestionObservation').innerText = output;
+//     // console.log(output);
+// }
 
 function nextProbabilityQuestion() {
     const awgnTopQuestion = document.getElementById("awgnTopQuestion");
