@@ -2,12 +2,46 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "This is a Sample Question 1?",
+      "question": "For a Gaussian distribution, $f(x) = \\frac{1}{5\\sqrt{2\\pi}}e^{-\\frac{(x-\\pi)^2}{50}}$. Choose correct options of mean and variance respectively for the given distribution.",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "$5, \\pi$",
+        "b": "$\\pi, 5$",
+        "c": "$25, \\pi$",
+        "d": "$\\pi, 25$"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "d",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Suppose $A = \\{1, \\pi, 3, 2.8, -5, 25\\}$, estimate the value of $\\hat{x}$, such that, $\\hat{x} = arg \\max_{x \\in A} x^2$.",
+      "answers": {
+        "a": "$\\pi$",
+        "b": "$25$",
+        "c": "$2.8$",
+        "d": "$-5$"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2",
+        "d": "Explanation 2"
+      },
+      "correctAnswer": "b",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Choose the correct option for given two statements. $ \\\\ \\text{1. BEC can flip bit value. }\\\\ \\text{2. BSC can erase bit value.}$",
+      "answers": {
+        "a": "Both I and II are wrong.",
+        "b": "I is correct, II is wrong.",
+        "c": "I is wrong, II is correct.",
+        "d": "Both I and II are correct."
       },
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
@@ -19,12 +53,12 @@
       "difficulty": "beginner"
     },
     {
-      "question": "This is a Sample Question 2?",
+      "question": "Let code $\\mathcal{C} = \\{(0,0,0,\\cdots,0),(1,1,1,\\cdots,1)\\}$, be two $n$-(odd)-length codeword either all ones or all zeros. Suppose $\\textbf{x} \\in \\mathcal{C}$, being transimitted over $BEC(\\epsilon)$. What will be the maximum number of bit(s) erasure that can combat and recover the original message.",
       "answers": {
-        "a": "answer1",
-        "b": "answer2",
-        "c": "answer3",
-        "d": "answer4"
+        "a": "$\\frac{n}{2}$",
+        "b": "$\\frac{n-1}{2}$",
+        "c": "$n-1$",
+        "d": "$1$"
       },
       "explanations": {
         "a": "Explanation 1  <a href='www.google.com'>here</a>",
@@ -33,6 +67,22 @@
         "d": "Explanation 2"
       },
       "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Suppose $\\textbf{x} = (1,0,1,1)$ is being transmitted over Binary Symmetric Channel. Choose the valid pairs of received vectors.",
+      "answers": {
+        "a": "$(0,1,1,1)$",
+        "b": "$(0,1,1)$",
+        "c": "$(1,?,1,1)$",
+        "d": "$(1,0,?,1)$"
+      },
+      "explanations": {
+        "a": "Explanation 1  <a href='www.google.com'>here</a>",
+        "b": "Explanation 2",
+        "c": "Explanation 2"
+      },
+      "correctAnswer": "a",
       "difficulty": "beginner"
     }
   ]
