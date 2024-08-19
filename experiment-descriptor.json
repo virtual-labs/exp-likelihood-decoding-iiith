@@ -6,7 +6,7 @@
   "units": [
     {
       "unit-type": "aim",
-      "target": "aim.html",
+      "target": "index.html",
       "source": "aim.md",
       "label": "Aim",
       "unit-type": "task",
@@ -38,7 +38,7 @@
       "content-type": "text"
     },
     {
-      "target": "index.html",
+      "target": "bsc.html",
       "source": "simulation/BinaryErasureChannel.html",
       "label": "Maximum Likelihood Decoding Codes on Binary Input Channels",
       "unit-type": "task",
