@@ -106,8 +106,9 @@
                                 <strong>The conditional distribution of AWGN Channel is given by:</strong>
                                 <br>
                                 <p style="text-align: center;">\( p(\boldsymbol{y}|\boldsymbol{x})=\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\boldsymbol{y}-\boldsymbol{x}||^2)}{N_0}}\)</p>
-
-                                    <p style="text-align: center;">\(\hat{\boldsymbol{x}}=arg_{\boldsymbol{x}\in{\cal C}}\max\langle\boldsymbol{y},\boldsymbol{x}\rangle\)</p>
+                                
+                                <strong> The estimate of the transmitted codeword is given by:</strong>
+                                <p style="text-align: center;">\(\hat{\boldsymbol{x}}=arg_{\boldsymbol{x}\in{\cal C}}\max\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\boldsymbol{y}-\boldsymbol{x}||^2)}{N_0}}=arg_{\boldsymbol{x}\in{\cal C}}\max\langle\boldsymbol{y},\boldsymbol{x}\rangle\)</p>
                             </li>
                         </ul>
                         <br>
@@ -116,15 +117,17 @@
                             <b>Procedure:</b>
 
                             <li>
-                                <strong>Step 1:</strong> Enter the likelihoods of \(y\) given codewords and click on the
+                                <strong>Step 1:</strong> Enter the likelihoods of \(\boldsymbol{y}\) given codewords and click on the
                                 "Check" button to verify the likelihoods.
                             </li>
                             <li>
                                 <strong>Step 2:</strong> Select the maximum likelihood estimate codeword from the
-                                dropdown. "Next" button will appear only after entering all likelihoods and selecting the correct maximum likelihood estimate codeword.
+                                dropdown. 
                             </li>
                             <li>
-                                <strong>Step 3:</strong> After clicking on the "Next" button, the next question will appear. Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
+                                <strong>Step 3:</strong> Click on "Yes" if the maximum likelihood estimate codeword is same as the transmitted codeword, else click on "No". "Next" button will appear after selecting the correct option.
+                            <li>
+                                <strong>Step 4:</strong> After clicking on the "Next" button, the next question will appear. Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
                             </li>
 
 
@@ -141,8 +144,8 @@
             <div class="v-datalist-container components-list" id="questionStatement">
                 <p id="awgnTopQuestion">Consider a AWGN channel with noise variance \(\dfrac{N_0}{2}=\) <span
                         id="noisevariance"></span> and a code
-                    \(\mathcal{C}=\{c_1=(0,0,0,0),c_2=(1,0,1,0),c_3=(0,1,0,1),c_4=(1,1,1,1)\}\) which can be represented in bi-polar form as
-                    \(\mathcal{C}=\{c_1=(1,1,1,1),c_2=(-1,1,-1,1),c_3=(1,-1,1,-1),c_4=(-1,-1,-1,-1)\}\). </p> 
+                    \(\mathcal{C}=\{\boldsymbol{c_1}=(0,0,0,0),\boldsymbol{c_2}=(1,0,1,0),\boldsymbol{c_3}=(0,1,0,1),\boldsymbol{c_4}=(1,1,1,1)\}\) which can be represented in bi-polar form as
+                    \(\mathcal{C}=\{\boldsymbol{c_1}=(1,1,1,1),\boldsymbol{c_2}=(-1,1,-1,1),\boldsymbol{c_3}=(1,-1,1,-1),\boldsymbol{c_4}=(-1,-1,-1,-1)\}\). </p> 
                 <div class="channelBlock">
 
                     <p id="sentCodeword"></p> &nbsp;
@@ -166,10 +169,15 @@
                     <!-- \( \int_{\input[sub][1em]{0}}^{\input[sup][1em]{1}} \input[integrand][10em]{}\, dx \) -->
                     <!-- \( p_{Y|X}(y|x)=\frac{1}{\sqrt{\pi N_0}}e^{\frac{-(\input[sub][1em])^2}{N_0}}, \forall x,y \in \mathbb{R}. \) -->
 
-                    <p> Enter likelihoods of \(y\) given codewords and then select the maximum likelihood estimate codeword from the dropdown.</p>
+                    <p style="text-align: left;">
+                        Imagine you are at the receiver and you have the above received vector \(\boldsymbol{Y}=\boldsymbol{y}\). Note that the transmitted codeword is not known to receiver. Receiver decides to use maximum likelihood decoding to estimate the transmitted codeword.
+                        Help the receiver by calculating the likelihood of the above received vector \(\boldsymbol{y}\) given each codeword \(\boldsymbol{c_i}\). Then select the maximum likelihood estimate codeword and check if it is same as the transmitted codeword.
+
+
+                    </p>
                     <div class="likelihood-0">
                         <div class="mathContainer">
-                            \( \displaystyle {p(y|c_1)=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_1})=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
                             \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
                             <button class="v-button" role="button" onclick="checkLikelihood(0)" style="margin-left: 5%;">Check</button>
                         </div>
@@ -177,21 +185,21 @@
 
                     <div class="likelihood-1">
                         <div class="mathContainer" id="c_2">
-                            \( \displaystyle {p(y|c_2)=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_2})=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
                             \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
                             <button class="v-button" role="button" onclick="checkLikelihood(1)" style="margin-left: 5%;">Check</button>
                         </div> 
                     </div>
                     <div class="likelihood-2">
                         <div class="mathContainer" id="c_3">
-                            \( \displaystyle {p(y|c_3)=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_3})=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
                             \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
                             <button class="v-button" role="button" onclick="checkLikelihood(2)" style="margin-left: 5%;">Check</button>
                         </div>
                     </div>
                     <div class="likelihood-3">
                         <div class="mathContainer" id="c_4">
-                            \( \displaystyle {p(y|c_4)=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_4})=\frac{1}{\sqrt{\pi^4 \input[N_0_first][2em]{}}}e^{\dfrac{-(
                             \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
                             <button class="v-button" role="button" onclick="checkLikelihood(3)" style="margin-left: 5%;">Check</button>
                         </div>
@@ -212,7 +220,14 @@
                         </div>
                     </div>
 
+                    <div id="isMaxLikelihoodCorrect">
+                        <p> Is the maximum likelihood estimate codeword same as the transmitted codeword?</p>
+                        <br>
+                        <button class="v-button" role="button" onclick="isMaxLikelihoodCorrect(1)">Yes</button>
+                        <button class="v-button" role="button" onclick="isMaxLikelihoodCorrect(0)">No</button>
+                    </div>
 
+                    <br>
 
                     <!-- <button class="v-button" role="button" onclick="checkMLQuestion()">Check</button> -->
                     <button id="nextButton" class="v-button" role="button" style="display:none ;"
@@ -221,7 +236,7 @@
                 </section>
 
                 <section id="MLErrorQuestion" style="display:none ;">
-                    Select all of the below received vectors lead to a decoding error when using maximum likelihood decoding. 
+                    Select all of the below received vectors which lead to a decoding error when using maximum likelihood decoding. 
                     <br>
                     <br>
 
