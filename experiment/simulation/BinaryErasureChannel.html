@@ -8,50 +8,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
     <link rel="stylesheet" href="./css/main.css">
-    <link rel="stylesheet" href="./css/binary_erasure_channel_exp3.css">
+    <link rel="stylesheet" href="./css/BinaryErasureChannel.css">
     <script type="text/javascript" id="MathJax-script" async
         src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-    <style>
-        .superscript {
-            width: 30px;
-            height: 20px;
-            font-size: 12px;
-            vertical-align: super;
-            margin: 0 3px;
-        }
-
-        .input-likeli {
-            width: 150px;
-            margin-top: 10px;
-        }
-
-        .box-question {
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        .v-button {
-            margin-top: 20px;
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .v-datalist-container {
-            margin-top: 20px;
-        }
-
-        .v-datalist-title {
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 
 <body>
@@ -89,33 +49,26 @@
                         <ul style="list-style: disc;">
                             <b>Quick theory overview:</b>
                             <li>
-                                <p>For the \( BEC(\epsilon) \) memoryless channel, the transition probability is given
-                                    by:</p>
-                                <p style="text-align: center;">
-                                    \( p({y}|{x}) = \begin{cases} \epsilon^{w_e(y)}(1-\epsilon)^{n-w_e(y)} & \text{if} \
-                                    {x} \ \text{and} \ {y} \ \text{are compatible} \\ 0 & \text{otherwise} \end{cases}\)
-                                </p>
+                                <strong>The conditional distribution of a BEC Channel is given by:</strong>
+                                <br>
+                                <p style="text-align: center;">\( p(\boldsymbol{y}|\boldsymbol{x_i}) = \begin{cases} \epsilon^{w_e(y)}(1-\epsilon)^{n-w_e(y)} & \text{if} \ {x} \ \text{and} \ {y} \ \text{are compatible} \\ 0 & \text{otherwise} \end{cases}\)</p>
+
+                                <strong> The estimate of the transmitted codeword is given by:</strong>
+                                <p style="text-align: center;">\(\hat{\boldsymbol{x}}=arg_{\boldsymbol{x}\in{\cal C}}\max\langle\boldsymbol{y},\boldsymbol{x}\rangle\)</p>
                             </li>
                         </ul>
                         <br>
                         <ul style="list-style: disc;">
                             <b>Procedure:</b>
-                            <li>There are two exercises in this part of the experiment.</li>
-                            <li>In the first exercise, you are given a codeword, and you have to identify what are the
-                                possible outputs of the Binary Erasure Channel.</li>
-                            <li>After selecting the output vectors accordingly, click on the <b>Submit</b> button.
-                                Observations will be displayed accordingly.</li>
-                            <li>Only after you have selected all the correct output vectors will the <b>Next</b> button
-                                appear to go to the next exercise.</li>
-                            <li>Click on the <b>Reset</b> button to reset all your selected choices and restart the
-                                exercise.</li>
-                            <li>For the next exercise you must enter the probability of receiving each of the previously
-                                selected output vectors, from the input codeword, in the boxes given.</li>
-                            <li>Once you have entered all the values, click on the <b>Submit</b> button. Observations
-                                will be displayed accordingly.</li>
-                            <li>Click on the <b>Previous</b> button to go back to the first exercise or the <b>Reset</b>
-                                button to reset all your selected choices and restart the experiment from the first
-                                exercise.</li>
+                            <li>
+                                <strong>Step 1:</strong> Enter the likelihoods of \(\boldsymbol{y}\) given codewords and click on the "Submit" button to verify the likelihoods. Note that only after clicking the "Submit" button should you select the maximum likelihood estimate codeword.
+                            </li>
+                            <li>
+                                <strong>Step 2:</strong> Select the maximum likelihood estimate codeword from the dropdown. If there is more than one possible codeword, select the codeword that occurs first.
+                            </li>
+                            <li>
+                                <strong>Step 3:</strong> After clicking on the "Next" button, the next question will appear. Select all the transmitted vectors that lead to a decoding error when using maximum likelihood decoding.
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -138,20 +91,24 @@
         <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
             style="margin-top:-1.5%;">
             <div class="column is-8-desktop is-12-tablet is-12-mobile">
-                <div class="box-question" style="margin-top: 30px;">
-                    <div id="codewordsErasure" style="margin-top: 20px;"></div>
+                <div class="box-question">
+                    <div id="codewordsErasure" style="margin-top: 20px; margin-bottom: 20px;"></div>
                     <!-- Likelihood Input Fields -->
                     <!-- Additional codewords here -->
                     <div>
                         <span>Maximum Likelihood:</span>
-                        <input type="text" class="input-likeli" id="max_likelihood">
+                        <div class="dropdown">
+                            <button class="dropbtn">Dropdown</button>
+                            <div class="dropdown-content" id="dropdowncodewords">
+
+                            </div>
+                        </div>
                     </div>
+                <div style="margin-top: 20px;">
                     <button class="v-button" role="button" onclick="checkLikelihood()">Submit</button>
                     <button class="v-button" role="button" onClick="reset()">Reset</button>
-                    <div style="margin-top: 10px;">
-                        <p>Note: A codeword is invalid if it contradicts the known bits in the erasure codeword. If a
-                            codeword is invalid keep the result as 0.</p>
-                    </div>
+                    <button class="v-button" role="button" onClick="next()">Next</button>
+                </div>
                 </div>
 
             </div>
@@ -170,11 +127,11 @@
 
 
 
-    <!-- <section id="part4" style="display:none ;">
+    <section id="part2" style="display:none ;">
         <div class="columns is-centered">
             <div class="column is-11-desktop is-12-tablet is-12-mobile">
                 <div class="v-datalist-container components-list">
-                    <p id="codewords">Consider codeword {<u>c1 &nbsp;</u>=(), c2= &nbsp;()} and &#949;(e)</p>
+                    <p id="linearcode">Consider codeword {<u>c1 &nbsp;</u>=(), c2= &nbsp;()} and &#949;(e)</p>
                 </div>
             </div>
         </div>
@@ -182,33 +139,61 @@
             style="margin-top:-1.5%;">
             <div class="column is-8-desktop is-12-tablet is-12-mobile">
                 <div class="box-question">
-                    <form action="" method="get" id="form4" onsubmit="return false">
-                        Enter the maximum likelihood Estimate code word
-                        <br>
-                        <br>
-                        <button class="bit" id="receivedBit1" onclick="toggleReceivedBit(1)">0</button>
-                        <button class="bit" id="receivedBit2" onclick="toggleReceivedBit(2)">0</button>
-                        <button class="bit" id="receivedBit3" onclick="toggleReceivedBit(3)">0</button>
-                        <button class="bit" id="receivedBit4" onclick="toggleReceivedBit(4)">0</button>
-
+                    <div id="transmittedcodeword">Consider the transmitted codeword:</div>
+                    <form action="" method="get" id="codewordoptions" onsubmit="return false">
+                        <table align="center">
+                            <tr>
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j1" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j2" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j3" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j4" onClick="change(id)"></button>
+                                </div></td>
+                            </tr>
+    
+                            <tr>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j5" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j6" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j7" onClick="change(id)"></button>
+                                </div></td>
+    
+                                <td style="padding: 15px;"><div class="outputcw">
+                                    <button class="button-2 buttonstyle" id="j8" onClick="change(id)"></button>
+                                </div></td>
+                            </tr>
+                        </table>
                     </form>
-                    <button class="v-button" role="button" onclick="checkReceived()" form="form4">Submit</button>
-                    <button class="v-button" role="button" onClick="reset()"> Reset </button>
+                    <button class="v-button" role="button" onclick="checkwrongcodewords()">Submit</button>
+                    <button class="v-button" role="button" onClick="prev()">Previous</button>
                 </div>
             </div>
             <div class="column is-3-desktop is-4-tablet is-12-mobile">
                 <div class="v-datalist-container components-list">
                     <div class="v-datalist-title">Observations</div>
-                    <div id="cTransmitted">
-
-                    </div>
-                    <div id="decodedEntered">
-
-                    </div>
+                    <div id="newobservations"></div>
+                    <div id="newmEntered"></div>
+                    <div id="newcEntered"></div>
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 
     <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
     <script src="./js/BinaryErasureChannel.js"></script>
