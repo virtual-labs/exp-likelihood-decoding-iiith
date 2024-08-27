@@ -106,16 +106,26 @@ function checkLikelihood(code) {
 
     let codeWord = codewords[code].codeword;
 
+
     // select the input element with the id of likelihood and id of code c_i
     let N_0_first = document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_first`)[0].value;
     let N_0_second = document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_second`)[0].value;
     let y_x_norm = document.querySelectorAll(`.likelihood-${code} .mathContainer #y_x`)[0].value;
 
-    if (isNaN(N_0_first) || isNaN(N_0_second) || isNaN(y_x_norm)) {
-        likelihoodQuestionObservation.innerHTML = "<b> Please enter numerical values upto 2 decimal places. You can use the calculator to calculate the values.</b>";
-        likelihoodQuestionObservation.style.color = "red";
+
+
+    if (isNaN(N_0_first) || isNaN(N_0_second) || isNaN(y_x_norm) || N_0_first == "" || N_0_second == "" || y_x_norm == "" || N_0_first == null || N_0_second == null || y_x_norm == null) {
+
+        if (N_0_first == "" || N_0_second == "" || y_x_norm == "" || N_0_first == null || N_0_second == null || y_x_norm == null) {
+            likelihoodQuestionObservation.innerHTML = "<b> Please enter all the values.</b>";
+            likelihoodQuestionObservation.style.color = "red";
+        }
+        else {
+            likelihoodQuestionObservation.innerHTML = "<b> Please enter numerical values upto 2 decimal places. You can use the calculator to calculate the values.</b>";
+            likelihoodQuestionObservation.style.color = "red";
+        }
     }
-    
+
 
 
     // console.log(N_0_first, noiseVariance, N_0_second, y_x, y_x_norm_answer);
@@ -135,9 +145,9 @@ function checkLikelihood(code) {
         let y_x_norm_answer = Math.sqrt(sentX.reduce((acc, bit, index) => {
             return acc + Math.pow(receivedY[index] - codeWord[index], 2);
         }, 0));
-    
+
         let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord})^2` }).join('+')}}`;
-    
+
         if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
             likelihoodQuestionObservation.innerHTML = `<b>Acceptable answer! This exercise accepts the answer \\( \\displaystyle {p(\\boldsymbol{y}|\\boldsymbol{x})=\\frac{1}{\\sqrt{\\pi^4 ${N_0_first_answer}}}e^{\\dfrac{-a^2}{${N_0_second_answer}}}} \\) where \\(\\scriptsize{a = ${y_x_norm_answer_latex}}\\) and \\( a \\in [${(y_x_norm_answer - errorEpsilon).toFixed(2)}, ${(y_x_norm_answer + errorEpsilon).toFixed(2)}] \\)</b>`;
             likelihoodQuestionObservation.style.color = "green";
@@ -160,7 +170,7 @@ function checkLikelihood(code) {
         } else if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) > errorEpsilon) {
             likelihoodQuestionObservation.innerHTML = "<b>Incorrect. Please check the numerator of the exponent.</b>";
             likelihoodQuestionObservation.style.color = "red";
-        } 
+        }
         else {
             likelihoodQuestionObservation.innerHTML = "<b>All the values are incorrect. Please try again.</b>";
             likelihoodQuestionObservation.style.color = "red";
