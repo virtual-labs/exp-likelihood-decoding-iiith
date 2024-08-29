@@ -49,7 +49,7 @@
                         <ul style="list-style: disc;">
                             <b>Quick theory overview:</b>
                             <li>
-                                <strong>The conditional distribution of a BEC Channel is given by:</strong>
+                                <strong>The conditional distribution of a \( BEC(\epsilon) \) Channel is given by:</strong>
                                 <br>
                                 <p style="text-align: center;">\( p(\boldsymbol{y}|\boldsymbol{x_i}) = \begin{cases} \epsilon^{w_e(y)}(1-\epsilon)^{n-w_e(y)} & \text{if} \ {x} \ \text{and} \ {y} \ \text{are compatible} \\ 0 & \text{otherwise} \end{cases}\)</p>
 
@@ -62,7 +62,14 @@
                             <b>Procedure:</b>
                             <li>
                                 <strong>Step 1:</strong> Enter the likelihoods of \(\boldsymbol{y}\) given codewords and click on the "Submit" button to verify the likelihoods. Note that only after clicking the "Submit" button should you select the maximum likelihood estimate codeword.
+                                <ul>
+                                    <strong>Note:</strong> If a codeword is incompatible with the vector \(\boldsymbol{y}\), enter <i>'0'</i> as the result in the boxes corresponding to the codewords.
+                                </ul>
+                                <ul>
+                                    <strong>Note:</strong> Kindly round the value to three decimal places, rounding up to the nearest decimal.
+                                </ul>
                             </li>
+                            
                             <li>
                                 <strong>Step 2:</strong> Select the maximum likelihood estimate codeword from the dropdown. If there is more than one possible codeword, select the codeword that occurs first.
                             </li>
