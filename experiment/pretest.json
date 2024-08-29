@@ -10,10 +10,10 @@
         "d": "$\\pi, 25$"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect option, in Gaussian distribution mean $x$ and varience $y$ can be get by molding given distribution into $f(z) = \\frac{1}{\\sqrt{2\\pi y}}e^{-\\frac{(z - x)^2}{y}}$",
+        "b": "Incorrect option, in Gaussian distribution mean $x$ and varience $y$ can be get by molding given distribution into $f(z) = \\frac{1}{\\sqrt{2\\pi y}}e^{-\\frac{(z - x)^2}{y}}$",
+        "c": "Incorrect option, in Gaussian distribution mean $x$ and varience $y$ can be get by molding given distribution into $f(z) = \\frac{1}{\\sqrt{2\\pi y}}e^{-\\frac{(z - x)^2}{y}}$",
+        "d": "Correct option"
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
@@ -27,10 +27,10 @@
         "d": "$-5$"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect option, please note that $\\pi^2 \\leq (-5)^2$ (any elements from the set $\\{-5, 25\\}$), therefor $\\pi$ may not be correct estimate.",
+        "b": "Correct Answer, here $25^2 > x^2$ for all $x\\in A$.",
+        "c": "Incorrect option, please note that ${2.8}^2 \\leq (-5)^2$ (any elements from the set $\\{-5, 3, \\pi, 25\\}$), therefor $2.8$ may not be correct estimate.",
+        "d": "Incorrect option, please note that $(-5)^2 \\leq 25^2$ (element from the set $\\{25\\}$), therefor $-5$ may not be correct estimate."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -38,22 +38,22 @@
     {
       "question": "Choose the correct option for given two statements. $ \\\\ \\text{1. BEC can flip bit value. }\\\\ \\text{2. BSC can erase bit value.}$",
       "answers": {
-        "a": "Both I and II are wrong.",
-        "b": "I is correct, II is wrong.",
-        "c": "I is wrong, II is correct.",
-        "d": "Both I and II are correct."
+        "a": "Both $1$ and $2$ are wrong.",
+        "b": "$1$ is correct, $2$ is wrong.",
+        "c": "$1$ is wrong, $2$ is correct.",
+        "d": "Both $1$ and $2$ are correct."
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Correct Answer. option a is true. Statement 1. Binary Erasure Channel (BEC) erase the transmitted symbol with some probability, but can not flip the bit value; whereas statement 2. Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability, but can not erase the bit value.",
+        "b": "Option b is not true, due to first statement where Statement 1. Binary Erasure Channel (BEC) erase the transmitted symbol with some probability, but can not flip the bit value; whereas statement 2. Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability, but can not erase the bit value.",
+        "c": "Option c is not true, due to second statement where Statement 1. Binary Erasure Channel (BEC) erase the transmitted symbol with some probability, but can not flip the bit value; whereas statement 2. Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability, but can not erase the bit value.",
+        "d": "Option d is not true, due to both statement, Statement 1. Binary Erasure Channel (BEC) erase the transmitted symbol with some probability, but can not flip the bit value; whereas statement 2. Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability, but can not erase the bit value."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
     },
     {
-      "question": "Let code $\\mathcal{C} = \\{(0,0,0,\\cdots,0),(1,1,1,\\cdots,1)\\}$, be two $n$-(odd)-length codeword either all ones or all zeros. Suppose $\\textbf{x} \\in \\mathcal{C}$, being transimitted over $BEC(\\epsilon)$. What will be the maximum number of bit(s) erasure that can combat and recover the original message.",
+      "question": "Let $\\mathcal{C} =$ $\\{(0,0,0,\\cdots,0),$ $(1,1,1,\\cdots,1)\\}$, be a code, with either all one or all zero, and the size of each codeword is $n$. Suppose a codeword is being transimitted over $BEC(\\epsilon)$. Maximum number of erasures such that received tuple can combat and recover the original message.",
       "answers": {
         "a": "$\\frac{n}{2}$",
         "b": "$\\frac{n-1}{2}$",
@@ -61,16 +61,16 @@
         "d": "$1$"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2",
-        "d": "Explanation 2"
+        "a": "Incorrect option, For any codewords from $\\mathcal{C}$, if in $BEC(\\epsilon)$ even all symbols erase except one symbol, then also we can recovery original message.",
+        "b": "Incorrect option, For any codewords from $\\mathcal{C}$, if in $BEC(\\epsilon)$ even all symbols erase except one symbol, then also we can recovery original message.",
+        "c": "Correct option, For any codewords from $\\mathcal{C}$, if in $BEC(\\epsilon)$ even all symbols erase except one symbol, then also we can recovery original message.",
+        "d": "Incorrect option, For any codewords from $\\mathcal{C}$, if in $BEC(\\epsilon)$ even all symbols erase except one symbol, then also we can recovery original message."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
     },
     {
-      "question": "Suppose $\\textbf{x} = (1,0,1,1)$ is being transmitted over Binary Symmetric Channel. Choose the valid pairs of received vectors.",
+      "question": "Suppose $\\textbf{x} $ $= (1,0,1,1)$ is being transmitted over Binary Symmetric Channel. Choose the valid received vector.",
       "answers": {
         "a": "$(0,1,1,1)$",
         "b": "$(0,1,1)$",
@@ -78,9 +78,10 @@
         "d": "$(1,0,?,1)$"
       },
       "explanations": {
-        "a": "Explanation 1  <a href='www.google.com'>here</a>",
-        "b": "Explanation 2",
-        "c": "Explanation 2"
+        "a": "Correct option, received codeword can be any one of $4$-length binary tuple.",
+        "b": "Incorrect option, BSC can not reduce the $4$-length tuple into other length tuple.",
+        "c": "Incorrect option, BSC can not erase the code symbol.",
+        "d": "Incorrect option, BSC can not erase the code symbol."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
