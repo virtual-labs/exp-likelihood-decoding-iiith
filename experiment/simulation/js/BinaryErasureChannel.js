@@ -513,6 +513,9 @@ function checkLikelihood() {
                 break;
         }
     }
+
+    MathJax.typesetPromise();
+
     console.log(likelihoods);
     console.log(likelihoodarray);
     console.log(erasurearray1);
@@ -554,13 +557,20 @@ function reset() {
 // Call the function to update the content
 updateCodewords();
 
-var buttonIdentity = ["j1", "j2", "j3", "j4","j5", "j6", "j7", "j8"];
+var buttonIdentityBEC = ["j1", "j2", "j3", "j4","j5", "j6", "j7", "j8"];
+
+const buttonIdentity = buttonIdentityBEC.slice();
 
 var correctbuttons = [];
 var wrongbuttons = [];
 
 var correctcodewordsarray = [];
 var wrongcodewordsarray = [];
+
+for (let i = buttonIdentity.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [buttonIdentity[i], buttonIdentity[j]] = [buttonIdentity[j], buttonIdentity[i]];
+}
 
 function next(){
 
