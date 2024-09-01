@@ -24,7 +24,7 @@ Assuming that the receiver receives the vector $\bm{y}$, the Maximum Likelihood 
 
 $$\hat{\bm{x}}=arg_{\bm{x}\in{\cal C}}\max p(\bm{y}|\bm{x}).$$ 
 
-In case of there being multiple codewords in $\cal C$ which maximize the likelihood, we will assume that the decoder will *break the ties arbitrarily*, i.e., the decoder declares any of these codewords (that maximize the likelihood) as the estimate. 
+In case of there being multiple codewords in $\cal C$ which maximize the likelihood, we will assume that the decoder will *break the ties arbitrarily*, i.e., the decoder declares any of these codewords (that maximize the likelihood) as the estimate. This estimate $\hat{\bm{x}}$ is called the **ML estimate** for the input codeword $\bm{x}$. 
 
 ---
 
@@ -58,6 +58,67 @@ It is easy to present a scenario when the decoding can be incorrect. Consider th
 
 ### 2. Binary Symmetric Channel $BSC(p)$: 
 
-Assume that the received vector $\bm{y}=(1,0,0,0,0)$. 
+Recollect, from the previous experiment, that in the channel $BSC(p)$, for any $\bm{x},\bm{y}\in\mathbb{F}_2^n$, we have the following:
+$$p(\bm{y}|\bm{x})=p^{d(\bm{x},\bm{y})}(1-p)^{n-d(\bm{x},\bm{y})},$$
+where $d(\bm{x},\bm{y})$ denotes the Hamming distance (number of positions where $\bm{x}$ and $\bm{y}$ have distinct values). We assume that $p<0.5$. 
+
+Assume that the received vector $\bm{y}=(1,0,0,0,0)$. Thus, with respect to the four codewords in $\cal C$, we have the following for $\bm{y}=(1,0,0,0,0)$.
+$$
+\begin{align}
+p(\bm{y}|\bm{x}_1)&=p(1-p)^4,\\
+p(\bm{y}|\bm{x}_2)&=p^2(1-p)^3,\\
+p(\bm{y}|\bm{x}_3)&=p^4(1-p),\\
+p(\bm{y}|\bm{x}_4)&=p^3(1-p)^2.
+\end{align}
+$$
+Clearly, when $p<0.5$, we see that  $p(\bm{y}|\bm{x}_1)$ is the highest among all the $p(\bm{y}|\bm{x}_i), i=1,...,4$. Thus, we can say that the ML estimate is $\bm{x}_1$. Note that the decoder indeed makes no error, in case the true transmitted codeword was $\bm{x}_1$. 
+
+Now, we explain a scenario when the decoder's estimate involves choosing one among many possible codewords, each of which has the same likelihood value. For instance, assume that the received word is $\bm{y}=(1,1,0,0,0)$. In this case, 
+$$
+\begin{align}
+p(\bm{y}|\bm{x}_1)&=p^2(1-p)^3,\\
+p(\bm{y}|\bm{x}_2)&=p^3(1-p)^2,\\
+p(\bm{y}|\bm{x}_3)&=p^3(1-p)^2,\\
+p(\bm{y}|\bm{x}_4)&=p^2(1-p)^3.
+\end{align}
+$$
+Thus, in this case, we find that both $\bm{x}_1$ and $\bm{x}_4$ can be valid ML estimates for the true transmitted codeword, since both of them have the same (and largest) likelihood, among all codewords. Observe that, in this case, if the transmitted codeword was $\bm{x}_1$ and the decoder declared $\bm{x}_4$ as the estimate, then we have an error. 
+
+From the above observations, it is clear that, if there are many bit flips when the codeword is transmitted is transmitted through the channel, the probability of decoding error increases. 
 
 ### 3. AWGN Channel with Noise ${\cal N}(0,N_0/2)$: 
+Recall that, for the memoryless AWGN channel, we have, for any two vectors $\bm{x},\bm{y}\in\mathbb{R}^n$, the probability of receiving vector $\bm{y}$ given that vector $\bm{x}$ was transmitted through the channel is given by
+$$p(\bm{y}|\bm{x})=\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\bm{y}-\bm{x}||^2)}{N_0}}.$$
+
+Now, what does it mean to use a binary code on this channel? Observe that the channel really accepts only real numbered input symbols, however, we have binary digits (bits) in the codeword. Therefore, we need a ***modulation scheme***, which maps the bits to real-numbered symbols that we can transmit. 
+
+The simplest modulation scheme when we use a binary code (for example the code $\cal C$ above) on the AWGN channel is to map the binary symbols $\{0,1\}$ to $\{+1,-1\}\in\mathbb{R}$ respectively. This essentially translates to using a ***BPSK (Binary phase shift keying) modulation scheme*** on the AWGN channel, to transmit the bits of the codeword. The fact that we assume bit $0$ is mapped to $+1\in\mathbb{R}$ and the bit $1$ is mapped to $-1\in\mathbb{R}$ translates to using SNR (signal-to-noise ratio) per codeword-bit as $1/(N_0/2)$. To mathematically model a larger SNR value, we could then assume that the channel has a smaller noise power $N_0/2$, without having to change the mapping of the BPSK modulation itself. Under this modulation scheme, the code $\cal C$ is effectively written as follows. 
+$${\cal C}=\{\bm{x}_1=(1,1,1,1,1),\bm{x}_2=(-1,1,-1,1,-1), \bm{x}_3=(1,-1,1,-1,-1), \bm{x}_4=(-1,-1,-1,-1,1)\}.$$ 
+We call this the ***bipolar representation*** of the code $\cal C$. 
+
+Now, with the code $\cal C$ written in its bipolar representation as above, let us understand the ML decoding, when the received vector is $\bm{y}=(0.5,0.5,-1.2,-1.5,-1.1)$. In this case, observe that we have the following equations which simplify the process of finding the ML estimate. 
+$$
+\begin{align}
+\hat{\bm{x}}&=arg_{\bm{x}\in{\cal C}}\max\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\bm{y}-\bm{x}||^2)}{N_0}}\\
+&=arg_{\bm{x}\in{\cal C}}\min||\bm{y}-\bm{x}||^2\\
+&=arg_{\bm{x}\in{\cal C}}\min (||\bm{y}||^2+||\bm{x}||^2-2\langle\bm{y},\bm{x}\rangle),
+\end{align}
+$$
+where $\langle\bm{y},\bm{x}\rangle$ is just the scalar product (also known as the ***correlation***) between the vectors $\bm{y}=(y_1,...,y_n)$ and $\bm{x}=(x_1,...,x_n)$, which is precisely $\sum_{i=1}^nx_iy_i$. Note that $n=5$ is the blocklength of the code $\cal C$, in our example. Now, the minimization above is with respect to all $\bm{x}\in{\cal C}$. Observe that the value of $||\bm{y}||^2$ does not change in this minimization. Further, for any $\bm{x}\in{\cal C}$, it is easy to see that $||\bm{x}||=n$ (where $n=5$, in our example), and is therefore constant too. Therefore, the minimization above can be re-written as 
+$$
+\begin{align}
+\hat{\bm{x}}=arg_{\bm{x}\in{\cal C}}\max\langle\bm{y},\bm{x}\rangle.
+\end{align}
+$$
+Thus, finding the ML estimate for the true transmitted codeword is that codeword which has the largest scalar product or correlation with the received vector $\bm{y}$. 
+
+We finally apply this observation to the example hand. We said that the received vector is $\bm{y}=(0.5,0.5,-1.2,-1.5,-1.1)$. To find the ML estimate on the AWGN channel, we find the correlations between each $\bm{x}_i\in{\cal C}$ and $\bm{y}$ and find which one has the largest. We urge the reader to check the following calculations. 
+$$
+\begin{align*}
+\langle\bm{x}_1,\bm{y}\rangle&=0.5 + 0.5 + (-1.2) + (-1.5) + (-1.1) = -2.8\\
+\langle\bm{x}_2,\bm{y}\rangle&=-0.5 + 0.5 + 1.2 + (-1.5) + 1.1 = 0.8\\
+\langle\bm{x}_3,\bm{y}\rangle&=0.5 + (-0.5) + (-1.2) + 1.5 + 1.1 = 1.4\\
+\langle\bm{x}_4,\bm{y}\rangle&= -0.5 + (-0.5) + 1.2 + 1.5 + (-1.1) = 0.6. 
+\end{align*}
+$$
+Therefore, the ML estimate for the transmitted codeword is precisely $\bm{x}_3$. 
