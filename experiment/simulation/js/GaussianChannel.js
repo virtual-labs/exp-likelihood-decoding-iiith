@@ -106,6 +106,12 @@ function checkLikelihood(code) {
 
     let codeWord = codewords[code].codeword;
 
+    let choice = (code === 0) ? 'a' :
+        (code === 1) ? 'b' :
+            (code === 2) ? 'c' :
+                (code === 3) ? 'd' :
+                    null;
+
 
     // select the input element with the id of likelihood and id of code c_i
     let N_0_first = document.querySelectorAll(`.likelihood-${code} .mathContainer #N_0_first`)[0].value;
@@ -117,7 +123,7 @@ function checkLikelihood(code) {
     if (isNaN(N_0_first) || isNaN(N_0_second) || isNaN(y_x_norm) || N_0_first == "" || N_0_second == "" || y_x_norm == "" || N_0_first == null || N_0_second == null || y_x_norm == null) {
 
         if (N_0_first == "" || N_0_second == "" || y_x_norm == "" || N_0_first == null || N_0_second == null || y_x_norm == null) {
-            likelihoodQuestionObservation.innerHTML = "<b> Please enter all the values.</b>";
+            likelihoodQuestionObservation.innerHTML = "<b> The likelihood for codeword (" + choice + ") is incorrect. Enter the correct values for all the boxes and check again</b>";
             likelihoodQuestionObservation.style.color = "red";
         }
         else {
@@ -183,9 +189,17 @@ function checkLikelihood(code) {
 var MLEstimate; // maximum likelihood estimate index
 
 function verifyMaxLikelihood(code) {
+
+    const buttonText = document.getElementById("dropbuttonText");
     const likelihoodQuestionObservation = document.getElementById("likelihoodQuestionObservation");
 
-    if (likelihoods[code] == Math.max(...Object.values(likelihoods)) && Object.keys(likelihoods).length == Object.keys(codewords).length) {
+    // change the button text to the selected codeword
+    buttonText.innerHTML = "\\(\\boldsymbol{c_" + parseInt(code + 1, 10) + "}\\)";
+
+    MathJax.typeset();
+
+    // console.log(likelihoods, Math.min(...Object.values(likelihoods)))
+    if (likelihoods[code] == Math.min(...Object.values(likelihoods)) && Object.keys(likelihoods).length == Object.keys(codewords).length) {
         // document.getElementById("nextButton").style.display = "initial";
         likelihoodQuestionObservation.innerHTML = "Yes, the likelihoods are correct. The maximum likelihood is the correct codeword.";
         likelihoodQuestionObservation.style.color = "green";
@@ -195,7 +209,7 @@ function verifyMaxLikelihood(code) {
     } else if (Object.keys(likelihoods).length < Object.keys(codewords).length) {
         likelihoodQuestionObservation.innerHTML = "Please answer all the likelihood questions.";
         likelihoodQuestionObservation.style.color = "red";
-    } else if (likelihoods[code] != Math.max(...Object.values(likelihoods))) {
+    } else if (likelihoods[code] != Math.min(...Object.values(likelihoods))) {
 
         likelihoodQuestionObservation.innerHTML = "Check the likelihoods again. The maximum likelihood is incorrect.";
         likelihoodQuestionObservation.style.color = "red";
