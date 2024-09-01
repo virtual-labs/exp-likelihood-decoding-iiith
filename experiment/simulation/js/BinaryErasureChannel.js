@@ -128,13 +128,19 @@ function calculateLikelihood(codewords, receivedCodeword, epsilon) {
             const likelihood = Math.pow(epsilon, numErasures) * Math.pow(1 - epsilon, numNonErasures);
             likelihoods.push({
                 codeword: index,
-                likelihood: parseFloat(likelihood.toFixed(3))
+                likelihood: parseFloat(likelihood.toFixed(3)),
+                compatibility: true,
+                ne: parseInt(numErasures),
+                nne: parseInt(numNonErasures)
             });
         } else {
             // Incompatible codewords have a likelihood of 0
             likelihoods.push({
                 codeword: index,
-                likelihood: 0
+                likelihood: 0,
+                compatibility: false,
+                ne: 0,
+                nne: 0
             });
         }
     });
@@ -168,18 +174,25 @@ function updateCodewords() {
     codewords.forEach((value, index) => {
         maxlikelihoodans.innerHTML += `<a onclick="verifyMaxLikelihood(${index})" id="c${index + 1}">\\( c_${index + 1} \\)</a>`
     });
-    codewordsElementErasure.innerHTML = `Enter the likelihood of receiving the output vector \\( \\boldsymbol{y} \\) = (${receivedCodeword.join(', ')}) given each of the codewords. Then select the codeword that has the maximum likelihood of being transmitted. Note that if a codeword is incompatible with the vector \\( \\boldsymbol{y} \\), enter '0' as the result in the boxes corresponding to the codewords. ${likelihoodHTML}`;
+    codewordsElementErasure.innerHTML = `Enter the likelihood of receiving the output vector \\( \\boldsymbol{y} \\) = (${receivedCodeword.join(', ')}) given each of the codewords. Then select the codeword that has the maximum likelihood of being transmitted. ${likelihoodHTML}`;
 }
+
+const likelihoods = calculateLikelihood(codewords, receivedCodeword, epsilon);
 
 // Function to check the user-entered likelihoods and provide feedback
 function checkLikelihood() {
-    const likelihoods = calculateLikelihood(codewords, receivedCodeword, epsilon);
-
     let likelihoodarray = [];
+    let erasurearray1 = [];
+    let erasurearray2 = [];
 
     codewords.forEach((value, index) => {
         let cw = document.getElementById(`c${index + 1}_likelihood`);
+        let er1 = document.getElementById(`c${index + 1}_power1`);
+        let er2 = document.getElementById(`c${index + 1}_power2`);
+
         likelihoodarray[index] = parseFloat(cw.value);
+        erasurearray1[index] = parseInt(er1.value);
+        erasurearray2[index] = parseInt(er2.value);
     });
 
     const p1obsa = document.getElementById('mEntered');
@@ -187,34 +200,109 @@ function checkLikelihood() {
 
     if(likelihoodarray.length === 4){
         switch (true) {
-            
             case (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]) && likelihoods[1].likelihood != parseFloat(likelihoodarray[1]) && likelihoods[2].likelihood != parseFloat(likelihoodarray[2]) && likelihoods[3].likelihood != parseFloat(likelihoodarray[3])):
-                p1obsa.innerHTML = "Incorrect Answer! <br> Please go through the Instructions, and try again.";
+                p1obsa.innerHTML = "Incorrect Answers! <br> Please go through the Instructions and try again.";
                 p1obsa.style.color = "red";
                 break;
 
-            case (likelihoods[0].likelihood != parseFloat(likelihoodarray[0])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (a) again.";
-                p1obsa.style.color = "blue";
-                break;
-    
-            case (likelihoods[1].likelihood != parseFloat(likelihoodarray[1])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (b) again.";
-                p1obsa.style.color = "blue";
-                break;
-    
-            case (likelihoods[2].likelihood != parseFloat(likelihoodarray[2])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (c) again.";
-                p1obsa.style.color = "blue";
-                break;
-        
-            case (likelihoods[3].likelihood != parseFloat(likelihoodarray[3])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (d) again.";
-                p1obsa.style.color = "blue";
-                break;
+            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]))):
+                if(!likelihoods[0].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_1 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[0].nne != parseInt(erasurearray2[0])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_1 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[0].ne != parseInt(erasurearray1[0])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_1 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+            
+            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || (likelihoods[1].likelihood != parseFloat(likelihoodarray[1]))):
+                if(!likelihoods[1].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_2 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[1].nne != parseInt(erasurearray2[1])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_2 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[1].ne != parseInt(erasurearray1[1])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_2 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || (likelihoods[2].likelihood != parseFloat(likelihoodarray[2]))):
+                if(!likelihoods[2].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_3 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[2].nne != parseInt(erasurearray2[2])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_3 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[2].ne != parseInt(erasurearray1[2])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_3 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || (likelihoods[3].likelihood != parseFloat(likelihoodarray[3]))):
+                if(!likelihoods[3].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_4 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[3].nne != parseInt(erasurearray2[3])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_4 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[3].ne != parseInt(erasurearray1[3])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_4 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
         
             default:
-                p1obsa.innerHTML = "Correct Answer!";
+                p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
                 break;
         }
@@ -227,66 +315,225 @@ function checkLikelihood() {
                 p1obsa.style.color = "red";
                 break;
             
-            case (likelihoods[0].likelihood != parseFloat(likelihoodarray[0])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (a) again.";
-                p1obsa.style.color = "blue";
-                break;
-    
-            case (likelihoods[1].likelihood != parseFloat(likelihoodarray[1])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (b) again.";
-                p1obsa.style.color = "blue";
-                break;
-    
-            case (likelihoods[2].likelihood != parseFloat(likelihoodarray[2])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (c) again.";
-                p1obsa.style.color = "blue";
-                break;
-        
-            case (likelihoods[3].likelihood != parseFloat(likelihoodarray[3])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (d) again.";
-                p1obsa.style.color = "blue";
-                break;
+            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]))):
+                if(!likelihoods[0].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_1 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[0].nne != parseInt(erasurearray2[0])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_1 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[0].ne != parseInt(erasurearray1[0])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_1 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
             
-            case (likelihoods[4].likelihood != parseFloat(likelihoodarray[4])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (e) again.";
-                p1obsa.style.color = "blue";
-                break;
+            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || (likelihoods[1].likelihood != parseFloat(likelihoodarray[1]))):
+                if(!likelihoods[1].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_2 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[1].nne != parseInt(erasurearray2[1])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_2 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[1].ne != parseInt(erasurearray1[1])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_2 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || (likelihoods[2].likelihood != parseFloat(likelihoodarray[2]))):
+                if(!likelihoods[2].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_3 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[2].nne != parseInt(erasurearray2[2])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_3 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[2].ne != parseInt(erasurearray1[2])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_3 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || (likelihoods[3].likelihood != parseFloat(likelihoodarray[3]))):
+                if(!likelihoods[3].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_4 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[3].nne != parseInt(erasurearray2[3])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_4 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[3].ne != parseInt(erasurearray1[3])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_4 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[4].ne != parseInt(erasurearray1[4])) || (likelihoods[4].nne != parseInt(erasurearray2[4])) || (likelihoods[4].likelihood != parseFloat(likelihoodarray[4]))):
+                if(!likelihoods[4].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_5 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[4].nne != parseInt(erasurearray2[4])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_5 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[4].ne != parseInt(erasurearray1[4])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_5 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_5 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
             
-            case (likelihoods[5].likelihood != parseFloat(likelihoodarray[5])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (f) again.";
-                p1obsa.style.color = "blue";
-                break;
-            
-            case (likelihoods[6].likelihood != parseFloat(likelihoodarray[6])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (g) again.";
-                p1obsa.style.color = "blue";
-                break;
-    
-            case (likelihoods[7].likelihood != parseFloat(likelihoodarray[7])):
-                p1obsa.innerHTML = "Kindly check the number of erasures/non-erasures in the output vector for part (h) again.";
-                p1obsa.style.color = "blue";
-                break;
+            case ((likelihoods[5].ne != parseInt(erasurearray1[5])) || (likelihoods[5].nne != parseInt(erasurearray2[5])) || (likelihoods[5].likelihood != parseFloat(likelihoodarray[5]))):
+                if(!likelihoods[5].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_6 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[5].nne != parseInt(erasurearray2[5])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_6 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[5].ne != parseInt(erasurearray1[5])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_6 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_6 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[6].ne != parseInt(erasurearray1[6])) || (likelihoods[6].nne != parseInt(erasurearray2[6])) || (likelihoods[6].likelihood != parseFloat(likelihoodarray[6]))):
+                if(!likelihoods[6].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_7 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[6].nne != parseInt(erasurearray2[6])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_7 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[6].ne != parseInt(erasurearray1[6])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_7 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_7 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
+
+            case ((likelihoods[7].ne != parseInt(erasurearray1[7])) || (likelihoods[7].nne != parseInt(erasurearray2[7])) || (likelihoods[7].likelihood != parseFloat(likelihoodarray[7]))):
+                if(!likelihoods[7].compatibility){
+                    p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_8 \\). Then, make sure you check the number of erasures and non-erasures and enter the correct answer.`;
+                    p1obsa.style.color = "red";
+                    break;
+                }
+                else{
+                    if(likelihoods[7].nne != parseInt(erasurearray2[7])){
+                        p1obsa.innerHTML = `Kindly check the number of non-erasures in the received vector for the codeword \\( c_8 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else if(likelihoods[7].ne != parseInt(erasurearray1[7])){
+                        p1obsa.innerHTML = `Kindly check the number of erasures in the received vector for the codeword \\( c_8 \\).`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                    else{
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_8 \\) again.`;
+                        p1obsa.style.color = "red";
+                        break;
+                    }
+                }
         
             default:
-                p1obsa.innerHTML = "Correct Answer!";
+                p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
                 break;
         }
     }
 
-    
+    MathJax.typesetPromise();
 
-    // Calculate the maximum likelihood
+    console.log(likelihoods);
+    console.log(likelihoodarray);
+    console.log(erasurearray1);
+    console.log(erasurearray2);
+}
+
+function verifyMaxLikelihood(code) {
+
     let maxLikelihood = 0;
+    let maxLikelihoodIndex = 0;
+
     likelihoods.forEach((likeli, index) => {
         if (likeli.likelihood > maxLikelihood) {
             maxLikelihood = likeli.likelihood;
             maxLikelihoodIndex = index;
         }
     });
-}
 
-function verifyMaxLikelihood(code) {
     const p1obsb = document.getElementById('cEntered');
 
     if (code === maxLikelihoodIndex){
@@ -310,13 +557,20 @@ function reset() {
 // Call the function to update the content
 updateCodewords();
 
-var buttonIdentity = ["j1", "j2", "j3", "j4","j5", "j6", "j7", "j8"];
+var buttonIdentityBEC = ["j1", "j2", "j3", "j4","j5", "j6", "j7", "j8"];
+
+const buttonIdentity = buttonIdentityBEC.slice();
 
 var correctbuttons = [];
 var wrongbuttons = [];
 
 var correctcodewordsarray = [];
 var wrongcodewordsarray = [];
+
+for (let i = buttonIdentity.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [buttonIdentity[i], buttonIdentity[j]] = [buttonIdentity[j], buttonIdentity[i]];
+}
 
 function next(){
 
