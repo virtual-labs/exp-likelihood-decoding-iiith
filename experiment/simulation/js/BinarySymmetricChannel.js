@@ -252,7 +252,7 @@ function checkLikelihoodBSC() {
                 p1obsa.style.color = "red";
                 break;
 
-            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]))):
+            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
                     if(likelihoods[0].npe != parseInt(erasurearray2[0])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_1 \\).`;
                         p1obsa.style.color = "red";
@@ -269,7 +269,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
             
-            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || (likelihoods[1].likelihood != parseFloat(likelihoodarray[1]))):
+            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
                     if(likelihoods[1].npe != parseInt(erasurearray2[1])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_2 \\).`;
                         p1obsa.style.color = "red";
@@ -286,7 +286,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
 
-            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || (likelihoods[2].likelihood != parseFloat(likelihoodarray[2]))):
+            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
                     if(likelihoods[2].npe != parseInt(erasurearray2[2])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_3 \\).`;
                         p1obsa.style.color = "red";
@@ -304,7 +304,7 @@ function checkLikelihoodBSC() {
                     }
 
 
-            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || (likelihoods[3].likelihood != parseFloat(likelihoodarray[3]))):
+            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
                     if(likelihoods[3].npe != parseInt(erasurearray2[3])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_4 \\).`;
                         p1obsa.style.color = "red";
@@ -335,7 +335,7 @@ function checkLikelihoodBSC() {
                 p1obsa.style.color = "red";
                 break;
             
-            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]))):
+            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
                     if(likelihoods[0].npe != parseInt(erasurearray2[0])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_1 \\).`;
                         p1obsa.style.color = "red";
@@ -352,7 +352,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
             
-            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || (likelihoods[1].likelihood != parseFloat(likelihoodarray[1]))):
+            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
                     if(likelihoods[1].npe != parseInt(erasurearray2[1])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_2 \\).`;
                         p1obsa.style.color = "red";
@@ -369,7 +369,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
 
-            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || (likelihoods[2].likelihood != parseFloat(likelihoodarray[2]))):
+            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
                     if(likelihoods[2].npe != parseInt(erasurearray2[2])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_3 \\).`;
                         p1obsa.style.color = "red";
@@ -386,7 +386,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
 
-            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || (likelihoods[3].likelihood != parseFloat(likelihoodarray[3]))):
+            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
                     if(likelihoods[3].npe != parseInt(erasurearray2[3])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_4 \\).`;
                         p1obsa.style.color = "red";
@@ -403,7 +403,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
 
-            case ((likelihoods[4].pe != parseInt(erasurearray1[4])) || (likelihoods[4].npe != parseInt(erasurearray2[4])) || (likelihoods[4].likelihood != parseFloat(likelihoodarray[4]))):
+            case ((likelihoods[4].pe != parseInt(erasurearray1[4])) || (likelihoods[4].npe != parseInt(erasurearray2[4])) || Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) >= epsilonerror):
                     if(likelihoods[4].npe != parseInt(erasurearray2[4])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_5 \\).`;
                         p1obsa.style.color = "red";
@@ -421,7 +421,7 @@ function checkLikelihoodBSC() {
                     }
 
             
-            case ((likelihoods[5].pe != parseInt(erasurearray1[5])) || (likelihoods[5].npe != parseInt(erasurearray2[5])) || (likelihoods[5].likelihood != parseFloat(likelihoodarray[5]))):
+            case ((likelihoods[5].pe != parseInt(erasurearray1[5])) || (likelihoods[5].npe != parseInt(erasurearray2[5])) || Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) >= epsilonerror):
                     if(likelihoods[5].npe != parseInt(erasurearray2[5])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_6 \\).`;
                         p1obsa.style.color = "red";
@@ -439,7 +439,7 @@ function checkLikelihoodBSC() {
                     }
 
 
-            case ((likelihoods[6].pe != parseInt(erasurearray1[6])) || (likelihoods[6].npe != parseInt(erasurearray2[6])) || (likelihoods[6].likelihood != parseFloat(likelihoodarray[6]))):
+            case ((likelihoods[6].pe != parseInt(erasurearray1[6])) || (likelihoods[6].npe != parseInt(erasurearray2[6])) || Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) >= epsilonerror):
                     if(likelihoods[6].npe != parseInt(erasurearray2[6])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_7 \\).`;
                         p1obsa.style.color = "red";
@@ -456,7 +456,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
 
-            case ((likelihoods[7].pe != parseInt(erasurearray1[7])) || (likelihoods[7].npe != parseInt(erasurearray2[7])) || (likelihoods[7].likelihood != parseFloat(likelihoodarray[7]))):
+            case ((likelihoods[7].pe != parseInt(erasurearray1[7])) || (likelihoods[7].npe != parseInt(erasurearray2[7])) || Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) >= epsilonerror):
                     if(likelihoods[7].npe != parseInt(erasurearray2[7])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_8 \\).`;
                         p1obsa.style.color = "red";

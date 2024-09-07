@@ -27,7 +27,7 @@ There are three tasks in this sub-experiment.
 
 ### Task 1: Binary Erasure Channel
 
-1. **Enter Maximum Likelihood**: For the given $BEC(\epsilon)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\vec{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
+1. **Enter Maximum Likelihood**: For the given $BEC(\epsilon)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\boldsymbol{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
     <div style="text-align: center;"> <img src="images/becexp_1.png" alt="alt text" width="75%"/> </div>
     <br>
     <ul>
@@ -43,11 +43,11 @@ There are three tasks in this sub-experiment.
     <img src="images/becobs14.png" alt="alt text" width="25%"/>
     </div>
 
-2. **Select Vectors**: For a given output $\vec{y}$ for a $BEC(\epsilon)$ channel, select all of the below vectors which cannot be possible inputs to the $BEC(\epsilon)$ channel.
+2. **Select Vectors**: For a given output $\boldsymbol{y}$ for a $BEC(\epsilon)$ channel, select all of the below vectors which cannot be possible inputs to the $BEC(\epsilon)$ channel.
     <div style="text-align: center;"> <img src="images/becexp_2.png" alt="alt text" width="75%"/> </div>
     <br>
     <ul>
-    <li> Click on <strong>Submit</strong> to verify if the entered values are correct. </li>
+    <li> Click on <strong>Submit</strong> to verify if the selected vectors are correct. </li>
     <li> Click on <strong>Previous</strong> to go to the previous sub-experiment.  </li>
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
@@ -59,12 +59,12 @@ There are three tasks in this sub-experiment.
 
 ### Task 2: Binary Symmetric Channel
 
-1. **Enter Maximum Likelihood**: For the given $BSC(p)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\vec{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
+1. **Enter Maximum Likelihood**: For the given $BSC(p)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\boldsymbol{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
     <div style="text-align: center;"> <img src="images/bscexp_1.png" alt="alt text" width="75%"/> </div>
     <br>
     <ul>
-    <li> Click on <strong>Submit</strong> to verify if the selected vectors are the possible output vectors. </li>
-    <li> Click on <strong>Reset</strong> to start over the experiment from the previous sub-experiment. </li>
+    <li> Click on <strong>Submit</strong> to verify if the entered values are correct. </li>
+    <li> Click on <strong>Reset</strong> to clear the input boxes and start over. </li>
     <li> Click on <strong>Next</strong> to go to the next sub-experiment.  </li>
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
@@ -74,18 +74,18 @@ There are three tasks in this sub-experiment.
     <img src="images/bscobs13.png" alt="alt text" width="25%"/>
     </div>
 
-2. **Select Vectors**: For a given output $\vec{y}$ for a $BSC(p)$ channel, select all of the below vectors which cannot be possible inputs to the $BSC(p)$ channel.
+2. **Select Vectors**: For a given transmitted codeword $\boldsymbol{y}$ for a $BSC(p)$ channel, select all of the below received vectors which lead to a decoding error.
     <div style="text-align: center;"> <img src="images/bscexp_2.png" alt="alt text" width="75%"/> </div>
     <br>
     <ul>
-    <li> Click on <strong>Submit</strong> to verify if the entered probabilities are correct. </li>
+    <li> Click on <strong>Submit</strong> to verify if the selected vectors are correct. </li>
     <li> Click on <strong>Previous</strong> to go to the previous sub-experiment.  </li>
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/becobs21.png" alt="alt text" width="25%"/> 
-    <img src="images/becobs22.png" alt="alt text" width="25%"/>
-    <img src="images/becobs23.png" alt="alt text" width="25%"/>
+    <img src="images/bscobs21.png" alt="alt text" width="25%"/> 
+    <img src="images/bscobs22.png" alt="alt text" width="25%"/>
+    <img src="images/bscobs23.png" alt="alt text" width="25%"/>
     </div>
 
 ### Task 3: Additive White Gaussian Channel
