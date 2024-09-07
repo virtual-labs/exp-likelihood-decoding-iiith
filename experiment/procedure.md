@@ -87,3 +87,32 @@ There are three tasks in this sub-experiment.
     <img src="images/becobs22.png" alt="alt text" width="25%"/>
     <img src="images/becobs23.png" alt="alt text" width="25%"/>
     </div>
+
+### Task 3: Additive White Gaussian Channel
+
+1. **Enter Maximum Likelihood**: For the given AWGN channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\vec{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
+    <div style="text-align: center;"> <img src="images/awgnexp_1.png" alt="alt text" width="75%"/> 
+    
+    <img src="images/awgn_exp_workspace.png" alt="alt text" width="75%"/> </div>
+
+    <br>
+    <ul>
+    <li> Enter the likelihoods of $boldsymbol{y}$ given codewords and click on the "Check" button to verify the likelihoods. Observation box will display feedback messages accordingly.
+    </li>
+    <li> After entering the likelihoods for all the codewords, Select the maximum likelihood estimate codeword from the dropdown. 
+    </li>
+    <li> Click on "Yes" if the maximum likelihood estimate codeword is same as the transmitted codeword, else click on "No". "Next" button will appear after selecting the correct option. 
+    </li>
+    </ul>
+
+    </div>
+
+2. **Select Vectors**: For a given output $\vec{y}$ for an AWGN channel, select all of the below vectors which lead to a decoding error.
+    <div style="text-align: center;"> <img src="images/awgnexp_2.png" alt="alt text" width="75%"/> </div>
+    <br>
+    <ul>
+    <li> Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
+    </li>
+    </ul>
+
+    </div>
