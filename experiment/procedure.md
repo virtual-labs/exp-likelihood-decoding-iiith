@@ -103,8 +103,14 @@ There are three tasks in this sub-experiment.
     </li>
     <li> Click on "Yes" if the maximum likelihood estimate codeword is same as the transmitted codeword, else click on "No". "Next" button will appear after selecting the correct option. 
     </li>
+    <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
-
+    <div style="text-align: center;">
+    <img src="images/awgnobs11.png" alt="alt text" width="18%"/> 
+    <img src="images/awgnobs12.png" alt="alt text" width="25%"/> 
+    <img src="images/awgnobs13.png" alt="alt text" width="25%"/> 
+    <img src="images/awgnobs14.png" alt="alt text" width="25%"/> <br> <br>
+    <img src="images/awgnobs15.png" alt="alt text" width="75%"/>
     </div>
 
 2. **Select Vectors**: For a given output $\vec{y}$ for an AWGN channel, select all of the below vectors which lead to a decoding error.
@@ -113,6 +119,9 @@ There are three tasks in this sub-experiment.
     <ul>
     <li> Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
     </li>
+    <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
-
+    <div style="text-align: center;">
+    <img src="images/awgnobs21.png" alt="alt text" width="25%"/>
+    <img src="images/awgnobs22.png" alt="alt text" width="22%"/>
     </div>
