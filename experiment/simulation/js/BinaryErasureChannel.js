@@ -179,6 +179,8 @@ function updateCodewords() {
 
 const likelihoods = calculateLikelihood(codewords, receivedCodeword, epsilon);
 
+let correctans = false;
+
 // Function to check the user-entered likelihoods and provide feedback
 function checkLikelihood() {
     let likelihoodarray = [];
@@ -206,7 +208,7 @@ function checkLikelihood() {
                 p1obsa.style.color = "red";
                 break;
 
-            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
+            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood):
                 if(!likelihoods[0].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_1 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -224,13 +226,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
             
-            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
+            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood):
                 if(!likelihoods[1].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_2 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -248,13 +250,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
+            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood):
                 if(!likelihoods[2].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_3 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -272,13 +274,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
+            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood):
                 if(!likelihoods[3].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_4 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -296,7 +298,7 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
@@ -305,6 +307,7 @@ function checkLikelihood() {
             default:
                 p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
+                correctans = true;
                 break;
         }
     }
@@ -316,7 +319,7 @@ function checkLikelihood() {
                 p1obsa.style.color = "red";
                 break;
             
-            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
+            case ((likelihoods[0].ne != parseInt(erasurearray1[0])) || (likelihoods[0].nne != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood):
                 if(!likelihoods[0].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_1 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -334,13 +337,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_1 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
             
-            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
+            case ((likelihoods[1].ne != parseInt(erasurearray1[1])) || (likelihoods[1].nne != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood):
                 if(!likelihoods[1].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_2 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -358,13 +361,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_2 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
+            case ((likelihoods[2].ne != parseInt(erasurearray1[2])) || (likelihoods[2].nne != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood):
                 if(!likelihoods[2].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_3 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -382,13 +385,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_3 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
+            case ((likelihoods[3].ne != parseInt(erasurearray1[3])) || (likelihoods[3].nne != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood):
                 if(!likelihoods[3].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_4 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -406,13 +409,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_4 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[4].ne != parseInt(erasurearray1[4])) || (likelihoods[4].nne != parseInt(erasurearray2[4])) || Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) >= epsilonerror):
+            case ((likelihoods[4].ne != parseInt(erasurearray1[4])) || (likelihoods[4].nne != parseInt(erasurearray2[4])) || Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) > epsilonerror*likelihoods[4].likelihood):
                 if(!likelihoods[4].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_5 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -430,13 +433,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_5 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_5 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
             
-            case ((likelihoods[5].ne != parseInt(erasurearray1[5])) || (likelihoods[5].nne != parseInt(erasurearray2[5])) || Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) >= epsilonerror):
+            case ((likelihoods[5].ne != parseInt(erasurearray1[5])) || (likelihoods[5].nne != parseInt(erasurearray2[5])) || Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) > epsilonerror*likelihoods[5].likelihood):
                 if(!likelihoods[5].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_6 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -454,13 +457,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_6 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_6 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[6].ne != parseInt(erasurearray1[6])) || (likelihoods[6].nne != parseInt(erasurearray2[6])) || Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) >= epsilonerror):
+            case ((likelihoods[6].ne != parseInt(erasurearray1[6])) || (likelihoods[6].nne != parseInt(erasurearray2[6])) || Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) > epsilonerror*likelihoods[6].likelihood):
                 if(!likelihoods[6].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_7 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -478,13 +481,13 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_7 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_7 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
                 }
 
-            case ((likelihoods[7].ne != parseInt(erasurearray1[7])) || (likelihoods[7].nne != parseInt(erasurearray2[7])) || Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) >= epsilonerror):
+            case ((likelihoods[7].ne != parseInt(erasurearray1[7])) || (likelihoods[7].nne != parseInt(erasurearray2[7])) || Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) > epsilonerror*likelihoods[7].likelihood):
                 if(!likelihoods[7].compatibility){
                     p1obsa.innerHTML = `Check if the codeword and the received vector are compatible, with respect to the codeword \\( c_8 \\). If they are not compatible, enter 0 as the result in the boxes corresponding to the codeword. If it is compatible, make sure you enter the right number of erasures and non-erasures and the final correct answer.`;
                     p1obsa.style.color = "red";
@@ -502,7 +505,7 @@ function checkLikelihood() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_8 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of erasures and non-erasures and enter the correct answer for the codeword \\( c_8 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
@@ -511,6 +514,7 @@ function checkLikelihood() {
             default:
                 p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
+                correctans = true;
                 break;
         }
     }
@@ -540,13 +544,18 @@ function verifyMaxLikelihood(code) {
     });
 
     const p1obsb = document.getElementById('cEntered');
-
-    if (code === maxLikelihoodIndex){
-        p1obsb.innerHTML = "The maximum likelihood codeword selected is correct.";
-        p1obsb.style.color = "green";
+    if(correctans){
+        if (code === maxLikelihoodIndex){
+            p1obsb.innerHTML = "The maximum likelihood codeword selected is correct.";
+            p1obsb.style.color = "green";
+        }
+        else{
+            p1obsb.innerHTML = "The maximum likelihood codeword selected is incorrect.";
+            p1obsb.style.color = "red";
+        }
     }
     else{
-        p1obsb.innerHTML = "The maximum likelihood codeword selected is incorrect.";
+        p1obsb.innerHTML = "Kindly answer all the likelihood questions first.";
         p1obsb.style.color = "red";
     }
 

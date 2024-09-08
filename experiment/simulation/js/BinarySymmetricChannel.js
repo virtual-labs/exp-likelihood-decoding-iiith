@@ -22,40 +22,60 @@ const transmittedCW = [
     }
 ]
 
-const excludeVectors11 = [
-    [1,0,1,1,1,0],
-    [0,1,1,1,1,0],
-    [0,0,0,1,1,0],
-    [0,0,1,0,1,0],
-    [0,0,1,1,0,0],
-    [0,0,1,1,1,1]
-];
-
-const excludeVectors12 = [
-    [1,1,1,0,1,1],
-    [0,0,1,0,1,1],
-    [0,1,0,0,1,1],
+const WrongAnsVectors11 = [
+    [0,0,0,0,1,0],
+    [0,1,0,1,1,1],
     [0,1,1,1,1,1],
-    [0,1,1,0,0,1],
-    [0,1,1,0,1,0]
+    [1,0,1,0,1,1],
+    [1,1,1,1,1,0],
+    [1,1,1,0,0,1]
 ];
 
-const excludeVectors21 = [
-    [0,0,1,1,0,0],
+const CorrectAnsVectors11 = [
+    [0,0,1,1,1,1],
+    [1,0,1,1,1,0]
+];
+
+const WrongAnsVectors12 = [
+    [0,0,0,0,1,0],
+    [0,1,0,1,1,1],
+    [0,0,1,1,1,1],
+    [1,0,1,0,1,1],
+    [1,1,1,1,1,0],
+    [1,1,1,0,0,1]
+];
+
+const CorrectAnsVectors12 = [
+    [0,1,1,1,1,1],
+    [1,1,1,0,1,1]
+];
+
+const WrongAnsVectors21 = [
+    [0,0,1,0,0,0],
+    [1,1,0,0,1,1],
+    [1,1,1,1,1,0],
+    [0,0,1,1,1,1],
+    [0,1,1,1,1,1],
+    [1,0,1,1,1,1]
+];
+
+const CorrectAnsVectors21 = [
     [1,1,1,1,0,0],
-    [1,0,0,1,0,0],
-    [1,0,1,0,0,0],
-    [1,0,1,1,1,0],
     [1,0,1,1,0,1]
 ];
 
-const excludeVectors22 = [
-    [1,1,0,1,1,0],
-    [0,0,0,1,1,0],
+const WrongAnsVectors22 = [
+    [0,0,1,0,0,0],
+    [1,1,0,0,1,1],
+    [1,1,1,1,1,0],
+    [0,0,1,1,1,1],
+    [0,1,1,1,1,1],
+    [1,0,1,1,1,1]
+];
+
+const CorrectAnsVectors22 = [
     [0,1,1,1,1,0],
-    [0,1,0,0,1,0],
-    [0,1,0,1,0,0],
-    [0,1,0,1,1,1]
+    [1,1,0,1,1,0]
 ];
 
 function arrayIncludes(arrays, targetArray) {
@@ -225,12 +245,14 @@ function updateCodewordsBSC() {
 }
 
 const likelihoods = calculateLikelihoodBSC(codewords, receivedCodeword, pBSC);
+let correctans = false;
 
 // Function to check the user-entered likelihoods and provide feedback
 function checkLikelihoodBSC() {
     let likelihoodarray = [];
     let erasurearray1 = [];
     let erasurearray2 = [];
+    const epsilonerror = 0.1;
 
     codewords.forEach((value, index) => {
         let cw = document.getElementById(`c${index + 1}_likelihoodbsc`);
@@ -247,12 +269,12 @@ function checkLikelihoodBSC() {
 
     if(likelihoodarray.length === 4){
         switch (true) {
-            case (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]) && likelihoods[1].likelihood != parseFloat(likelihoodarray[1]) && likelihoods[2].likelihood != parseFloat(likelihoodarray[2]) && likelihoods[3].likelihood != parseFloat(likelihoodarray[3])):
+            case ( (Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood) && (Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood) && (Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood) && (Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood)):
                 p1obsa.innerHTML = "Incorrect Answers! <br> Please go through the Instructions and try again.";
                 p1obsa.style.color = "red";
                 break;
 
-            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
+            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood):
                     if(likelihoods[0].npe != parseInt(erasurearray2[0])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_1 \\).`;
                         p1obsa.style.color = "red";
@@ -264,12 +286,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_1 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
             
-            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
+            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood):
                     if(likelihoods[1].npe != parseInt(erasurearray2[1])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_2 \\).`;
                         p1obsa.style.color = "red";
@@ -281,12 +303,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_2 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
-            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
+            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood):
                     if(likelihoods[2].npe != parseInt(erasurearray2[2])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_3 \\).`;
                         p1obsa.style.color = "red";
@@ -298,13 +320,13 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_3 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
 
-            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
+            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood):
                     if(likelihoods[3].npe != parseInt(erasurearray2[3])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_4 \\).`;
                         p1obsa.style.color = "red";
@@ -316,7 +338,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_4 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
@@ -324,18 +346,19 @@ function checkLikelihoodBSC() {
             default:
                 p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
+                correctans = true;
                 break;
         }
     }
     else{
         switch (true) {
 
-            case (likelihoods[0].likelihood != parseFloat(likelihoodarray[0]) && likelihoods[1].likelihood != parseFloat(likelihoodarray[1]) && likelihoods[2].likelihood != parseFloat(likelihoodarray[2]) && likelihoods[3].likelihood != parseFloat(likelihoodarray[3]) && likelihoods[4].likelihood != parseFloat(likelihoodarray[4]) && likelihoods[5].likelihood != parseFloat(likelihoodarray[5]) && likelihoods[6].likelihood != parseFloat(likelihoodarray[6]) && likelihoods[7].likelihood != parseFloat(likelihoodarray[7])):
+            case ((Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood) && (Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood) && (Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood) && (Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood) && (Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) > epsilonerror*likelihoods[4].likelihood) && (Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) > epsilonerror*likelihoods[5].likelihood) && (Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) > epsilonerror*likelihoods[6].likelihood) && (Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) > epsilonerror*likelihoods[7].likelihood)):
                 p1obsa.innerHTML = "Incorrect Answer! <br> Please go through the Instructions, and try again.";
                 p1obsa.style.color = "red";
                 break;
             
-            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) >= epsilonerror):
+            case ((likelihoods[0].pe != parseInt(erasurearray1[0])) || (likelihoods[0].npe != parseInt(erasurearray2[0])) || Math.abs(likelihoods[0].likelihood - parseFloat(likelihoodarray[0])) > epsilonerror*likelihoods[0].likelihood):
                     if(likelihoods[0].npe != parseInt(erasurearray2[0])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_1 \\).`;
                         p1obsa.style.color = "red";
@@ -347,12 +370,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_1 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_1 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
             
-            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) >= epsilonerror):
+            case ((likelihoods[1].pe != parseInt(erasurearray1[1])) || (likelihoods[1].npe != parseInt(erasurearray2[1])) || Math.abs(likelihoods[1].likelihood - parseFloat(likelihoodarray[1])) > epsilonerror*likelihoods[1].likelihood):
                     if(likelihoods[1].npe != parseInt(erasurearray2[1])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_2 \\).`;
                         p1obsa.style.color = "red";
@@ -364,12 +387,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_2 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_2 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
-            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) >= epsilonerror):
+            case ((likelihoods[2].pe != parseInt(erasurearray1[2])) || (likelihoods[2].npe != parseInt(erasurearray2[2])) || Math.abs(likelihoods[2].likelihood - parseFloat(likelihoodarray[2])) > epsilonerror*likelihoods[2].likelihood):
                     if(likelihoods[2].npe != parseInt(erasurearray2[2])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_3 \\).`;
                         p1obsa.style.color = "red";
@@ -381,12 +404,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_3 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_3 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
-            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) >= epsilonerror):
+            case ((likelihoods[3].pe != parseInt(erasurearray1[3])) || (likelihoods[3].npe != parseInt(erasurearray2[3])) || Math.abs(likelihoods[3].likelihood - parseFloat(likelihoodarray[3])) > epsilonerror*likelihoods[3].likelihood):
                     if(likelihoods[3].npe != parseInt(erasurearray2[3])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_4 \\).`;
                         p1obsa.style.color = "red";
@@ -398,12 +421,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_4 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_4 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
-            case ((likelihoods[4].pe != parseInt(erasurearray1[4])) || (likelihoods[4].npe != parseInt(erasurearray2[4])) || Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) >= epsilonerror):
+            case ((likelihoods[4].pe != parseInt(erasurearray1[4])) || (likelihoods[4].npe != parseInt(erasurearray2[4])) || Math.abs(likelihoods[4].likelihood - parseFloat(likelihoodarray[4])) > epsilonerror*likelihoods[4].likelihood):
                     if(likelihoods[4].npe != parseInt(erasurearray2[4])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_5 \\).`;
                         p1obsa.style.color = "red";
@@ -415,13 +438,13 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_5 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_5 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
             
-            case ((likelihoods[5].pe != parseInt(erasurearray1[5])) || (likelihoods[5].npe != parseInt(erasurearray2[5])) || Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) >= epsilonerror):
+            case ((likelihoods[5].pe != parseInt(erasurearray1[5])) || (likelihoods[5].npe != parseInt(erasurearray2[5])) || Math.abs(likelihoods[5].likelihood - parseFloat(likelihoodarray[5])) > epsilonerror*likelihoods[5].likelihood):
                     if(likelihoods[5].npe != parseInt(erasurearray2[5])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_6 \\).`;
                         p1obsa.style.color = "red";
@@ -433,13 +456,13 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_6 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_6 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
 
-            case ((likelihoods[6].pe != parseInt(erasurearray1[6])) || (likelihoods[6].npe != parseInt(erasurearray2[6])) || Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) >= epsilonerror):
+            case ((likelihoods[6].pe != parseInt(erasurearray1[6])) || (likelihoods[6].npe != parseInt(erasurearray2[6])) || Math.abs(likelihoods[6].likelihood - parseFloat(likelihoodarray[6])) > epsilonerror*likelihoods[6].likelihood):
                     if(likelihoods[6].npe != parseInt(erasurearray2[6])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_7 \\).`;
                         p1obsa.style.color = "red";
@@ -451,12 +474,12 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_7 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_7 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
 
-            case ((likelihoods[7].pe != parseInt(erasurearray1[7])) || (likelihoods[7].npe != parseInt(erasurearray2[7])) || Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) >= epsilonerror):
+            case ((likelihoods[7].pe != parseInt(erasurearray1[7])) || (likelihoods[7].npe != parseInt(erasurearray2[7])) || Math.abs(likelihoods[7].likelihood - parseFloat(likelihoodarray[7])) > epsilonerror*likelihoods[7].likelihood):
                     if(likelihoods[7].npe != parseInt(erasurearray2[7])){
                         p1obsa.innerHTML = `Kindly check the number of non-bitflips in the received vector for the codeword \\( c_8 \\).`;
                         p1obsa.style.color = "red";
@@ -468,7 +491,7 @@ function checkLikelihoodBSC() {
                         break;
                     }
                     else{
-                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_8 \\) again.`;
+                        p1obsa.innerHTML = `Kindly make sure you check the number of bitflips and non-bitflips and enter the correct answer for the codeword \\( c_8 \\) again. Please round off and enter exactly 3 decimal places. For example, 0.0355 should be entered as 0.036 while 0.0241 should be entered as 0.024. Similarly, if the likelihood is less than 0.001, then type 0 as the result.`;
                         p1obsa.style.color = "red";
                         break;
                     }
@@ -476,6 +499,7 @@ function checkLikelihoodBSC() {
             default:
                 p1obsa.innerHTML = "All the likelihoods entered are correct!";
                 p1obsa.style.color = "green";
+                correctans = true;
                 break;
         }
     }
@@ -506,14 +530,22 @@ function verifyMaxLikelihood(code) {
 
     const p1obsb = document.getElementById('cEntered');
 
-    if (code === maxLikelihoodIndex){
-        p1obsb.innerHTML = "The maximum likelihood codeword selected is correct.";
-        p1obsb.style.color = "green";
+    if(correctans){
+        if (code === maxLikelihoodIndex){
+            p1obsb.innerHTML = "The maximum likelihood codeword selected is correct.";
+            p1obsb.style.color = "green";
+        }
+        else{
+            p1obsb.innerHTML = "The maximum likelihood codeword selected is incorrect.";
+            p1obsb.style.color = "red";
+        }
     }
     else{
-        p1obsb.innerHTML = "The maximum likelihood codeword selected is incorrect.";
+        p1obsb.innerHTML = "Kindly answer all the likelihood questions first.";
         p1obsb.style.color = "red";
     }
+
+    MathJax.typesetPromise();
 }
 
 // Function to reset all received bits to 0 and reset attempts counter
@@ -565,45 +597,42 @@ function next(){
     codewordsElements.innerHTML = `Consider the code \\( \\mathcal{C} \\) = {${codewordstxt}}`;
 
     const randomNumbers = Math.random() < 0.5 ? 0 : 1;
+
     if(arrayIncludes(newcodewords, [0,1,1,0,1,1])){
         transcw = transmittedCW[0].cw[randomNumbers];
         if(randomNumbers == 0){
-            excvector = excludeVectors11;
+            excvector = WrongAnsVectors11;
+            correctvectors = CorrectAnsVectors11;
         }
         else{
-            excvector = excludeVectors12;
+            excvector = WrongAnsVectors12;
+            correctvectors = CorrectAnsVectors12;
         }
         
     }
     else{
         transcw = transmittedCW[1].cw[randomNumbers];
         if(randomNumbers == 0){
-            excvector = excludeVectors21;
+            excvector = WrongAnsVectors21;
+            correctvectors = CorrectAnsVectors21;
         }
         else{
-            excvector = excludeVectors22;
+            excvector = WrongAnsVectors22;
+            correctvectors = CorrectAnsVectors22;
         }
     }
 
     transmittedcodeword.innerHTML = `Consider the transmitted codeword \\( \\boldsymbol{x} \\) = (${transcw}) through a BSC Channel. Select all of the below received vectors which lead to a decoding error.`;
     var i = 0;
 
-    const filteredVectors = binarysixLengthVectors.filter(vector => 
-        !excvector.some(excludeVector => 
-            excludeVector.every((value, index) => value === vector[index])
-        )
-    );
-
-    const extravectors = getRandomElements(filteredVectors, 6);
-
     buttonIdentity.forEach(function(wansbutton) {
         // Get the button element
         var buttonw = document.getElementById(wansbutton);
         if(i <= 1){
-            randomcodewords = excvector[i];
+            randomcodewords = correctvectors[i];
         }
         else{
-            randomcodewords = extravectors[i-2];
+            randomcodewords = excvector[i-2];
         }
 
         hamdist = calculateHammingDistance(transcw, randomcodewords);
@@ -672,7 +701,7 @@ function checkwrongcodewords(){
             newobservations.style.color = "green";
             newcEntered.innerHTML = "";
         } else {
-            newobservations.innerHTML = "<b>Incorrect. Kindly check the Hamming Distance between the transmitted codeword and the selected received vectors.</b>";
+            newobservations.innerHTML = "<b>Incorrect. Select those received vectors which are closer in Hamming distance to a different codeword than the actual transmitted codeword.</b>";
             newobservations.style.color = "red";
             newcEntered.innerHTML = "";
         }
