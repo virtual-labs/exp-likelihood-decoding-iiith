@@ -27,10 +27,10 @@
         "d": "$ \\textbf{x} = (0,1,0,1,1,) ;$ $ \\textbf{y} = (0,?,1,?,1) $"
       },
       "explanations": {
-        "a": "Incorrect option. In option, $\\textit{a}$, the last coordinate of, $\\textbf{x}$, is flipped in $\\textit{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition.",
-        "b": "Incorrect option. In option, $\\textit{b}$, the last coordinate of, $\\textbf{x}$, is flipped in $\\textit{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition.",
+        "a": "Incorrect option. In option, $\\textit{a}$, the last coordinate of, $\\textbf{x}$, is flipped in $\\textbf{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition.",
+        "b": "Incorrect option. In option, $\\textit{b}$, the last coordinate of, $\\textbf{x}$, is flipped in $\\textbf{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition.",
         "c": "Correct option. Indeed every symbol that is transmitted can potentially be erased, according to the definition of $QEC(\\epsilon)$.",
-        "d": "Incorrect option. In option, $\\textit{d}$, the third coordinate of, $\\textbf{x}$, is flipped in $\\textit{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition."
+        "d": "Incorrect option. In option, $\\textit{d}$, the third coordinate of, $\\textbf{x}$, is flipped in $\\textbf{y}$. Which is not possible in $QEC(\\epsilon)$  according to the definition."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
@@ -46,14 +46,14 @@
       "explanations": {
         "a": "Incorrect option. If the $BSC$ channel flips the fourth bit of the transmitted codeword, $(1,1,1,0,1,1)$, we will get option $\\textit{a}$. Indeed option, $\\textit{a}$, can be one of the potential received vectors.",
         "b": "Incorrect option. If the $BSC$ channel flips the first bit of the transmitted codeword, $(1,1,1,0,1,1)$, we will get option $\\textit{b}$. Indeed option, $\\textit{b}$, can be one of the potential received vectors.",
-        "c": "Correct option. Given that we already know that exactly one bit is flipped. The option $\\textit{c}$ has no flipped bits. Thus, it is impossible for option $\\textit{c}$ to occur at the receiver side.",
+        "c": "Correct option. Given that exactly one bit is flipped. The option $\\textit{c}$ has no flipped bits. Thus, it is impossible for option $\\textit{c}$ to occur at the receiver side.",
         "d": "Incorrect option. If the $BSC$ channel flips the third bit of the transmitted codeword, $(1,1,1,0,1,1)$, we will get option $\\textit{d}$. Indeed option, $\\textit{d}$, can be one of the potential received vectors."
       },
       "correctAnswer": "c",
       "difficulty": "beginner"
     },
     {
-      "question": "Suppose code $\\mathcal{C} $ $= \\{(0,0,0), (1,1,1)\\}$. One codeword from this code, $\\mathcal{C}$, is transmitted over Binary Symmetric Channel $BSC(p)$ with bit-flip probability $p$. Calculate the probability of error for incorrect decoding using Maximum Likelihood Decoder.",
+      "question": "Suppose we are given a code $\\mathcal{C} $ $= \\{(0,0,0), (1,1,1)\\}$. One codeword from this code, $\\mathcal{C}$, is transmitted over Binary Symmetric Channel $BSC(p)$ with bit-flip probability $p$. Calculate the probability of error for incorrect decoding using Maximum Likelihood Decoder.",
       "answers": {
         "a": "$p$",
         "b": "$p^3 + 3p^2(1-p)$",
@@ -78,10 +78,10 @@
         "d": "$(1,1,0)$"
       },
       "explanations": {
-        "a": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x} $ $= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 $ $ - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right) $.",
-        "b": "Correct option. To estimate $\\hat{x}$, use the definition: $\\hat{x} $ $= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 $ $ - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right) $",
-        "c": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x} $ $= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 $ $ - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right) $.",
-        "d": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x} $ $= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 $ $ - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right) $."
+        "a": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x}= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "b": "Correct option. To estimate $\\hat{x}$, use the definition: $\\hat{x} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "c": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "d": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\hat{x}$, use the definition: $\\hat{x} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$."
       },
       "correctAnswer": "b",
       "difficulty": "advance"

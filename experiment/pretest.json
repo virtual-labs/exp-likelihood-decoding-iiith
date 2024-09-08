@@ -27,10 +27,10 @@
         "d": "$-5$"
       },
       "explanations": {
-        "a": "Incorrect option. Please note that $\\pi^2 < (-5)^2$ (any elements from the set $\\{-5, 25\\}$), therefore $\\pi$ may not be a correct estimate.",
-        "b": "Correct Answer. Here $25^2 \\geq x^2$ for all $x\\in A$.",
-        "c": "Incorrect option. Please note that ${2.8}^2 < (-5)^2$ (any elements from the set $\\{-5, 3, \\pi, 25\\}$), therefore $2.8$ may not be a correct estimate.",
-        "d": "Incorrect option. Please note that $(-5)^2 < 25^2$ (element from the set $\\{25\\}$), therefore $-5$ may not be a correct estimate."
+        "a": "The option $\\textit{a }$ is incorrect. It should be noted that $\\pi$ is less than the square of some other elements, i.e. $\\{-5, 25\\}$ in the set, which clearly indicates that $\\hat{x} \\neq \\pi$.",
+        "b": "This is the largest value among all squares of the elements in $A$, so this is the correct option.",
+        "c": "The option $\\textit{c }$ is incorrect. It should be noted that $2.8$ is less than the square of some other elements, i.e. $\\{\\pi, -5, 25\\}$ in the set, which clearly indicates that $\\hat{x} \\neq 2.8$.",
+        "d": "The option $\\textit{d }$ is incorrect. It should be noted that $-5$ is less than the square of some other element, i.e. $\\{25\\}$ in the set, which clearly indicates that $\\hat{x} \\neq -5$."
       },
       "correctAnswer": "b",
       "difficulty": "beginner"
@@ -44,10 +44,10 @@
         "d": "Both $1$ and $2$ are correct."
       },
       "explanations": {
-        "a": "Correct option. Option \\textit{a} is true. The correct explanation for statement 1 is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value. Whereas the correct explanation for statement 2 is Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value.",
-        "b": "Option \\textit{b} is false due to first statement. The correct explanation for statement 1 is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value.",
-        "c": "Option \\textit{c} is false due to second statement. The correct explanation for statement 2 is that the Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value.",
-        "d": "Option \\textit{d} is not true because both statements are false. The correct explanation for statement 1 is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value. Whereas the correct explanation for statement 2 is Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value."
+        "a": "Correct option. Option $\\textit{a }$ is true. The correct explanation for statement $1$ is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value. Whereas the correct explanation for statement $2$ is Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value.",
+        "b": "Option $\\textit{b }$ is false due to first statement. The correct explanation for statement $1$ is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value.",
+        "c": "Option $\\textit{c }$ is false due to second statement. The correct explanation for statement $2$ is that the Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value.",
+        "d": "Option $\\textit{d }$ is not true because both statements are false. The correct explanation for statement $1$ is that the Binary Erasure Channel (BEC) erases the transmitted symbol with some probability but can not flip the bit value. Whereas the correct explanation for statement $2$ is Binary Symmetry Channel (BSC) flips the transmitted symbols with some probability but can not erase the bit value."
       },
       "correctAnswer": "a",
       "difficulty": "beginner"
