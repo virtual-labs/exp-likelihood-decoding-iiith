@@ -350,7 +350,7 @@ function checkMLErrorQuestion() {
     console.log(selectedOptions, correctOptions);
 
     if (selectedOptions.length == correctOptions.length && selectedOptions.every((value, index) => value === correctOptions[index])) {
-        MLErrorQuestionObservation.innerHTML = "<b>Great job! The selected codewords are correct.</b>";
+        MLErrorQuestionObservation.innerHTML = "<b>Great job! The selected received vectors are correct.</b>";
         MLErrorQuestionObservation.style.color = "green";
         document.getElementById("nextButton").style.display = "initial";
     }
