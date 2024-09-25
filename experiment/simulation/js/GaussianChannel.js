@@ -15,7 +15,7 @@ const codewords = [
 
 const receivedCodewords = {
     0: { codewords: [[-1.62, -1.54, 1.73, 2.35], [1.13, -1.47, 0.76, 2.34], [1.62, -1.54, 1.73, -2.35], [-1.16, -1.74, 0.73, -1.53]], mlError: [2, 3] },
-    1: { codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError: [1, 2, 3] },
+    1: { codewords: [[2.96, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [-1.16, -1.74, 0.73, -1.53]], mlError: [1, 2, 3] },
     2: { codewords: [[1.26, 1.93, -1.32, 5.35], [1.62, -1.54, 1.73, -2.35], [-1.62, -1.54, 1.73, 2.35], [2.46, -1.13, 1.42, 0.70]], mlError: [0, 2] },
     3: { codewords: [[-1.16, -1.74, 0.73, -1.53], [-2.09, -0.21, -1.44, -0.31], [-2.22, -1.54, -1.73, -2.35], [2.46, -1.13, 1.42, 0.70]], mlError: [3] },
 }
@@ -152,6 +152,8 @@ function checkLikelihood(code) {
             return acc + Math.pow(receivedY[index] - codeWord[index], 2);
         }, 0));
 
+        console.log(y_x_norm_answer)
+
         let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord})^2` }).join('+')}}`;
 
         if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
@@ -264,10 +266,12 @@ function nextMLErrorQuestion() {
 
 
     const likelihoodQuestion = document.getElementById("likelihoodQuestion");
+    const likelihoodQuestionObservation = document.getElementById("likelihoodQuestionObservation");
     const MLErrorQuestion = document.getElementById("MLErrorQuestion");
     const MLErrorQuestionObservation = document.getElementById("MLErrorQuestionObservation");
     const receivedVectors = document.getElementById("receivedVectors");
 
+    likelihoodQuestionObservation.style.display = "none";
     likelihoodQuestion.style.display = "none";
     MLErrorQuestion.style.display = "block";
 
@@ -307,6 +311,33 @@ function nextMLErrorQuestion() {
 
 function checkMLErrorQuestion() {
 
+    // check distance between received codewords and all the codewords in the list
+
+    let table = [];
+    for (let i = 0; i < Object.keys(receivedCodewords).length; i++) {
+        let row = [];
+        for (let j = 0; j < Object.keys(receivedCodewords[i].codewords).length; j++) {
+            let minDistance = Infinity;
+            let minDistanceCodeword = null;
+            for (let k = 0; k < Object.keys(codewords).length; k++) {
+                let distance = receivedCodewords[i].codewords[j].reduce((acc, bit, index) => {
+                    return acc + Math.pow(bit - parseFloat(codewords[k].codeword[index]).toFixed(2), 2);
+                }, 0);
+
+                if (distance < minDistance) {
+                    minDistance = distance;
+                    minDistanceCodeword = codewords[k].codeword;
+                }
+
+                row.push({ codeword: codewords[k].codeword, distance: Math.sqrt(distance) });
+            }
+
+            table.push({ receivedCodeword: receivedCodewords[i].codewords[j], distances: row , minDistance: Math.sqrt(minDistance), minDistanceCodeword: minDistanceCodeword });
+        }
+    }
+    console.log(table);
+    
+
     const MLErrorQuestion = document.getElementById("MLErrorQuestion");
     const MLErrorQuestionObservation = document.getElementById("MLErrorQuestionObservation");
 
@@ -319,7 +350,7 @@ function checkMLErrorQuestion() {
     console.log(selectedOptions, correctOptions);
 
     if (selectedOptions.length == correctOptions.length && selectedOptions.every((value, index) => value === correctOptions[index])) {
-        MLErrorQuestionObservation.innerHTML = "<b>Great job! The selected codewords are correct.</b>";
+        MLErrorQuestionObservation.innerHTML = "<b>Great job! The selected received vectors are correct.</b>";
         MLErrorQuestionObservation.style.color = "green";
         document.getElementById("nextButton").style.display = "initial";
     }
@@ -412,93 +443,93 @@ function checkMLErrorQuestion() {
 //     randomiseGaussianOptions();
 // }
 
-function nextDistQuestion() {
+// function nextDistQuestion() {
 
-    const probabilityQuestion = document.getElementById("probabilityQuestion");
-    const distQuestion = document.getElementById("distQuestion");
-    const probabilityVectorQuestion = document.getElementById("probabilityVectorQuestion");
+//     const probabilityQuestion = document.getElementById("probabilityQuestion");
+//     const distQuestion = document.getElementById("distQuestion");
+//     const probabilityVectorQuestion = document.getElementById("probabilityVectorQuestion");
 
-    const distQuestionObservation = document.getElementById("distQuestionObservation");
+//     const distQuestionObservation = document.getElementById("distQuestionObservation");
 
-    probabilityQuestion.style.display = "none";
-    distQuestion.style.display = "none";
-    probabilityVectorQuestion.style.display = "block";
+//     probabilityQuestion.style.display = "none";
+//     distQuestion.style.display = "none";
+//     probabilityVectorQuestion.style.display = "block";
 
-    // distQuestion.style.display = "none";
-    // probabilityVectorQuestion.style.display = "block";
+//     // distQuestion.style.display = "none";
+//     // probabilityVectorQuestion.style.display = "block";
 
-    sentX = randomRandomCodeword.codeword;
-    document.getElementById("sentCodeword").innerHTML = "\\(\\boldsymbol{X}=\\)" + formatMatrix(sentX);
+//     sentX = randomRandomCodeword.codeword;
+//     document.getElementById("sentCodeword").innerHTML = "\\(\\boldsymbol{X}=\\)" + formatMatrix(sentX);
 
-    // create a noise vector
-    noise = [];
+//     // create a noise vector
+//     noise = [];
 
-    for (let i = 0; i < sentX.length; i++) {
-        noise.push(parseFloat(gaussianRV(0, Math.sqrt(noiseVariance))().toFixed(2)));
-    }
+//     for (let i = 0; i < sentX.length; i++) {
+//         noise.push(parseFloat(gaussianRV(0, Math.sqrt(noiseVariance))().toFixed(2)));
+//     }
 
-    receivedY = sentX.map((bit, index) => {
-        return (bit + noise[index]).toFixed(2);
-    });
+//     receivedY = sentX.map((bit, index) => {
+//         return (bit + noise[index]).toFixed(2);
+//     });
 
-    document.getElementById("receivedCodeword").innerHTML = "\\(\\boldsymbol{Y}=\\)" + formatMatrix(receivedY);
-    // compile MathJax
-    MathJax.typeset();
+//     document.getElementById("receivedCodeword").innerHTML = "\\(\\boldsymbol{Y}=\\)" + formatMatrix(receivedY);
+//     // compile MathJax
+//     MathJax.typeset();
 
-    distQuestionObservation.innerHTML = "";
-    distQuestionObservation.style.display = "none";
+//     distQuestionObservation.innerHTML = "";
+//     distQuestionObservation.style.display = "none";
 
-}
-
-
-
-function checkProbabilityVectorQuestion() {
-    const errorEpsilon = 0.1;
-    const probabilityVectorQuestion = document.getElementById("probabilityVectorQuestion");
-    const probabilityVectorQuestionObservation = document.getElementById("probabilityVectorQuestionObservation");
-    const distQuestion = document.getElementById("distQuestion");
-
-    let N_0_first = parseFloat(document.querySelectorAll('.mathContainer #N_0_first_vect')[0].value);
-    let N_0_second = parseFloat(document.querySelectorAll('.mathContainer #N_0_second_vect')[0].value);
-    let y_x_norm = parseFloat(document.querySelectorAll('.mathContainer #y_x_norm')[0].value);
-
-    let N_0_first_answer = Math.pow(2 * noiseVariance, sentX.length);
-    let N_0_second_answer = 2 * noiseVariance;
-    let y_x_norm_answer = Math.sqrt(sentX.reduce((acc, bit, index) => {
-        return acc + Math.pow(noise[index], 2);
-    }, 0));
-
-    let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${sentX[index]})^2` }).join('+')}}`;
-
-    // for y_x_norm, accept 0.1 difference
-
-    if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
-        probabilityVectorQuestionObservation.innerHTML = `<b>Acceptable answer! This exercise accepts the answer \\( \\displaystyle {p(\\boldsymbol{y}|\\boldsymbol{x})=\\frac{1}{\\sqrt{\\pi^4 ${N_0_first_answer}}}e^{\\dfrac{-a^2}{${N_0_second_answer}}}} \\) where \\(\\scriptsize{a = ${y_x_norm_answer_latex}}\\) and \\( a \\in [${(y_x_norm_answer - errorEpsilon).toFixed(2)}, ${(y_x_norm_answer + errorEpsilon).toFixed(2)}] \\)</b>`;
-        probabilityVectorQuestionObservation.style.color = "green";
-        probabilityVectorQuestionObservation.style.fontSize = "1vw";
-        probabilityVectorQuestionObservation.style.display = "block";
-        probabilityVectorQuestionObservation.style.textWrap = "balance";
-        MathJax.typeset();
-
-    } else if (N_0_first != N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
-        probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance.</b>";
-        probabilityVectorQuestionObservation.style.color = "red";
-    } else if (N_0_first == N_0_first_answer && N_0_second != N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
-        probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance inside the exponent.</b>";
-        probabilityVectorQuestionObservation.style.color = "red";
-    } else if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) > errorEpsilon) {
-        probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the numerator of the exponent.</b>";
-        probabilityVectorQuestionObservation.style.color = "red";
-    } else {
-        probabilityVectorQuestionObservation.innerHTML = "<b>All the values are incorrect. Please try again.</b>";
-        probabilityVectorQuestionObservation.style.color = "red";
-    }
-
-    // compile MathJax
-    MathJax.typeset();
+// }
 
 
-}
+
+// function checkProbabilityVectorQuestion() {
+//     const errorEpsilon = 0.1;
+//     const probabilityVectorQuestion = document.getElementById("probabilityVectorQuestion");
+//     const probabilityVectorQuestionObservation = document.getElementById("probabilityVectorQuestionObservation");
+//     const distQuestion = document.getElementById("distQuestion");
+
+//     let N_0_first = parseFloat(document.querySelectorAll('.mathContainer #N_0_first_vect')[0].value);
+//     let N_0_second = parseFloat(document.querySelectorAll('.mathContainer #N_0_second_vect')[0].value);
+//     let y_x_norm = parseFloat(document.querySelectorAll('.mathContainer #y_x_norm')[0].value);
+
+//     let N_0_first_answer = Math.pow(2 * noiseVariance, sentX.length);
+//     let N_0_second_answer = 2 * noiseVariance;
+//     let y_x_norm_answer = Math.sqrt(sentX.reduce((acc, bit, index) => {
+//         return acc + Math.pow(noise[index], 2);
+//     }, 0));
+
+//     let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${sentX[index]})^2` }).join('+')}}`;
+
+//     // for y_x_norm, accept 0.1 difference
+
+//     if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
+//         probabilityVectorQuestionObservation.innerHTML = `<b>Acceptable answer! This exercise accepts the answer \\( \\displaystyle {p(\\boldsymbol{y}|\\boldsymbol{x})=\\frac{1}{\\sqrt{\\pi^4 ${N_0_first_answer}}}e^{\\dfrac{-a^2}{${N_0_second_answer}}}} \\) where \\(\\scriptsize{a = ${y_x_norm_answer_latex}}\\) and \\( a \\in [${(y_x_norm_answer - errorEpsilon).toFixed(2)}, ${(y_x_norm_answer + errorEpsilon).toFixed(2)}] \\)</b>`;
+//         probabilityVectorQuestionObservation.style.color = "green";
+//         probabilityVectorQuestionObservation.style.fontSize = "1vw";
+//         probabilityVectorQuestionObservation.style.display = "block";
+//         probabilityVectorQuestionObservation.style.textWrap = "balance";
+//         MathJax.typeset();
+
+//     } else if (N_0_first != N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
+//         probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance.</b>";
+//         probabilityVectorQuestionObservation.style.color = "red";
+//     } else if (N_0_first == N_0_first_answer && N_0_second != N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
+//         probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the noise variance inside the exponent.</b>";
+//         probabilityVectorQuestionObservation.style.color = "red";
+//     } else if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) > errorEpsilon) {
+//         probabilityVectorQuestionObservation.innerHTML = "<b>Incorrect. Please check the numerator of the exponent.</b>";
+//         probabilityVectorQuestionObservation.style.color = "red";
+//     } else {
+//         probabilityVectorQuestionObservation.innerHTML = "<b>All the values are incorrect. Please try again.</b>";
+//         probabilityVectorQuestionObservation.style.color = "red";
+//     }
+
+//     // compile MathJax
+//     MathJax.typeset();
+
+
+// }
 
 
 // function BinaryErasureChannel() {
