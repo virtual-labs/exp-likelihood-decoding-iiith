@@ -332,11 +332,11 @@ function checkMLErrorQuestion() {
                 row.push({ codeword: codewords[k].codeword, distance: Math.sqrt(distance) });
             }
 
-            table.push({ receivedCodeword: receivedCodewords[i].codewords[j], distances: row , minDistance: Math.sqrt(minDistance), minDistanceCodeword: minDistanceCodeword });
+            table.push({ receivedCodeword: receivedCodewords[i].codewords[j], distances: row, minDistance: Math.sqrt(minDistance), minDistanceCodeword: minDistanceCodeword });
         }
     }
     console.log(table);
-    
+
 
     const MLErrorQuestion = document.getElementById("MLErrorQuestion");
     const MLErrorQuestionObservation = document.getElementById("MLErrorQuestionObservation");
