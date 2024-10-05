@@ -40,7 +40,7 @@
     {
       "target": "bsc.html",
       "source": "simulation/BinaryErasureChannel.html",
-      "label": "Maximum Likelihood Decoding Codes on Binary Input Channels",
+      "label": "ML Decoding",
       "unit-type": "task",
       "content-type": "simulation"
     },
