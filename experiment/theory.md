@@ -1,5 +1,3 @@
-# Theory
-
 As described in the theory of the previous experiment, a memoryless channel is described by the input alphabet $\cal X$ (set of possible values taken by the input random variable $X$), the output alphabet $\cal Y$ (possible values taken by the output random variable $Y$), and the transition probabilities $p_{Y|X}(y|x), \forall x\in{\cal X}, y\in{\cal Y}$. 
 
 Consider that we use the channel $n$ times, i.e, our input sequence is a vector $\bm{x}=(x_1,\ldots,x_n)\in {\cal X}^n$ (recall that ${\cal X}^n$ denotes the set of all $n$-length tuples with entries from ${\cal X}$). Because of the noisy characteristics of the channel (governed by the transition probabilities $p_{Y|X}$), the transmitted input vector $\bm{x}$ is transformed, into a random output vector $\bm{Y}=(Y_1,\ldots,Y_n)$, governed by the transition probabilites $p_{\bm{Y}|\bm{X}}(\bm{y}|\bm{x})=\prod_{i=1}^np(y_i|x_i)$. 
@@ -12,7 +10,7 @@ The probability $p(\bm{y}|\bm{x})$ is called the **likelihood of $\bm{x}$ with r
 
 However, the problem that there could be several candidates for such $\bm{x}\in{\cal X}^n$ which maximize the likelihood. This problem can be resolved by choosing the transmit sequences from a code. Specifically, we are interested in choosing $n$-length linear codes for binary input channels. 
 
-## Using Linear Codes on Memoryless Binary-Input Channels
+### Using Linear Codes on Memoryless Binary-Input Channels
 
 As defined before, an $n$-length linear code $\cal C$ over $\mathbb{F}_2$ of rate $\frac{k}{n}$ is a $k$-dimensional subspace of $\mathbb{F}_2^n$. 
 
@@ -50,13 +48,13 @@ $${\cal C}=\{\bm{x}_1=(0,0,0,0,0),\bm{x}_2=(1,0,1,0,1), \bm{x}_3=(0,1,0,1,1), \b
 
 We now see how the ML decoder decodes, when the codeword $\bm{x}_1=(0,0,0,0,0)$ is transmitted, in each of the three channels we consider in this virtual lab. 
 
-#### 1. Binary Erasure Channel $BEC(\epsilon)$: 
+##### 1. Binary Erasure Channel $BEC(\epsilon)$: 
 
 Assume that the received vector $\bm{y}=(?,0,?,0,0)$. In this case, we see that $p(\bm{y}|\bm{x}_i)=0, \forall i=2,3,4$ as $\bm{x}_i$ and $\bm{y}$ are not compatible vectors, for any $i=2,3,4$. At the same time, we have $p(\bm{y}|\bm{x}_1)=\epsilon^2(1-\epsilon)^3$. Since $\epsilon\in(0,1)$, clearly, we see that $p(\bm{y}|\bm{x}_1)>p(\bm{y}|\bm{x}_i), \forall i=2,3,4.$ Thus, the ML decoder outputs the estimate $\hat{\bm{x}}$ as the codeword $\bm{x}_1=(0,0,0,0,0)$. Thus, the ML decoder decodes the transmitted codeword correctly. 
 
 It is easy to present a scenario when the decoding can be incorrect. Consider the received vector with three erasures, $\bm{y}=(?,0,?,0,?)$. In this case, we see that $p(\bm{y}|\bm{x}_1)=p(\bm{y}|\bm{x}_2)=\epsilon^3(1-\epsilon)^2$, while  $p(\bm{y}|\bm{x}_i)=0, \forall i=3,4$. Therefore, in this case, the decoder can declare one of $\bm{x}_1$ or $\bm{x}_2$ as the estimate. In case the decoder chooses $\bm{x}_2$, clearly the decoder will be making a decoding error. 
 
-### 2. Binary Symmetric Channel $BSC(p)$: 
+#### 2. Binary Symmetric Channel $BSC(p)$: 
 
 Recollect, from the previous experiment, that in the channel $BSC(p)$, for any $\bm{x},\bm{y}\in\mathbb{F}_2^n$, we have the following:
 $$p(\bm{y}|\bm{x})=p^{d(\bm{x},\bm{y})}(1-p)^{n-d(\bm{x},\bm{y})},$$
@@ -86,7 +84,7 @@ Thus, in this case, we find that both $\bm{x}_1$ and $\bm{x}_4$ can be valid ML 
 
 From the above observations, it is clear that, if there are many bit flips when the codeword is transmitted is transmitted through the channel, the probability of decoding error increases. 
 
-### 3. AWGN Channel with Noise ${\cal N}(0,N_0/2)$: 
+#### 3. AWGN Channel with Noise ${\cal N}(0,N_0/2)$: 
 Recall that, for the memoryless AWGN channel, we have, for any two vectors $\bm{x},\bm{y}\in\mathbb{R}^n$, the probability of receiving vector $\bm{y}$ given that vector $\bm{x}$ was transmitted through the channel is given by
 $$p(\bm{y}|\bm{x})=\frac{1}{(\pi N_0)^{n/2}}e^{-\frac{(||\bm{y}-\bm{x}||^2)}{N_0}}.$$
 
