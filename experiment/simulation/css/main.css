@@ -118,7 +118,7 @@ input[type=number]::-webkit-outer-spin-button {
 
 input[type=number] {
     -moz-appearance: textfield;
-  }
+}
 
 /* Error Detection */
 
@@ -128,4 +128,54 @@ select {
     border: groove;
     border-radius: 0.2em;
     background-color: #f1f1f1;
-  }
+}
+
+.taskbar-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    flex: 1;
+    /* Allow tabs to grow and shrink based on container size */
+    width: 100%;
+    /* Ensure full width of the container */
+}
+
+/* Responsive MathJax Equations */
+.MathJax {
+    max-width: 100%;
+    display: inline-block;
+}
+
+/* Ensure math containers are responsive */
+.math-container {
+    width: 100%;
+}
+
+/* Hide scrollbars on larger screens */
+@media screen and (min-width: 751px) {
+    .math-container {
+        overflow: visible;
+    }
+    
+    .MathJax {
+        overflow: visible;
+    }
+}
+
+/* Add scrollbars for smaller screens */
+@media screen and (max-width: 750px) {
+    .math-container {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    
+    .MathJax {
+        font-size: 0.8em !important;
+    }
+}
+
+/* Prevent equation overflow */
+.MathJax_Display {
+    max-width: 100%;
+    text-align: center;
+}
