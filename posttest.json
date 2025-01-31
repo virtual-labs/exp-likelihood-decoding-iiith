@@ -1,0 +1,90 @@
+{
+  "version": 2.0,
+  "questions": [
+    {
+      "question": "Given the linear code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(0,1,0,1,0,1),$ $(1,0,0,0,1,0),$ $(1,1,0,1,1,1)\\}$ and a codeword $\\textbf{x} =$ $(0,1,0,1,0,1)$ transmitted over the $BEC(\\epsilon)$. Choose the correct option for probability of error if received vector is $\\textbf{y}$ $= (0,1,?,1,0,?)$, where $?$ represents erasures.",
+      "answers": {
+        "a": "${\\epsilon}(1-\\epsilon)^5$",
+        "b": "${\\epsilon}^2(1-\\epsilon)^2$",
+        "c": "${\\epsilon}^2(1-\\epsilon)^4$",
+        "d": "${\\epsilon}(1-\\epsilon)^4$"
+      },
+      "explanations": {
+        "a": "Incorrect option. This option corresponds to the scenario where exactly one symbol out of the six in the transmitted codeword is erased.",
+        "b": "Incorrect option. This option represents the scenario where a $4$-length binary codeword is transmitted, with exactly two symbols erased. However, since the question involves a $6$-length binary codeword, this option is not applicable.",
+        "c": "Correct option. This option correctly captures the scenario where excatly two out of the six symbols in the transmitted codeword are erased, while the other four are received correctly. The probability of error in this situation is given by this expression.",
+        "d": "Incorrect option. This option assumes the transmission of a $5$-length binary codeword with one symbol erased. However, since the question involves a $6$-length binary codeword, this option is not applicable."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Consider a quaternary erasure channel $QEC(\\epsilon)$ which takes four input symbols, $\\{0, 1, 2, 3\\}$, where the channel erases the transmitted symbol with probability $\\epsilon$. Choose the valid pair of transmitted and received vectors for transmission over $QEC(\\epsilon)$ channel.",
+      "answers": {
+        "a": "$ \\textbf{x} = (0,1,2,1,3) ;$ $\\textbf{y} = (0,?,1,?,1)$",
+        "b": "$ \\textbf{x} = (3,3) ;$ $\\textbf{y} = (3,1)$",
+        "c": "$ \\textbf{x} = (1,2,0,1,3) ;$ $\\textbf{y} = (?,?,?,?,?)$",
+        "d": "$ \\textbf{x} = (0,1,0,1,1,) ;$ $\\textbf{y} = (0,?,1,?,1)$"
+      },
+      "explanations": {
+        "a": "Incorrect option. The last coordinate of $\\textbf{x}$ is changed in $\\textbf{y}$, which is not possible in $QEC(\\epsilon)$  according to the definition.",
+        "b": "Incorrect option. The last coordinate of $\\textbf{x}$ is changed in $\\textbf{y}$, which is not possible in $QEC(\\epsilon)$  according to the definition.",
+        "c": "Correct option. Indeed every symbol that is transmitted can potentially be erased, according to the definition of $QEC(\\epsilon)$.",
+        "d": "Incorrect option. The third coordinate of $\\textbf{x}$ is changed in $\\textbf{y}$, which is not possible in $QEC(\\epsilon)$  according to the definition."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Consider the code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(1,1,0,0,1,1),$ $(1,1,1,0,1,1),$ $(0,0,1,0,0,0)\\}$. Let the vector $\\textbf{x}$ $= (1,1,1,0,1,1)$ be transmitted over $BSC$. Suppose we know that $\\textit{ exactly one bit }$ is flipped. Which of the following options can not be a potential received vector?",
+      "answers": {
+        "a": "$(1,1,1,1,1,1)$",
+        "b": "$(0,1,1,0,1,1)$",
+        "c": "$(1,1,1,0,1,1)$",
+        "d": "$(1,1,0,0,1,1)$"
+      },
+      "explanations": {
+        "a": "Incorrect option. If the $BSC$ flips the fourth bit of the transmitted codeword $(1,1,1,0,1,1)$, the received vector could be $(1,1,1,1,1,1)$, which is a potential outcome.",
+        "b": "Incorrect option. If the $BSC$ flips the first bit of the transmitted codeword $(1,1,1,0,1,1)$, the received vector could be $(0,1,1,0,1,1)$, which is a potential outcome.",
+        "c": "Correct option. Since exactly one bit is flipped, and this option has no flipped bit, thus $(1,1,1,0,1,1)$ cannot be a valid received vector.",
+        "d": "Incorrect option. If the $BSC$ flips the third bit of the transmitted codeword $(1,1,1,0,1,1)$, the received vector could be $(1,1,0,0,1,1)$, which is a potential outcome."
+      },
+      "correctAnswer": "c",
+      "difficulty": "beginner"
+    },
+    {
+      "question": "Suppose we are given a code $\\mathcal{C}$ $= \\{(0,0,0),$ $(1,1,1)\\}$. One codeword from this code, $\\mathcal{C}$, is transmitted over Binary Symmetric Channel $BSC(p)$ with bit-flip probability $p$. Calculate the probability of error for incorrect decoding using Maximum Likelihood Decoder.",
+      "answers": {
+        "a": "$p$",
+        "b": "$p^3 + 3p^2(1-p)$",
+        "c": "$p^3 + p^2(1-p)$",
+        "d": "$p^2(1-p)$"
+      },
+      "explanations": {
+        "a": "Incorrect option. This option would be correct if only one bit were transmitted; hence, a $3$-bit codeword is being transmitted.",
+        "b": "Correct option. This option correctly calculates the probability of error by considering  cases where all three bits or any two bits are flipped.",
+        "c": "Incorrect option. The option misses a factor of $3$ in the second term, which accounts for the different pairs of bits that could be flipped.",
+        "d": "Incorrect option. This option only accounts for two bits being flipped and misses the necessary factor of $3$."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advance"
+    },
+    {
+      "question": "Consider the code $\\mathcal{C}$ $=\\{(0,0,0),(1,0,1),$ $(0,1,1),(1,1,0)\\}$. Let $\\textbf{x}$ be a codeword (in bipolar form) is being transmitted over the AWGN channel, with mean $0$ and variance $1$. Suppose the receiver receives $\\textbf{y} $ $= (-10^3,0.5,1)$. Choose the correct Maximum Likelihood estimate for the transmitted codeword.",
+      "answers": {
+        "a": "$(0,0,0)$",
+        "b": "$(1,0,1)$",
+        "c": "$(0,1,1)$",
+        "d": "$(1,1,0)$"
+      },
+      "explanations": {
+        "a": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\textbf{x}$, use the ML rule: $\\hat{\\textbf{x}}= arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "b": "Correct option. To estimate $\\textbf{x}$, use the ML rule: $\\hat{\\textbf{x}} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "c": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\textbf{x}$, use the ML rule: $\\hat{\\textbf{x}} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$.",
+        "d": "Incorrect option. Please review the theory for the AWGN channel. To estimate $\\textbf{x}$, use the ML rule: $\\hat{\\textbf{x}} = arg_{\\textbf{x}\\in \\mathcal{C}} \\max \\left( ||\\textbf{y}||^2 + ||\\textbf{x}||^2 - 2\\langle \\mathbf{x}, \\mathbf{y} \\rangle \\right)$."
+      },
+      "correctAnswer": "b",
+      "difficulty": "advance"
+    }
+  ]
+}

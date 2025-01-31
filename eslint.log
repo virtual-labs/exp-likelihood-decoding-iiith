@@ -1,0 +1,99 @@
+
+/home/runner/work/exp-likelihood-decoding-iiith/exp-likelihood-decoding-iiith/experiment/simulation/js/BinaryErasureChannel.js
+   20:11   warning  'numCols' is assigned a value but never used     no-unused-vars
+   58:9    warning  'numErasures' is not defined                     no-undef
+   61:9    warning  'numErasures' is not defined                     no-undef
+   67:36   warning  'numErasures' is not defined                     no-undef
+   83:1    warning  'G' is not defined                               no-undef
+   86:35   warning  'G' is not defined                               no-undef
+   97:1    warning  'GM' is not defined                              no-undef
+   99:38   warning  'GM' is not defined                              no-undef
+  185:10   warning  'checkLikelihood' is defined but never used      no-unused-vars
+  522:5    warning  'MathJax' is not defined                         no-undef
+  530:10   warning  'verifyMaxLikelihood' is defined but never used  no-unused-vars
+  562:5    warning  'MathJax' is not defined                         no-undef
+  566:10   warning  'reset' is defined but never used                no-unused-vars
+  591:10   warning  'next' is defined but never used                 no-unused-vars
+  624:17   warning  'randomcodewords' is not defined                 no-undef
+  627:17   warning  'randomcodewords' is not defined                 no-undef
+  631:13   warning  'randomcodewords' is not defined                 no-undef
+  636:29   warning  'randomcodewords' is not defined                 no-undef
+  637:69   warning  'randomcodewords' is not defined                 no-undef
+  637:115  warning  'randomcodewords' is not defined                 no-undef
+  645:42   warning  'randomcodewords' is not defined                 no-undef
+  650:40   warning  'randomcodewords' is not defined                 no-undef
+  655:102  warning  'randomcodewords' is not defined                 no-undef
+  659:5    warning  'MathJax' is not defined                         no-undef
+  665:10   warning  'change' is defined but never used               no-unused-vars
+  680:10   warning  'checkwrongcodewords' is defined but never used  no-unused-vars
+  711:10   warning  'prev' is defined but never used                 no-unused-vars
+
+/home/runner/work/exp-likelihood-decoding-iiith/exp-likelihood-decoding-iiith/experiment/simulation/js/BinarySymmetricChannel.js
+  101:10   warning  'getRandomElements' is defined but never used                no-unused-vars
+  106:7    warning  'binarysixLengthVectors' is assigned a value but never used  no-unused-vars
+  112:11   warning  'numCols' is assigned a value but never used                 no-unused-vars
+  152:1    warning  'G' is not defined                                           no-undef
+  155:38   warning  'G' is not defined                                           no-undef
+  166:1    warning  'GM' is not defined                                          no-undef
+  168:41   warning  'GM' is not defined                                          no-undef
+  169:5    warning  'newchosenCodeword' is assigned a value but never used       no-unused-vars
+  181:13   warning  'samebit' is assigned a value but never used                 no-unused-vars
+  251:10   warning  'checkLikelihoodBSC' is defined but never used               no-unused-vars
+  507:5    warning  'MathJax' is not defined                                     no-undef
+  515:10   warning  'verifyMaxLikelihood' is defined but never used              no-unused-vars
+  548:5    warning  'MathJax' is not defined                                     no-undef
+  552:10   warning  'reset' is defined but never used                            no-unused-vars
+  577:10   warning  'next' is defined but never used                             no-unused-vars
+  602:9    warning  'transcw' is not defined                                     no-undef
+  604:13   warning  'excvector' is not defined                                   no-undef
+  605:13   warning  'correctvectors' is not defined                              no-undef
+  608:13   warning  'excvector' is not defined                                   no-undef
+  609:13   warning  'correctvectors' is not defined                              no-undef
+  614:9    warning  'transcw' is not defined                                     no-undef
+  616:13   warning  'excvector' is not defined                                   no-undef
+  617:13   warning  'correctvectors' is not defined                              no-undef
+  620:13   warning  'excvector' is not defined                                   no-undef
+  621:13   warning  'correctvectors' is not defined                              no-undef
+  625:101  warning  'transcw' is not defined                                     no-undef
+  632:13   warning  'randomcodewords' is not defined                             no-undef
+  632:31   warning  'correctvectors' is not defined                              no-undef
+  635:13   warning  'randomcodewords' is not defined                             no-undef
+  635:31   warning  'excvector' is not defined                                   no-undef
+  638:9    warning  'hamdist' is not defined                                     no-undef
+  638:44   warning  'transcw' is not defined                                     no-undef
+  638:53   warning  'randomcodewords' is not defined                             no-undef
+  640:13   warning  'hamdist' is not defined                                     no-undef
+  641:38   warning  'randomcodewords' is not defined                             no-undef
+  645:40   warning  'randomcodewords' is not defined                             no-undef
+  649:102  warning  'randomcodewords' is not defined                             no-undef
+  653:5    warning  'MathJax' is not defined                                     no-undef
+  665:10   warning  'change' is defined but never used                           no-unused-vars
+  680:10   warning  'checkwrongcodewords' is defined but never used              no-unused-vars
+  711:10   warning  'prev' is defined but never used                             no-unused-vars
+
+/home/runner/work/exp-likelihood-decoding-iiith/exp-likelihood-decoding-iiith/experiment/simulation/js/GaussianChannel.js
+  103:10  warning  'checkLikelihood' is defined but never used                      no-unused-vars
+  167:13  warning  'MathJax' is not defined                                         no-undef
+  193:10  warning  'verifyMaxLikelihood' is defined but never used                  no-unused-vars
+  201:5   warning  'MathJax' is not defined                                         no-undef
+  223:10  warning  'isMaxLikelihoodCorrect' is defined but never used               no-unused-vars
+  249:10  warning  'nextMLErrorQuestion' is defined but never used                  no-unused-vars
+  271:11  warning  'MLErrorQuestionObservation' is assigned a value but never used  no-unused-vars
+  300:5   warning  'options' is not defined                                         no-undef
+  301:22  warning  'options' is not defined                                         no-undef
+  308:5   warning  'MathJax' is not defined                                         no-undef
+  312:10  warning  'checkMLErrorQuestion' is defined but never used                 no-unused-vars
+  341:11  warning  'MLErrorQuestion' is assigned a value but never used             no-unused-vars
+  537:7   warning  'receivedCodeword' is assigned a value but never used            no-unused-vars
+  550:10  warning  'reset' is defined but never used                                no-unused-vars
+  559:5   warning  'randomGeneratorMatrix' is not defined                           no-undef
+  559:29  warning  'selectRandomGeneratorMatrix' is not defined                     no-undef
+  560:5   warning  'dim' is not defined                                             no-undef
+  560:11  warning  'randomGeneratorMatrix' is not defined                           no-undef
+  561:5   warning  'codelength' is not defined                                      no-undef
+  561:18  warning  'randomGeneratorMatrix' is not defined                           no-undef
+  564:69  warning  'randomGeneratorMatrix' is not defined                           no-undef
+  567:5   warning  'MathJax' is not defined                                         no-undef
+
+✖ 90 problems (0 errors, 90 warnings)
+

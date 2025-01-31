@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<html lang="en">
+
+<head>
+    <title>
+        Gaussian Channel
+    </title>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/css/style.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/gaussian_channel.css">
+    <script type="text/javascript">
+        MathJax = {
+            tex: { packages: { '[+]': ['input'] } },
+            startup: {
+                ready() {
+                    const Configuration = MathJax._.input.tex.Configuration.Configuration;
+                    const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+                    const TEXCLASS = MathJax._.core.MmlTree.MmlNode.TEXCLASS;
+
+                    new CommandMap('input', { input: 'Input' }, {
+                        Input(parser, name) {
+                            const xml = parser.create('node', 'XML');
+                            const id = parser.GetBrackets(name, '');
+                            const w = parser.GetBrackets(name, '5em');
+                            const value = parser.GetArgument(name);
+                            xml.setXML(MathJax.startup.adaptor.node('input', {
+                                id: id, value: value, style: { width: w }, xmlns: 'http://www.w3.org/1999/xhtml'
+                            }), MathJax.startup.adaptor);
+                            xml.getSerializedXML = function () {
+                                return this.adaptor.outerHTML(this.xml) + '</input>';
+                            }
+                            parser.Push(
+                                parser.create('node', 'TeXAtom', [
+                                    parser.create('node', 'semantics', [
+                                        parser.create('node', 'annotation-xml', [
+                                            xml
+                                        ], { encoding: 'application/xhtml+xml' })
+                                    ])
+                                ], { texClass: TEXCLASS.ORD })
+                            );
+                        }
+                    });
+                    Configuration.create('input', { handler: { macro: ['input'] } });
+
+                    MathJax.startup.defaultReady();
+                }
+            }
+        };        
+    </script>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- Load d3.js -->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+
+</head>
+
+<body>
+
+    <div class="container" style="margin-top:1%;">
+
+        <div class="columns is-centered">
+            <div class="column is-one-quarter v-instruction-title">
+                Channel
+            </div>
+            <div class="column">
+                <div class="v-tabs">
+                    <ul class="taskbar-tabs">
+                        <li id="Task1" onclick="window.location.href = 'BinaryErasureChannel.html';">
+                            <a>
+                                Binary Erasure Channel
+                            </a>
+                        </li>
+
+                        <li id="Task2" onclick="window.location.href = 'BinarySymmetricChannel.html';">
+                            <a>
+                                Binary Symmetric Channel
+                            </a>
+                        </li>
+
+                        <li class="is-active" id="Task3">
+                            <a>
+                                Gaussian Channel
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="columns is-centered">
+            <div class="column">
+                <div class="v-collapsible-instruction-container v-instruction-container">
+                    <div class="v-collapsible is-size-5">Instructions</div>
+                    <div class="v-content" style="text-align: left; padding-left: 10%; padding-right: 10%;">
+                        <ul style="list-style: disc;">
+                            <b>Quick theory overview:</b>
+                            <li>
+                                <strong>The conditional distribution of AWGN Channel is given by:</strong>
+                                <br>
+                                <p style="text-align: center;">\( p(\boldsymbol{y}|\boldsymbol{x})=\frac{1}{(\pi
+                                    N_0)^{n/2}}e^{-\frac{(||\boldsymbol{y}-\boldsymbol{x}||^2)}{N_0}}\)</p>
+
+                                <strong> The estimate of the transmitted codeword is given by:</strong>
+                                <p style="text-align: center;">\(\hat{\boldsymbol{x}}=arg_{\boldsymbol{x}\in{\cal
+                                    C}}\max\frac{1}{(\pi
+                                    N_0)^{n/2}}e^{-\frac{(||\boldsymbol{y}-\boldsymbol{x}||^2)}{N_0}}=arg_{\boldsymbol{x}\in{\cal
+                                    C}}\max\langle\boldsymbol{y},\boldsymbol{x}\rangle\)</p>
+                            </li>
+                        </ul>
+                        <br>
+                        <ul style="list-style: disc;">
+
+                            <b>Procedure:</b>
+
+                            <li>
+                                <strong>Step 1:</strong> Enter the likelihoods of \(\boldsymbol{y}\) given codewords and
+                                click on the
+                                "Check" button to verify the likelihoods.
+                            </li>
+                            <li>
+                                <strong>Step 2:</strong> Select the maximum likelihood estimate codeword from the
+                                dropdown.
+                            </li>
+                            <li>
+                                <strong>Step 3:</strong> Click on "Yes" if the maximum likelihood estimate codeword is
+                                same as the transmitted codeword, else click on "No". "Next" button will appear after
+                                selecting the correct option.
+                            <li>
+                                <strong>Step 4:</strong> After clicking on the "Next" button, the next question will
+                                appear. Select all the received vectors that lead to a decoding error when using maximum
+                                likelihood decoding.
+                            </li>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="columns is-centered">
+        <div class="column is-11-desktop is-12-tablet is-12-mobile">
+            <div class="v-datalist-container components-list" id="questionStatement">
+                <p id="awgnTopQuestion">Consider a AWGN channel with noise variance \(\dfrac{N_0}{2}=\) <span
+                        id="noisevariance"></span> and a code
+                    <!-- \(\mathcal{C}=\{\boldsymbol{c_1}=(0,0,0,0),\boldsymbol{c_2}=(1,0,1,0),\boldsymbol{c_3}=(0,1,0,1),\boldsymbol{c_4}=(1,1,1,1)\}\) which can be represented in bi-polar form as
+                    \(\mathcal{C}=\{\boldsymbol{c_1}=(1,1,1,1),\boldsymbol{c_2}=(-1,1,-1,1),\boldsymbol{c_3}=(1,-1,1,-1),\boldsymbol{c_4}=(-1,-1,-1,-1)\}\). </p> 
+                 -->
+
+                    \(\mathcal{C} = \{\) \(\boldsymbol{c_1} = (0, 0, 0, 0)\),
+                    \(\boldsymbol{c_2} = (1, 0, 1, 0)\),
+                    \(\boldsymbol{c_3} = (0, 1, 0, 1)\),
+                    \(\boldsymbol{c_4} = (1, 1, 1, 1)\}\)
+                    which can be represented in bi-polar form as
+                    \(\mathcal{C} = \{\)
+                    \(\boldsymbol{c_1} = (1, 1, 1, 1)\),
+                    \(\boldsymbol{c_2} = (-1, 1, -1, 1)\),
+                    \(\boldsymbol{c_3} = (1, -1, 1, -1)\),
+                    \(\boldsymbol{c_4} = (-1, -1, -1, -1)\}\)
+
+                <div class="channelBlock">
+                    <p id="sentCodeword"></p> &nbsp;
+                    <img src="images/gaussian_channel.svg" alt="SVG Image" width="200" height="300"
+                        style="padding-top:2.75em;">
+
+                    &nbsp; <p id="receivedCodeword"></p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="columns is-centered is-flex-direction-row is-flex-wrap-wrap is-align-content-start"
+        style="margin-top:-1.5%">
+        <div class="column is-8-desktop is-12-tablet is-12-mobile">
+            <div class="box-question">
+
+                <section id="likelihoodQuestion">
+                    <!-- https://stackoverflow.com/questions/67447944/mathjax-inputs -->
+                    <!-- \( \int_{\input[sub][1em]{0}}^{\input[sup][1em]{1}} \input[integrand][10em]{}\, dx \) -->
+                    <!-- \( p_{Y|X}(y|x)=\frac{1}{\sqrt{\pi N_0}}e^{\frac{-(\input[sub][1em])^2}{N_0}}, \forall x,y \in \mathbb{R}. \) -->
+
+                    <p style="text-align: left;">
+                        Imagine you are at the receiver and you have the above received vector
+                        \(\boldsymbol{Y}=\boldsymbol{y}\). Note that the transmitted codeword is not known to receiver.
+                        Receiver decides to use maximum likelihood decoding to estimate the transmitted codeword.
+                        Help the receiver by calculating the likelihood of the above received vector \(\boldsymbol{y}\)
+                        given each codeword \(\boldsymbol{c_i}\). Then select the maximum likelihood estimate codeword
+                        and check if it is same as the transmitted codeword.
+
+
+                    </p>
+                    <div class="likelihood-0">
+                        <div class="mathContainer">
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_1})=\frac{1}{\sqrt{\pi^4
+                            \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(0)"
+                                style="margin-left: 5%;">Check</button>
+                        </div>
+                    </div>
+
+                    <div class="likelihood-1">
+                        <div class="mathContainer" id="c_2">
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_2})=\frac{1}{\sqrt{\pi^4
+                            \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(1)"
+                                style="margin-left: 5%;">Check</button>
+                        </div>
+                    </div>
+                    <div class="likelihood-2">
+                        <div class="mathContainer" id="c_3">
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_3})=\frac{1}{\sqrt{\pi^4
+                            \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(2)"
+                                style="margin-left: 5%;">Check</button>
+                        </div>
+                    </div>
+                    <div class="likelihood-3">
+                        <div class="mathContainer" id="c_4">
+                            \( \displaystyle {p(\boldsymbol{y}|\boldsymbol{c_4})=\frac{1}{\sqrt{\pi^4
+                            \input[N_0_first][2em]{}}}e^{\dfrac{-(
+                            \input[y_x][3em]{} )^2}{\input[N_0_second][2em]{}}}} \)
+                            <button class="v-button" role="button" onclick="checkLikelihood(3)"
+                                style="margin-left: 5%;">Check</button>
+                        </div>
+                    </div>
+                    <div id="max-likelihood">
+                        <div class="mathContainer">
+                            Enter the maximum likelihood estimate codeword:
+                            <div class="dropdown">
+                                <button id="dropbuttonText" class="dropbtn">Dropdown</button>
+                                <div class="dropdown-content">
+                                    <a onclick="verifyMaxLikelihood(0)">\(c_1\)</a>
+                                    <a onclick="verifyMaxLikelihood(1)">\(c_2\)</a>
+                                    <a onclick="verifyMaxLikelihood(2)">\(c_3\)</a>
+                                    <a onclick="verifyMaxLikelihood(3)">\(c_4\)</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="isMaxLikelihoodCorrect">
+                        <p> Is the maximum likelihood estimate codeword same as the transmitted codeword?</p>
+                        <br>
+                        <button class="v-button" role="button" onclick="isMaxLikelihoodCorrect(1)">Yes</button>
+                        <button class="v-button" role="button" onclick="isMaxLikelihoodCorrect(0)">No</button>
+                    </div>
+
+                    <br>
+
+                    <!-- <button class="v-button" role="button" onclick="checkMLQuestion()">Check</button> -->
+                    <button id="nextButton" class="v-button" role="button" style="display:none ;"
+                        onclick="nextMLErrorQuestion()">Next</button>
+
+                </section>
+
+                <section id="MLErrorQuestion" style="display:none ;">
+                    Select all of the below received vectors which lead to a decoding error when using maximum
+                    likelihood decoding.
+                    <br>
+                    <br>
+
+                    <p id="receivedVectors"></p>
+                    <br>
+                    <button class="v-button" role="button" onclick="checkMLErrorQuestion()">Check</button>
+
+
+
+                    <!-- <div id="gaussianCurveOptions">
+                        <div id="gaussianCurveOptionA" class="gaussianCurveOption" onclick="selectGaussianCurve('A')">
+                        </div>
+                        <div id="gaussianCurveOptionB" class="gaussianCurveOption" onclick="selectGaussianCurve('B')">
+                        </div>
+                        <div id="gaussianCurveOptionC" class="gaussianCurveOption" onclick="selectGaussianCurve('C')">
+                        </div>
+                        <div id="gaussianCurveOptionD" class="gaussianCurveOption" onclick="selectGaussianCurve('D')">
+                        </div>
+                    </div> -->
+
+                    <!-- <button id="nextButtonDistQuestion" class="v-button" role="button" style="display:none ;"
+                        onclick="nextDistQuestion()">Next</button> -->
+
+                </section>
+            </div>
+        </div>
+
+        <div class="column is-3-desktop is-4-tablet is-12-mobile">
+            <div class="v-datalist-container components-list">
+                <div class="v-datalist-title">Observations</div>
+                <div id="observations">
+                    <!-- <div id="output"></div> -->
+                    <span id="likelihoodQuestionObservation">
+                    </span>
+                    <!-- <br> -->
+                    <span id="MLErrorQuestionObservation">
+                    </span>
+                    <!-- <br> -->
+                    <span id="probabilityVectorQuestionObservation">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/gh/virtual-labs/virtual-style@0.0.8-b/js/script.js"></script>
+    <script src="./js/GaussianChannel.js"></script>
+</body>
+
+</html>
