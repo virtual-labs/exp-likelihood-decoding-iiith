@@ -9,7 +9,8 @@ The detailed working of this experiment is as follows.
 ### Overview of the Experiment window
 
 <div style="text-align: center;">
-    <img src="images/exp_window.png" alt="Experiment Window" width="75%"/>
+    <img src="images/exp_window.png" alt="Experiment Window" width="100%"/>
+    <img src="images/mobile.png" alt="Experiment Window" width="500"/>
 </div>
 
 The experiment window consists of the following components:
@@ -26,7 +27,7 @@ There are three tasks in this sub-experiment.
 #### Task 1: Binary Erasure Channel
 
 1. **Enter Maximum Likelihood**: For the given $BEC(\epsilon)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\boldsymbol{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
-    <div style="text-align: center;"> <img src="images/becexp_1.png" alt="alt text" width="75%"/> </div>
+    <div style="text-align: center;"> <img src="images/becexp_1.png" alt="alt text" width="100%"/> </div>
     <br>
     <ul>
     <li> Click on <strong>Submit</strong> to verify if the entered values are correct. </li>
@@ -35,14 +36,14 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/becobs11.png" alt="alt text" width="25%"/> 
-    <img src="images/becobs12.png" alt="alt text" width="25%"/>
-    <img src="images/becobs13.png" alt="alt text" width="25%"/>
-    <img src="images/becobs14.png" alt="alt text" width="25%"/>
+    <img src="images/becobs11.png" alt="alt text" width="500"/> 
+    <img src="images/becobs12.png" alt="alt text" width="500"/>
+    <img src="images/becobs13.png" alt="alt text" width="500"/>
+    <img src="images/becobs14.png" alt="alt text" width="500"/>
     </div>
 
 2. **Select Vectors**: For a given output $\boldsymbol{y}$ for a $BEC(\epsilon)$ channel, select all of the below vectors which cannot be possible inputs to the $BEC(\epsilon)$ channel.
-    <div style="text-align: center;"> <img src="images/becexp_2.png" alt="alt text" width="75%"/> </div>
+    <div style="text-align: center;"> <img src="images/becexp_2.png" alt="alt text" width="100%"/> </div>
     <br>
     <ul>
     <li> Click on <strong>Submit</strong> to verify if the selected vectors are correct. </li>
@@ -50,15 +51,15 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/becobs21.png" alt="alt text" width="25%"/> 
-    <img src="images/becobs22.png" alt="alt text" width="25%"/>
-    <img src="images/becobs23.png" alt="alt text" width="25%"/>
+    <img src="images/becobs21.png" alt="alt text" width="500"/> 
+    <img src="images/becobs22.png" alt="alt text" width="500"/>
+    <img src="images/becobs23.png" alt="alt text" width="500"/>
     </div>
 
 #### Task 2: Binary Symmetric Channel
 
 1. **Enter Maximum Likelihood**: For the given $BSC(p)$ channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\boldsymbol{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
-    <div style="text-align: center;"> <img src="images/bscexp_1.png" alt="alt text" width="75%"/> </div>
+    <div style="text-align: center;"> <img src="images/bscexp_1.png" alt="alt text" width="100%"/> </div>
     <br>
     <ul>
     <li> Click on <strong>Submit</strong> to verify if the entered values are correct. </li>
@@ -67,13 +68,13 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/bscobs11.png" alt="alt text" width="25%"/> 
-    <img src="images/bscobs12.png" alt="alt text" width="25%"/>
-    <img src="images/bscobs13.png" alt="alt text" width="25%"/>
+    <img src="images/bscobs11.png" alt="alt text" width="500"/> 
+    <img src="images/bscobs12.png" alt="alt text" width="500"/>
+    <img src="images/bscobs13.png" alt="alt text" width="500"/>
     </div>
 
 2. **Select Vectors**: For a given transmitted codeword $\boldsymbol{y}$ for a $BSC(p)$ channel, select all of the below received vectors which lead to a decoding error.
-    <div style="text-align: center;"> <img src="images/bscexp_2.png" alt="alt text" width="75%"/> </div>
+    <div style="text-align: center;"> <img src="images/bscexp_2.png" alt="alt text" width="100%"/> </div>
     <br>
     <ul>
     <li> Click on <strong>Submit</strong> to verify if the selected vectors are correct. </li>
@@ -81,17 +82,17 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/bscobs21.png" alt="alt text" width="25%"/> 
-    <img src="images/bscobs22.png" alt="alt text" width="25%"/>
-    <img src="images/bscobs23.png" alt="alt text" width="25%"/>
+    <img src="images/bscobs21.png" alt="alt text" width="500"/> 
+    <img src="images/bscobs22.png" alt="alt text" width="500"/>
+    <img src="images/bscobs23.png" alt="alt text" width="500"/>
     </div>
 
 #### Task 3: Additive White Gaussian Channel
 
 1. **Enter Maximum Likelihood**: For the given AWGN channel and a code $\mathcal{C}$, enter the likelihood of receiving the output $\vec{y}$ given each of the codewords of the code. Enter the values in the input boxes given. Then select the codeword that has the maximum likelihood of being transmitted.
-    <div style="text-align: center;"> <img src="images/awgnexp_1.png" alt="alt text" width="75%"/> 
+    <div style="text-align: center;"> <img src="images/awgnexp_1.png" alt="alt text" width="100%"/> 
     
-    <img src="images/awgn_exp_workspace.png" alt="alt text" width="75%"/> </div>
+    <img src="images/awgn_exp_workspace.png" alt="alt text" width="100%"/> </div>
 
     <br>
     <ul>
@@ -104,15 +105,15 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/awgnobs11.png" alt="alt text" width="18%"/> 
-    <img src="images/awgnobs12.png" alt="alt text" width="25%"/> 
-    <img src="images/awgnobs13.png" alt="alt text" width="25%"/> 
-    <img src="images/awgnobs14.png" alt="alt text" width="25%"/> <br> <br>
-    <img src="images/awgnobs15.png" alt="alt text" width="75%"/>
+    <img src="images/awgnobs11.png" alt="alt text" width="500"/> 
+    <img src="images/awgnobs12.png" alt="alt text" width="500"/> 
+    <img src="images/awgnobs13.png" alt="alt text" width="500"/> 
+    <img src="images/awgnobs14.png" alt="alt text" width="500"/> <br> <br>
+    <img src="images/awgnobs15.png" alt="alt text" width="500"/>
     </div>
 
 2. **Select Vectors**: For a given output $\vec{y}$ for an AWGN channel, select all of the below vectors which lead to a decoding error.
-    <div style="text-align: center;"> <img src="images/awgnexp_2.png" alt="alt text" width="75%"/> </div>
+    <div style="text-align: center;"> <img src="images/awgnexp_2.png" alt="alt text" width="100%"/> </div>
     <br>
     <ul>
     <li> Select all the received vectors that lead to a decoding error when using maximum likelihood decoding.
@@ -120,6 +121,6 @@ There are three tasks in this sub-experiment.
     <li> The observation box will display feedback messages accordingly. </li> <br>
     </ul>
     <div style="text-align: center;">
-    <img src="images/awgnobs21.png" alt="alt text" width="25%"/>
-    <img src="images/awgnobs22.png" alt="alt text" width="22%"/>
+    <img src="images/awgnobs21.png" alt="alt text" width="500"/>
+    <img src="images/awgnobs22.png" alt="alt text" width="500"/>
     </div>
