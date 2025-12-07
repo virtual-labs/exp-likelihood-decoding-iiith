@@ -712,3 +712,7 @@ function prev(){
     document.getElementById("part2bsc").style.display = "none";
     document.getElementById("part1bsc").style.display = "block";
 }
+
+function newQuestion() {
+    window.location.reload();
+}

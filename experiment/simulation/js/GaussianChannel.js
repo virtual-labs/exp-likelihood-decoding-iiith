@@ -582,3 +582,7 @@ function initial() {
     generatorForm.reset();
     rateForm.reset();
 }
+
+function newQuestion() {
+    window.location.reload();
+}
