@@ -708,6 +708,10 @@ function checkwrongcodewords(){
     }
 }
 
+function newQuestion() {
+    window.location.reload();
+}
+
 function prev(){
     document.getElementById("part2").style.display = "none";
     document.getElementById("part1").style.display = "block";

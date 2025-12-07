@@ -30,9 +30,10 @@ The figure shows a depiction of using a linear code with such a decoder.
 
 ---
 
-**NOTE**
 
-Add generic decoder picture when using a linear code $\cal C$. Ask me how the pic should look. 
+ <p align="center">
+    <img src="images/channelcodedrawio.jpg" width="700"/>
+  </p>
 
 ---
 

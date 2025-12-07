@@ -138,6 +138,9 @@
                                 appear. Select all the received vectors that lead to a decoding error when using maximum
                                 likelihood decoding.
                             </li>
+                            <li>
+                                <strong>Step 5:</strong> To try a new question, click on the "New Question" button.
+                            </li>
 
 
                         </ul>
@@ -265,6 +268,7 @@
                     <!-- <button class="v-button" role="button" onclick="checkMLQuestion()">Check</button> -->
                     <button id="nextButton" class="v-button" role="button" style="display:none ;"
                         onclick="nextMLErrorQuestion()">Next</button>
+                    
 
                 </section>
 
@@ -277,6 +281,7 @@
                     <p id="receivedVectors"></p>
                     <br>
                     <button class="v-button" role="button" onclick="checkMLErrorQuestion()">Check</button>
+                    <button class="v-button" role="button" onclick="window.location.reload()">New Question</button>
 
 
 
