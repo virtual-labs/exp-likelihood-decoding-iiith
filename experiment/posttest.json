@@ -2,7 +2,7 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Given the linear code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(0,1,0,1,0,1),$ $(1,0,0,0,1,0),$ $(1,1,0,1,1,1)\\}$ and a codeword $\\textbf{x} =$ $(0,1,0,1,0,1)$ transmitted over the $BEC(\\epsilon)$. Choose the correct option for probability of error if received vector is $\\textbf{y}$ $= (0,1,?,1,0,?)$, where $?$ represents erasures.",
+      "question": "1. Given the linear code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(0,1,0,1,0,1),$ $(1,0,0,0,1,0),$ $(1,1,0,1,1,1)\\}$ and a codeword $\\textbf{x} =$ $(0,1,0,1,0,1)$ transmitted over the $BEC(\\epsilon)$. Choose the correct option for probability of error if received vector is $\\textbf{y}$ $= (0,1,?,1,0,?)$, where $?$ represents erasures.",
       "answers": {
         "a": "${\\epsilon}(1-\\epsilon)^5$",
         "b": "${\\epsilon}^2(1-\\epsilon)^2$",
@@ -19,7 +19,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Consider a quaternary erasure channel $QEC(\\epsilon)$ which takes four input symbols, $\\{0, 1, 2, 3\\}$, where the channel erases the transmitted symbol with probability $\\epsilon$. Choose the valid pair of transmitted and received vectors for transmission over $QEC(\\epsilon)$ channel.",
+      "question": "2. Consider a quaternary erasure channel $QEC(\\epsilon)$ which takes four input symbols, $\\{0, 1, 2, 3\\}$, where the channel erases the transmitted symbol with probability $\\epsilon$. Choose the valid pair of transmitted and received vectors for transmission over $QEC(\\epsilon)$ channel.",
       "answers": {
         "a": "$ \\textbf{x} = (0,1,2,1,3) ;$ $\\textbf{y} = (0,?,1,?,1)$",
         "b": "$ \\textbf{x} = (3,3) ;$ $\\textbf{y} = (3,1)$",
@@ -36,7 +36,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Consider the code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(1,1,0,0,1,1),$ $(1,1,1,0,1,1),$ $(0,0,1,0,0,0)\\}$. Let the vector $\\textbf{x}$ $= (1,1,1,0,1,1)$ be transmitted over $BSC$. Suppose we know that $\\textit{ exactly one bit }$ is flipped. Which of the following options can not be a potential received vector?",
+      "question": "3. Consider the code $\\mathcal{C}$ $= \\{(0,0,0,0,0,0),$ $(1,1,0,0,1,1),$ $(1,1,1,0,1,1),$ $(0,0,1,0,0,0)\\}$. Let the vector $\\textbf{x}$ $= (1,1,1,0,1,1)$ be transmitted over $BSC$. Suppose we know that $\\textit{ exactly one bit }$ is flipped. Which of the following options can not be a potential received vector?",
       "answers": {
         "a": "$(1,1,1,1,1,1)$",
         "b": "$(0,1,1,0,1,1)$",
@@ -53,7 +53,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Suppose we are given a code $\\mathcal{C}$ $= \\{(0,0,0),$ $(1,1,1)\\}$. One codeword from this code, $\\mathcal{C}$, is transmitted over Binary Symmetric Channel $BSC(p)$ with bit-flip probability $p$. Calculate the probability of error for incorrect decoding using Maximum Likelihood Decoder.",
+      "question": "4. Suppose we are given a code $\\mathcal{C}$ $= \\{(0,0,0),$ $(1,1,1)\\}$. One codeword from this code, $\\mathcal{C}$, is transmitted over Binary Symmetric Channel $BSC(p)$ with bit-flip probability $p$. Calculate the probability of error for incorrect decoding using Maximum Likelihood Decoder.",
       "answers": {
         "a": "$p$",
         "b": "$p^3 + 3p^2(1-p)$",
@@ -70,7 +70,7 @@
       "difficulty": "advance"
     },
     {
-      "question": "Consider the code $\\mathcal{C}$ $=\\{(0,0,0),(1,0,1),$ $(0,1,1),(1,1,0)\\}$. Let $\\textbf{x}$ be a codeword (in bipolar form) is being transmitted over the AWGN channel, with mean $0$ and variance $1$. Suppose the receiver receives $\\textbf{y} $ $= (-10^3,0.5,1)$. Choose the correct Maximum Likelihood estimate for the transmitted codeword.",
+      "question": "5. Consider the code $\\mathcal{C}$ $=\\{(0,0,0),(1,0,1),$ $(0,1,1),(1,1,0)\\}$. Let $\\textbf{x}$ be a codeword (in bipolar form) is being transmitted over the AWGN channel, with mean $0$ and variance $1$. Suppose the receiver receives $\\textbf{y} $ $= (-10^3,0.5,1)$. Choose the correct Maximum Likelihood estimate for the transmitted codeword.",
       "answers": {
         "a": "$(0,0,0)$",
         "b": "$(1,0,1)$",
