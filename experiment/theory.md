@@ -26,7 +26,7 @@ In case of there being multiple codewords in $\cal C$ which maximize the likelih
 
 ---
 
-The figure shows a depiction of using a linear code with such a decoder. 
+Fig 1. The figure shows a depiction of using a linear code with such a decoder. 
 
 ---
 
