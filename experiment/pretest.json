@@ -2,7 +2,7 @@
   "version": 2.0,
   "questions": [
     {
-      "question": "Consider a Gaussian distribution given by its pdf $f(x) = \\frac{1}{5\\sqrt{2\\pi}}e^{-\\frac{(x-\\pi)^2}{50}}$. Choose the correct options for the mean and variance, respectively, for the given distribution.",
+      "question": "1. Consider a Gaussian distribution given by its pdf $f(x) = \\frac{1}{5\\sqrt{2\\pi}}e^{-\\frac{(x-\\pi)^2}{50}}$. Choose the correct options for the mean and variance, respectively, for the given distribution.",
       "answers": {
         "a": "$5, \\pi$",
         "b": "$\\pi, 5$",
@@ -13,13 +13,13 @@
         "a": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
         "b": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
         "c": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
-        "d": "Correct option."
+        "d": "Correct option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$."
       },
       "correctAnswer": "d",
       "difficulty": "beginner"
     },
     {
-      "question": "Suppose $A = \\{1, \\pi, 3, 2.8, -5, 25\\}$. Find $\\hat{x} = arg \\max_{x \\in A} x^2$.",
+      "question": "2. Suppose $A = \\{1, \\pi, 3, 2.8, -5, 25\\}$. Find $\\hat{x} = arg \\max_{x \\in A} x^2$.",
       "answers": {
         "a": "$\\pi$",
         "b": "$25$",
@@ -36,7 +36,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Choose the correct option for given two statements. $ \\\\ \\text{1. BEC can flip bit value. }\\\\ \\text{2. BSC can erase bit value.}$",
+      "question": "3. Choose the correct option for given two statements. $ \\\\ \\text{1. BEC can flip bit value. }\\\\ \\text{2. BSC can erase bit value.}$",
       "answers": {
         "a": "Both $1$ and $2$ are wrong.",
         "b": "$1$ is correct, $2$ is wrong.",
@@ -53,7 +53,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Let $\\mathcal{C} =$ $\\{(0,0,0,\\cdots,0),$ $(1,1,1,\\cdots,1)\\}$ be a $n$-length code. Suppose a codeword from $\\mathcal{C}$ is transmitted over a $BEC(\\epsilon)$. Find the maximum number of erasures that allows unambiguous recovery of the transmitted codeword.",
+      "question": "4. Let $\\mathcal{C} =$ $\\{(0,0,0,\\cdots,0),$ $(1,1,1,\\cdots,1)\\}$ be a $n$-length code. Suppose a codeword from $\\mathcal{C}$ is transmitted over a $BEC(\\epsilon)$. Find the maximum number of erasures that allows unambiguous recovery of the transmitted codeword.",
       "answers": {
         "a": "$\\frac{n}{2}$",
         "b": "$\\frac{n-1}{2}$",
@@ -70,7 +70,7 @@
       "difficulty": "beginner"
     },
     {
-      "question": "Suppose $\\textbf{x} $ $= (1,0,1,1)$ is being transmitted over Binary Symmetric Channel. Choose the valid received vector.",
+      "question": "5. Suppose $\\textbf{x} $ $= (1,0,1,1)$ is being transmitted over Binary Symmetric Channel. Choose the valid received vector.",
       "answers": {
         "a": "$(0,1,1,1)$",
         "b": "$(0,1,1)$",
