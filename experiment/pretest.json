@@ -10,10 +10,10 @@
         "d": "$\\pi, 25$"
       },
       "explanations": {
-        "a": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
-        "b": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
-        "c": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$.",
-        "d": "Correct option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sqrt{2\\pi \\sigma}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma}}$."
+        "a": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma^2}}$.",
+        "b": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma^2}}$.",
+        "c": "Incorrect option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma^2}}$.",
+        "d": "Correct option. The Gaussian distribution with mean $\\mu$ and variance $\\sigma$ can be estimated by modeling the given distribution using the formula $f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}}e^{-\\frac{(x - \\mu)^2}{2 \\sigma^2}}$."
       },
       "correctAnswer": "d",
       "difficulty": "beginner"

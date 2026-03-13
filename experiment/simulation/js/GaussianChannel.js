@@ -152,12 +152,15 @@ function checkLikelihood(code) {
             return acc + Math.pow(receivedY[index] - codeWord[index], 2);
         }, 0));
 
+        console.log(codeWord)
+        console.log(receivedY)
+
         console.log(y_x_norm_answer)
 
         let y_x_norm_answer_latex = `\\sqrt{${sentX.map((bit, index) => { return `(${receivedY[index]}-${codeWord})^2` }).join('+')}}`;
 
         if (N_0_first == N_0_first_answer && N_0_second == N_0_second_answer && Math.abs(y_x_norm - y_x_norm_answer) <= errorEpsilon) {
-            likelihoodQuestionObservation.innerHTML = `<b>Acceptable answer! This exercise accepts the answer \\( \\displaystyle {p(\\boldsymbol{y}|\\boldsymbol{x})=\\frac{1}{\\sqrt{\\pi^4 ${N_0_first_answer}}}e^{\\dfrac{-a^2}{${N_0_second_answer}}}} \\) where \\(\\scriptsize{a = ${y_x_norm_answer_latex}}\\) and \\( a \\in [${(y_x_norm_answer - errorEpsilon).toFixed(2)}, ${(y_x_norm_answer + errorEpsilon).toFixed(2)}] \\)</b>`;
+            likelihoodQuestionObservation.innerHTML = `<b>Acceptable answer! This exercise accepts the answer \\( \\displaystyle {p(\\boldsymbol{y}|\\boldsymbol{x})=\\frac{1}{\\sqrt{\\pi^4 ${N_0_first_answer}}}e^{\\dfrac{-a^2}{${N_0_second_answer}}}} \\) where \\( a \\in [${(y_x_norm_answer - errorEpsilon).toFixed(2)}, ${(y_x_norm_answer + errorEpsilon).toFixed(2)}] \\)</b>`;
             likelihoodQuestionObservation.style.color = "green";
             likelihoodQuestionObservation.style.fontSize = "1vw";
             likelihoodQuestionObservation.style.display = "block";
